@@ -3,7 +3,6 @@ package com.kebaptycoon.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
-import com.kebaptycoon.view.screens.LoginScreen;
 
 /**
  * Created by dogancandemirtas on 27/02/16.
