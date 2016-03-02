@@ -2,17 +2,19 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
+import com.kebaptycoon.utils.Pair;
+
 public class Venue {
 
-	private ArrayList<IngredientTuple> 	stock;
-	private ArrayList<Employee> 		employees;
-	private ArrayList<Furniture> 		furnitures;
-	private int							width;
-	private int							height;
-	private int							kitchenWidth;
-	private int							kitchenHeight;
-	private boolean						managed;
-	private boolean						operational;
+	private ArrayList<Pair<Ingredient,Integer>> 	stock;
+	private ArrayList<Employee> 					employees;
+	private ArrayList<Furniture> 					furnitures;
+	private int										width;
+	private int										height;
+	private int										kitchenWidth;
+	private int										kitchenHeight;
+	private boolean									managed;
+	private boolean									operational;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed) {
 		this.width = width;
@@ -22,11 +24,11 @@ public class Venue {
 		this.managed = managed;
 	}
 
-	public ArrayList<IngredientTuple> getStock() {
+	public ArrayList<Pair<Ingredient,Integer>> getStock() {
 		return stock;
 	}
 
-	public void setStock(ArrayList<IngredientTuple> stock) {
+	public void setStock(ArrayList<Pair<Ingredient,Integer>> stock) {
 		this.stock = stock;
 	}
 

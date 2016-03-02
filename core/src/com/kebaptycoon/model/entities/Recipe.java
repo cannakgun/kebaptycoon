@@ -2,15 +2,17 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
+import com.kebaptycoon.utils.Pair;
+
 public class Recipe {
 	
-	private ArrayList<IngredientTuple> 	ingredients;
-	private int 						price;
-	private ArrayList<Furniture.Type>	process;
-	private int 						minLevel;
-	private boolean						available;
+	private ArrayList<Pair<Ingredient,Integer>> 	ingredients;
+	private int 									price;
+	private ArrayList<Furniture.Type>				process;
+	private int 									minLevel;
+	private boolean									available;
 	
-	public Recipe(ArrayList<IngredientTuple> ingredients, int price, ArrayList<Furniture.Type>	process, int minLevel, boolean available) {
+	public Recipe(ArrayList<Pair<Ingredient,Integer>> ingredients, int price, ArrayList<Furniture.Type>	process, int minLevel, boolean available) {
 		this.ingredients = ingredients;
 		this.price = price;
 		this.process = process;
@@ -18,11 +20,11 @@ public class Recipe {
 		this.available = available;
 	}
 
-	public ArrayList<IngredientTuple> getIngredients() {
+	public ArrayList<Pair<Ingredient,Integer>> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(ArrayList<IngredientTuple> ingredients) {
+	public void setIngredients(ArrayList<Pair<Ingredient,Integer>> ingredients) {
 		this.ingredients = ingredients;
 	}
 
