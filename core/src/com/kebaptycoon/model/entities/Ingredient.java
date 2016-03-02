@@ -1,7 +1,18 @@
 package com.kebaptycoon.model.entities;
 
-/**
- * Created by dogancandemirtas on 27/02/16.
- */
-public class Ingredient {
+public enum Ingredient {
+	Bread,
+	Butter,
+	Cucumber,
+	DonerMeat,
+	Egg,
+	Lettuce,
+	Lemon,
+	MincedMeat,
+	OliveOil,
+	Onion,
+	Potato,
+	Spice,
+	Tomato,
+	Yogurt
 }
