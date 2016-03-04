@@ -1,13 +1,26 @@
 package com.kebaptycoon.controller;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created by dogancandemirtas on 27/02/16.
  */
 public class GameScreenController implements GestureDetector.GestureListener{
 
+	private Vector2 			oldInitialFirstPointer;
+	private Vector2 			oldInitialSecondPointer;
+	private float 				oldScale;
+	private OrthographicCamera 	cam;
+	
+	public GameScreenController(OrthographicCamera cam)
+	{
+		oldInitialFirstPointer = null;
+		oldInitialSecondPointer = null;
+		this.cam = cam;
+	}
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
@@ -29,10 +42,15 @@ public class GameScreenController implements GestureDetector.GestureListener{
         return false;
     }
 
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY) {
-        return false;
-    }
+	@Override
+	public boolean pan(float x, float y, float deltaX, float deltaY) {
+		cam.update();
+		cam.position.add(
+				cam.unproject(new Vector3(0, 0, 0))
+						.add(cam.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
+		);
+		return true;
+	}
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
@@ -43,9 +61,30 @@ public class GameScreenController implements GestureDetector.GestureListener{
     public boolean zoom(float initialDistance, float distance) {
         return false;
     }
+	@Override
+	public boolean pinch (Vector2 initialFirstPointer, Vector2 initialSecondPointer, Vector2 firstPointer, Vector2 secondPointer){
+		if(!(initialFirstPointer.equals(oldInitialFirstPointer)&&initialSecondPointer.equals(oldInitialSecondPointer))){
+			oldInitialFirstPointer = initialFirstPointer.cpy();
+			oldInitialSecondPointer = initialSecondPointer.cpy();
+			oldScale = cam.zoom;
+		}
+		Vector3 center = new Vector3(
+				(firstPointer.x+initialSecondPointer.x)/2,
+				(firstPointer.y+initialSecondPointer.y)/2,
+				0
+		);
+		zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
+		return true;
+	}
 
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        return false;
-    }
+	private void zoomCamera(Vector3 origin, float scale){
+		cam.update();
+		Vector3 oldUnprojection = cam.unproject(origin.cpy()).cpy();
+		cam.zoom = scale; //Larger value of zoom = small images, border view
+		cam.zoom = Math.min(2.0f, Math.max(cam.zoom, 0.5f));
+		cam.update();
+		Vector3 newUnprojection = cam.unproject(origin.cpy()).cpy();
+		cam.position.add(oldUnprojection.cpy().add(newUnprojection.cpy().scl(-1f)));
+	}
+
 }
