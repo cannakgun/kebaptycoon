@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.utils.IsometricHelper;
 
 /**
@@ -151,5 +152,28 @@ public class GameScreen implements Screen{
 		gl.glDisable(GL20.GL_BLEND);
 		gl.glDisable(GL20.GL_TEXTURE_2D);
 
+	}
+	
+	public float getCameraZoom(){
+		return cam.zoom;
+	}
+
+	public void zoomCamera(Vector3 origin, float scale){
+		cam.update();
+		Vector3 oldUnprojection = cam.unproject(origin.cpy()).cpy();
+		cam.zoom = scale; //Larger value of zoom = small images, border view
+		cam.zoom = Math.min(2.0f, Math.max(cam.zoom, 0.5f));
+		cam.update();
+		Vector3 newUnprojection = cam.unproject(origin.cpy()).cpy();
+		cam.position.add(oldUnprojection.cpy().add(newUnprojection.cpy().scl(-1f)));
+	}
+
+	public boolean moveCamera(float deltaX, float deltaY) {
+		cam.update();
+		cam.position.add(
+				cam.unproject(new Vector3(0, 0, 0))
+						.add(cam.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
+		);
+		return true;
 	}
 }

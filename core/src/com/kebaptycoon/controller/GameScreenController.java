@@ -1,6 +1,5 @@
 package com.kebaptycoon.controller;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -16,7 +15,6 @@ public class GameScreenController implements GestureDetector.GestureListener{
 	private Vector2 			oldInitialFirstPointer;
 	private Vector2 			oldInitialSecondPointer;
 	private float 				oldScale;
-	private OrthographicCamera 	cam;
 	
 	private GameScreenController()
 	{
@@ -55,11 +53,7 @@ public class GameScreenController implements GestureDetector.GestureListener{
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		cam.update();
-		cam.position.add(
-				cam.unproject(new Vector3(0, 0, 0))
-						.add(cam.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
-		);
+		GameScreen.getInstance().moveCamera(deltaX, deltaY);
 		return true;
 	}
 
@@ -77,25 +71,15 @@ public class GameScreenController implements GestureDetector.GestureListener{
 		if(!(initialFirstPointer.equals(oldInitialFirstPointer)&&initialSecondPointer.equals(oldInitialSecondPointer))){
 			oldInitialFirstPointer = initialFirstPointer.cpy();
 			oldInitialSecondPointer = initialSecondPointer.cpy();
-			oldScale = cam.zoom;
+			oldScale = GameScreen.getInstance().getCameraZoom();
 		}
 		Vector3 center = new Vector3(
 				(firstPointer.x+initialSecondPointer.x)/2,
 				(firstPointer.y+initialSecondPointer.y)/2,
 				0
 		);
-		zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
+		GameScreen.getInstance().zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
 		return true;
-	}
-
-	private void zoomCamera(Vector3 origin, float scale){
-		cam.update();
-		Vector3 oldUnprojection = cam.unproject(origin.cpy()).cpy();
-		cam.zoom = scale; //Larger value of zoom = small images, border view
-		cam.zoom = Math.min(2.0f, Math.max(cam.zoom, 0.5f));
-		cam.update();
-		Vector3 newUnprojection = cam.unproject(origin.cpy()).cpy();
-		cam.position.add(oldUnprojection.cpy().add(newUnprojection.cpy().scl(-1f)));
 	}
 
 }
