@@ -4,22 +4,33 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.view.screens.GameScreen;
 
 /**
  * Created by dogancandemirtas on 27/02/16.
  */
 public class GameScreenController implements GestureDetector.GestureListener{
 
+	private static GameScreenController instance = null;
+	
 	private Vector2 			oldInitialFirstPointer;
 	private Vector2 			oldInitialSecondPointer;
 	private float 				oldScale;
 	private OrthographicCamera 	cam;
 	
-	public GameScreenController(OrthographicCamera cam)
+	private GameScreenController()
 	{
 		oldInitialFirstPointer = null;
 		oldInitialSecondPointer = null;
-		this.cam = cam;
+	}
+	
+	public static GameScreenController getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new GameScreenController();
+		}
+		return instance;
 	}
 
     @Override

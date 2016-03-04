@@ -14,6 +14,8 @@ import com.kebaptycoon.utils.IsometricHelper;
  */
 public class GameScreen implements Screen{
 	
+	private static GameScreen	instance = null;
+	
 	private Matrix4 			isoTransform = null;
 	private Matrix4				invIsotransform = null;
 	private Matrix4				id = null;
@@ -22,7 +24,7 @@ public class GameScreen implements Screen{
 	private float				tileWidth = 1.0f;
 	private float				tileHeight = (float) Math.tan(IsometricHelper.Angle);
 
-	public GameScreen() {
+	private GameScreen() {
 		//Set up graphics
 		GL20 gl = Gdx.graphics.getGL20();
 		gl.glEnable(GL20.GL_BLEND);
@@ -46,6 +48,15 @@ public class GameScreen implements Screen{
 		//... and the inverse isometric transform matrix
 		invIsotransform = new Matrix4(isoTransform);
 		invIsotransform.inv();
+	}
+	
+	public static GameScreen getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new GameScreen();
+		}
+		return instance;
 	}
 	
     @Override
