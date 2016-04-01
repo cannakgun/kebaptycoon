@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">Kebap Tycoon</string>
+    <string name="facebook_app_id">987513751329374</string>
 
 </resources>
