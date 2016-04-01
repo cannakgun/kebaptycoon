@@ -7,6 +7,6 @@ import com.kebaptycoon.KebapTycoonGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new KebapTycoonGame(), config);
+		new LwjglApplication(new KebapTycoonGame(new DesktopFacebook()), config);
 	}
 }
