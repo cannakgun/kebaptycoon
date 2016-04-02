@@ -11,5 +11,5 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new KebapTycoonGame(new AndroidFacebook(getApplicationContext())), config);	}
+		initialize(KebapTycoonGame.getInstance(new AndroidFacebook(getApplicationContext())), config);	}
 }

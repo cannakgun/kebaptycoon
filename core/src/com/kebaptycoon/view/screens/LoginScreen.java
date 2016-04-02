@@ -26,7 +26,6 @@ public class LoginScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        System.out.println(loginScreenController.getTouchPositionX());
     }
 
     @Override

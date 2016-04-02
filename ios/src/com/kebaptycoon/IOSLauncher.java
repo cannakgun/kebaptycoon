@@ -20,7 +20,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new KebapTycoonGame(new iOSFacebook()), config);
+        return new IOSApplication(KebapTycoonGame.getInstance(new iOSFacebook()), config);
     }
 
     public static void main(String[] args) {
