@@ -1,5 +1,6 @@
 package com.kebaptycoon.desktop;
 
+import com.kebaptycoon.KebapTycoonGame;
 import com.kebaptycoon.util.FacebookLoginHelper;
 import com.kebaptycoon.util.Globals;
 
@@ -88,10 +89,11 @@ public class DesktopFacebook extends FacebookLoginHelper{
             try {
                 String loginResponse = makeRepeatedLoginQuery(desktopLoginId);
                 if(!loginResponse.equals("NULL")){
-                    System.out.println(loginResponse);
+
+                    KebapTycoonGame.getInstance().getPrefs().putString("facebook_user_id", loginResponse);
+                    KebapTycoonGame.getInstance().getPrefs().flush();
                     timer.cancel();
-                }else
-                    System.out.println("NULL");
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -24,6 +24,7 @@ public class iOSFacebook extends FacebookLoginHelper{
                             , FBSDKAccessToken.getCurrentAccessToken().getTokenString());
                     KebapTycoonGame.getInstance().getPrefs().putString("facebook_user_id",
                             FBSDKAccessToken.getCurrentAccessToken().getUserID());
+                    KebapTycoonGame.getInstance().getPrefs().flush();
                 }
 
                 @Override
