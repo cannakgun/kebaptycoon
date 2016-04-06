@@ -26,6 +26,7 @@ public class KebapTycoonGame extends Game {
         this.setScreen(new SplashScreen());
 	}
 
+
 	@Override
 	public void render () {
         super.render();
@@ -40,5 +41,9 @@ public class KebapTycoonGame extends Game {
 
     public static void setFacebookLoginHelper(FacebookLoginHelper flh){
         facebookLoginHelper = flh;
+    }
+
+    public Preferences getPrefs(){
+        return prefs;
     }
 }

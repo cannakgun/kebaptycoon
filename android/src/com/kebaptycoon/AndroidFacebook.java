@@ -9,7 +9,7 @@ import com.kebaptycoon.util.FacebookLoginHelper;
 /**
  * Created by Dogancan on 18/12/15.
  */
-public class AndroidFacebook implements FacebookLoginHelper {
+public class AndroidFacebook extends FacebookLoginHelper {
     Context context;
     public AndroidFacebook(Context context){
         this.context = context;
@@ -22,13 +22,4 @@ public class AndroidFacebook implements FacebookLoginHelper {
         context.startActivity(i);
     }
 
-    @Override
-    public void disconnectFacebook() {
-
-    }
-
-    @Override
-    public boolean isConnectedFacebook() {
-        return false;
-    }
 }

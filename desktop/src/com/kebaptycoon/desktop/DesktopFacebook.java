@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DesktopFacebook implements FacebookLoginHelper{
+public class DesktopFacebook extends FacebookLoginHelper{
     Timer timer;
 
     @Override
@@ -54,17 +54,7 @@ public class DesktopFacebook implements FacebookLoginHelper{
             System.out.println("Couldn't connect.");
         }
     }
-
-    @Override
-    public void disconnectFacebook() {
-
-    }
-
-    @Override
-    public boolean isConnectedFacebook() {
-        return false;
-    }
-
+    
     public String getDesktopLoginId() throws IOException, JSONException {
 
         String url = Globals.SERVER_API_URL + "get_desktop_login_id.php";
