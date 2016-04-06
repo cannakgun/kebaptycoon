@@ -7,6 +7,10 @@ import com.kebaptycoon.KebapTycoonGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(KebapTycoonGame.getInstance(new DesktopFacebook()), config);
+		config.title = "GDG2015";
+		config.width = 1920;
+		config.height = 1080;
+        KebapTycoonGame.setFacebookLoginHelper(new DesktopFacebook());
+		new LwjglApplication(KebapTycoonGame.getInstance(), config);
 	}
 }
