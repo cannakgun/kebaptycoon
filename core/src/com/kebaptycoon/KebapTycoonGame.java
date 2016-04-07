@@ -15,23 +15,18 @@ public class KebapTycoonGame extends Game {
 
     @Override
 	public void create () {
-
         prefs = Gdx.app.getPreferences("Kebap Tycoon Preferences");
-
-        if(prefs.getString("facebook_access_token") == null || prefs.getString("facebook_access_token").equals(""))
+        if(!facebookLoginHelper.isConnectedFacebook()){
             facebookLoginHelper.connectFacebook();
-        else
-            System.out.println("token is already stored in prefs: " + prefs.getString("facebook_access_token"));
+        }
 
         this.setScreen(new SplashScreen());
 	}
-
 
 	@Override
 	public void render () {
         super.render();
 	}
-
 
     public static KebapTycoonGame getInstance(){
         if(instance == null)

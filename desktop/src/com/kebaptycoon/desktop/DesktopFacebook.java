@@ -87,10 +87,13 @@ public class DesktopFacebook extends FacebookLoginHelper{
         public void run() {
 
             try {
-                String loginResponse = makeRepeatedLoginQuery(desktopLoginId);
-                if(!loginResponse.equals("NULL")){
+                String responseUserId = makeRepeatedLoginQuery(desktopLoginId).getString("facebook_id");
+                String responseAccessToken = makeRepeatedLoginQuery(desktopLoginId).getString("access_token");
 
-                    KebapTycoonGame.getInstance().getPrefs().putString("facebook_user_id", loginResponse);
+                if(!responseUserId.equals("NULL") && !responseAccessToken.equals("NULL")){
+
+                    KebapTycoonGame.getInstance().getPrefs().putString("facebook_user_id", responseUserId);
+                    KebapTycoonGame.getInstance().getPrefs().putString("facebook_access_token", responseAccessToken);
                     KebapTycoonGame.getInstance().getPrefs().flush();
                     timer.cancel();
                 }
@@ -102,7 +105,7 @@ public class DesktopFacebook extends FacebookLoginHelper{
             }
         }
 
-        public String makeRepeatedLoginQuery(int desktopLoginId) throws IOException, JSONException {
+        public JSONObject makeRepeatedLoginQuery(int desktopLoginId) throws IOException, JSONException {
             String url = Globals.SERVER_API_URL + "desktop_facebook_login_with_id.php";
             url += "?login_id=" + desktopLoginId;
 
@@ -119,8 +122,7 @@ public class DesktopFacebook extends FacebookLoginHelper{
             }
             in.close();
             JSONObject jsonObject = new JSONObject(response.toString());
-            System.out.println(jsonObject.getString("facebook_id"));
-            return jsonObject.getString("facebook_id");
+            return jsonObject;
         }
     }
 }
