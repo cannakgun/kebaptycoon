@@ -2,39 +2,55 @@ package com.kebaptycoon.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.controller.screenControllers.GameScreenController;
 import com.kebaptycoon.utils.IsometricHelper;
+import com.kebaptycoon.utils.TextureManager;
+import com.kebaptycoon.view.menus.DishMenu;
+import com.kebaptycoon.view.menus.Menu;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import java.util.ArrayList;
 
 /**
  * Created by dogancandemirtas on 27/02/16.
  */
 public class GameScreen implements Screen{
-	
-	private static GameScreen	instance = null;
+
+	private GameScreenController gameScreenController;
 	
 	private Matrix4 			isoTransform = null;
 	private Matrix4				invIsotransform = null;
 	private Matrix4				id = null;
 	private SpriteBatch			spriteBatch = null;
-	private OrthographicCamera	cam = null;
+    private OrthographicCamera	cam = null;
 	private float				tileWidth = 1.0f;
 	private float				tileHeight = (float) Math.tan(IsometricHelper.Angle);
+	private Texture 			texture;
 
-	private GameScreen() {
+	public GameScreen() {
+
+		//Create Controller
+		gameScreenController = new GameScreenController(this);
+		Gdx.input.setInputProcessor(new GestureDetector(gameScreenController));
 		//Set up graphics
 		GL20 gl = Gdx.graphics.getGL20();
 		gl.glEnable(GL20.GL_BLEND);
 		gl.glEnable(GL20.GL_TEXTURE_2D);
 		gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		
+
 		//Create sprite batch
 		spriteBatch = new SpriteBatch();
-		
+		texture = TextureManager.getInstance().gameScreenBackground;
+
 		//Identity Matrix
 		id = new Matrix4();
 		id.idt();
@@ -49,17 +65,9 @@ public class GameScreen implements Screen{
 		//... and the inverse isometric transform matrix
 		invIsotransform = new Matrix4(isoTransform);
 		invIsotransform.inv();
+
 	}
-	
-	public static GameScreen getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new GameScreen();
-		}
-		return instance;
-	}
-	
+
     @Override
     public void show() {
 
@@ -73,24 +81,35 @@ public class GameScreen implements Screen{
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		//TODO: Call the game logic from here
-		
-		spriteBatch.setProjectionMatrix(cam.combined);
+
+        //spriteBatch.setProjectionMatrix(cam.combined);
+        //shapeRenderer.setProjectionMatrix(cam.combined);
 		
 		//Set identity matrix as transform matrix
 		//	so that sprites will be drawn as they are
-		spriteBatch.setTransformMatrix(id);
-
+		//spriteBatch.setTransformMatrix(id);
+        //shapeRenderer.setTransformMatrix(id);
 		spriteBatch.begin();
 		renderMap();
 		renderEntities();
-		spriteBatch.end();
+        spriteBatch.end();
+
+		//check any of the menus is pressed and if so render it
+		if(!gameScreenController.getMenuStack().isEmpty()){
+            for(int i = 0; i < gameScreenController.getMenuStack().size(); i++){
+                gameScreenController.getMenuStack().getMenuAtIndex(i).render();
+
+            }
+
+		}
 
 		//Set isometric transform matrix as transform matrix
 		//	so that sprites will be drawn after isometricly transformed
-		spriteBatch.setTransformMatrix(isoTransform);
-		spriteBatch.begin();
-		spriteBatch.end();
+		//spriteBatch.setTransformMatrix(isoTransform);
+		//spriteBatch.begin();
+		//spriteBatch.end();
 	}
+
 
 	@Override
 	public void resize(int width, int height) {
@@ -109,6 +128,7 @@ public class GameScreen implements Screen{
 
 	private void renderMap()
 	{
+        spriteBatch.draw(texture, 0, 0);
 //		for (int x = 0; x < 10; x++)
 //		{
 //			for(int y = 10-1; y >= 0; y--)
@@ -170,10 +190,20 @@ public class GameScreen implements Screen{
 
 	public boolean moveCamera(float deltaX, float deltaY) {
 		cam.update();
-		cam.position.add(
-				cam.unproject(new Vector3(0, 0, 0))
-						.add(cam.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
+        cam.position.add(
+                cam.unproject(new Vector3(0, 0, 0))
+                        .add(cam.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
 		);
 		return true;
 	}
+
+	public void setInputProcessor(GestureDetector gestureDetector){
+
+        Gdx.input.setInputProcessor(gestureDetector);
+	}
+
+    public GameScreenController getGameScreenController() {
+        return gameScreenController;
+    }
+
 }

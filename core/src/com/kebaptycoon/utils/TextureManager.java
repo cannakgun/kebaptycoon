@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 public class TextureManager {
 
     public Texture dishSelectionScreenBackground;
+    public Texture gameScreenBackground;
     private static TextureManager instance;
 
     public void loadTextures(){
 
         dishSelectionScreenBackground = new Texture(Gdx.files.internal("dishSelectionScreen.png"));
+        gameScreenBackground = new Texture(Gdx.files.internal("gameScreen.png"));
     }
 
     private TextureManager(){
