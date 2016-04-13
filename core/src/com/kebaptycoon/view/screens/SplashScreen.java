@@ -44,7 +44,7 @@ public class SplashScreen implements Screen{
         TextureManager.getInstance().loadTextures();
 
         if ((TimeUtils.millis() - startTime) > Globals.SPLASH_SCREEN_DISPLAY_PERIOD)
-            KebapTycoonGame.getInstance().setScreen(DishSelectionScreen.getInstance());
+            KebapTycoonGame.getInstance().setScreen(new DishSelectionScreen());
     }
 
     @Override

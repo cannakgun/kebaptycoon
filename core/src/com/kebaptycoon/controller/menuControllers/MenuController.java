@@ -1,14 +1,19 @@
-package com.kebaptycoon.controller;
+package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.kebaptycoon.view.screens.GameScreen;
 
 /**
- * Created by dogancandemirtas on 27/02/16.
+ * Created by Can Akgün on 7.4.2016.
  */
-public class DishSelectionScreenController implements GestureDetector.GestureListener{
-
-
+public abstract class MenuController implements GestureDetector.GestureListener {
+    int touchPositionX;
+    int touchPositionY;
+    GameScreen gameScreen;
+    public MenuController(GameScreen gameScreen){
+        this.gameScreen = gameScreen;
+    }
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;

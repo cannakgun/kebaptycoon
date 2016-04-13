@@ -4,42 +4,85 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.kebaptycoon.controller.screenControllers.GameScreenController;
 import com.kebaptycoon.utils.IsometricHelper;
+import com.kebaptycoon.utils.TextureManager;
+import com.badlogic.gdx.utils.viewport.*;
 
-/**
- * Created by dogancandemirtas on 27/02/16.
- */
 public class GameScreen implements Screen{
-	
-	private static GameScreen	instance = null;
+
+	private GameScreenController gameScreenController;
 	
 	private Matrix4 			isoTransform = null;
 	private Matrix4				invIsotransform = null;
-	private Matrix4				id = null;
-	private SpriteBatch			spriteBatch = null;
-	private OrthographicCamera	cam = null;
+    private Matrix4				id = null;
+    private SpriteBatch			spriteBatch = null;
+    private SpriteBatch			menuBatch = null;
+    private OrthographicCamera  worldCamera = null;
+    private OrthographicCamera	menuCamera = null;
 	private float				tileWidth = 1.0f;
 	private float				tileHeight = (float) Math.tan(IsometricHelper.Angle);
+	private Texture             background;
+    private Viewport            viewPortWorld;
+    private Viewport            viewPortMenu;
+    private float               maxZoom, minZoom = 0.5f;
+    private float               menuHeight;
 
-	private GameScreen() {
+	public GameScreen() {
+
+		//Create Controller
+		gameScreenController = new GameScreenController(this);
+		Gdx.input.setInputProcessor(new GestureDetector(gameScreenController));
+
 		//Set up graphics
 		GL20 gl = Gdx.graphics.getGL20();
 		gl.glEnable(GL20.GL_BLEND);
 		gl.glEnable(GL20.GL_TEXTURE_2D);
 		gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		
+
 		//Create sprite batch
-		spriteBatch = new SpriteBatch();
-		
+        spriteBatch = new SpriteBatch();
+        menuBatch = new SpriteBatch();
+		background = TextureManager.getInstance().background;
+
 		//Identity Matrix
 		id = new Matrix4();
 		id.idt();
 
-		//Create the isometric transform matrix
+        //The worldCamera will show 10 tiles
+        float camWidth = tileWidth * 10.0f;
+
+        //For the height, we just maintain the aspect ratio
+        float camHeight = tileHeight * 10;// * ((float)height / (float)width);
+
+        worldCamera = new OrthographicCamera(camWidth, camHeight);
+        worldCamera.position.set(camWidth / 2.0f, 0, 0);
+        worldCamera.update();
+
+        viewPortMenu = new FitViewport(1920,1080, worldCamera);
+
+        menuCamera = new OrthographicCamera();
+        menuCamera.position.set(1920 / 2, 1080 / 2, 0);
+        menuCamera.update();
+
+        viewPortWorld = new FitViewport(1920,1080, menuCamera);
+
+        menuHeight = 200;
+        maxZoom = calculateMaxZoom(new Vector2(background.getWidth(), background.getHeight()),
+                new Vector2(viewPortWorld.getWorldWidth(), viewPortWorld.getWorldHeight()
+                        - menuHeight));
+        minZoom = Math.min(minZoom, maxZoom);
+
+        worldCamera.zoom = maxZoom;
+
+		/*/Create the isometric transform matrix
 		isoTransform = new Matrix4();
 		isoTransform.idt();
 		isoTransform.translate(0.0f, 0.25f, 0.0f);
@@ -48,18 +91,10 @@ public class GameScreen implements Screen{
 
 		//... and the inverse isometric transform matrix
 		invIsotransform = new Matrix4(isoTransform);
-		invIsotransform.inv();
+		invIsotransform.inv();*/
+
 	}
-	
-	public static GameScreen getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new GameScreen();
-		}
-		return instance;
-	}
-	
+
     @Override
     public void show() {
 
@@ -68,43 +103,70 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta)
 	{
-		//Clear the screen
-		GL20 gl = Gdx.graphics.getGL20();
-		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		//TODO: Call the game logic from here
-		
-		spriteBatch.setProjectionMatrix(cam.combined);
-		
-		//Set identity matrix as transform matrix
-		//	so that sprites will be drawn as they are
-		spriteBatch.setTransformMatrix(id);
 
-		spriteBatch.begin();
-		renderMap();
-		renderEntities();
-		spriteBatch.end();
+        clampCamera();
+        worldCamera.update();
+
+        //Clear the screen
+        GL20 gl = Gdx.graphics.getGL20();
+        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        //viewPortCam.apply();
+
+        viewPortWorld.apply();
+        spriteBatch.setProjectionMatrix(worldCamera.combined);
+        //shapeRenderer.setProjectionMatrix(worldCamera.combined);
+
+        //Set identity matrix as transform matrix
+        //	so that sprites will be drawn as they are
+        //spriteBatch.setTransformMatrix(id);
+        //shapeRenderer.setTransformMatrix(id);
+        spriteBatch.begin();
+        spriteBatch.draw(background, 0, 0);
+        renderMap();
+        renderEntities();
+        spriteBatch.end();
+
+        viewPortMenu.apply();
+        menuBatch.setProjectionMatrix(menuCamera.combined);
+
+        menuBatch.begin();
+            menuBatch.draw(TextureManager.getInstance().menuBar, 0, 0,
+                    viewPortMenu.getWorldWidth(), 200);
+            menuBatch.draw(TextureManager.getInstance().advertisement, 50, 10, 150, 180);
+            menuBatch.draw(TextureManager.getInstance().menu, 328, 10, 150, 180);
+            menuBatch.draw(TextureManager.getInstance().estate, 606, 10, 150, 180);
+            menuBatch.draw(TextureManager.getInstance().market, 885, 10, 150, 180);
+            menuBatch.draw(TextureManager.getInstance().reports, 1163, 10, 150, 180);
+            menuBatch.draw(TextureManager.getInstance().stock, 1442, 10, 150, 180);
+            menuBatch.draw(TextureManager.getInstance().staff, 1720, 10, 150, 180);
+
+        menuBatch.end();
+
+        //check any of the menus is pressed and if so render it
+        if(!gameScreenController.getMenuStack().isEmpty()) {
+            for (int i = 0; i < gameScreenController.getMenuStack().size(); i++) {
+                gameScreenController.getMenuStack().getMenuAtIndex(i).render(menuBatch, viewPortMenu);
+
+            }
+        }
 
 		//Set isometric transform matrix as transform matrix
 		//	so that sprites will be drawn after isometricly transformed
-		spriteBatch.setTransformMatrix(isoTransform);
-		spriteBatch.begin();
-		spriteBatch.end();
-	}
+		//spriteBatch.setTransformMatrix(isoTransform);
+		//spriteBatch.begin();
+		//spriteBatch.end();
+
+    }
+
 
 	@Override
 	public void resize(int width, int height) {
 
-		//The cam will show 10 tiles
-		float camWidth = tileWidth * 10.0f;
-
-		//For the height, we just maintain the aspect ratio
-		float camHeight = camWidth * ((float)height / (float)width);
-
-		cam = new OrthographicCamera(camWidth, camHeight);
-		cam.position.set(camWidth / 2.0f, 0, 0);
-		cam.update();
-
+        viewPortWorld.update(width, height);
+        viewPortMenu.update(width, height);
+        menuCamera.position.set(menuCamera.viewportWidth / 2, menuCamera.viewportHeight/2,0);
 	}
 
 	private void renderMap()
@@ -155,25 +217,82 @@ public class GameScreen implements Screen{
 	}
 	
 	public float getCameraZoom(){
-		return cam.zoom;
+		return worldCamera.zoom;
 	}
 
 	public void zoomCamera(Vector3 origin, float scale){
-		cam.update();
-		Vector3 oldUnprojection = cam.unproject(origin.cpy()).cpy();
-		cam.zoom = scale; //Larger value of zoom = small images, border view
-		cam.zoom = Math.min(2.0f, Math.max(cam.zoom, 0.5f));
-		cam.update();
-		Vector3 newUnprojection = cam.unproject(origin.cpy()).cpy();
-		cam.position.add(oldUnprojection.cpy().add(newUnprojection.cpy().scl(-1f)));
+
+        Vector3 oldUnprojection = worldCamera.unproject(origin.cpy()).cpy();
+
+        worldCamera.zoom = scale; //Larger value of zoom = small images, border view
+		worldCamera.zoom = Math.min(maxZoom, Math.max(worldCamera.zoom, minZoom));
+		worldCamera.update();
+
+        Vector3 newUnprojection = worldCamera.unproject(origin.cpy()).cpy();
+
+        worldCamera.position.add(oldUnprojection.cpy().add(newUnprojection.cpy().scl(-1f)));
 	}
 
 	public boolean moveCamera(float deltaX, float deltaY) {
-		cam.update();
-		cam.position.add(
-				cam.unproject(new Vector3(0, 0, 0))
-						.add(cam.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
+
+        worldCamera.position.add(
+                worldCamera.unproject(new Vector3(0, 0, 0))
+                        .add(worldCamera.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
 		);
 		return true;
 	}
+
+    private void clampCamera() {
+
+        float zoom = worldCamera.zoom;
+        Vector3 prevPos = worldCamera.position;
+
+        float renderWidth = viewPortWorld.getWorldWidth() * zoom;
+        float renderHeight = (viewPortWorld.getWorldHeight() - menuHeight) * zoom;
+
+        float minX = renderWidth / 2;
+        float maxX = background.getWidth() - (renderWidth / 2);
+
+        float minY = (renderHeight / 2) - (menuHeight * zoom / 2f);
+        float maxY = background.getHeight() - (menuHeight * zoom / 2f) - (renderHeight / 2);
+
+        float newX = (prevPos.x < minX) ? minX : (prevPos.x > maxX) ? maxX : prevPos.x;
+        float newY = (prevPos.y < minY) ? minY : (prevPos.y > maxY) ? maxY : prevPos.y;
+
+        worldCamera.position.set(newX, newY, worldCamera.position.z);
+    }
+
+    public Vector2 worldUnproject(int x, int y) {
+        Vector2 touch = new Vector2(x,y);
+        touch = viewPortWorld.unproject(touch);
+        touch.x = touch.x + (1920/2);
+        touch.y = touch.y + (1080/2);
+        return touch;
+    }
+
+    public Vector2 menuUnproject(int x, int y) {
+        Vector2 touch = new Vector2(x,y);
+        touch = viewPortMenu.unproject(touch);
+        touch.x = touch.x + (1920/2);
+        touch.y = touch.y + (1080/2);
+        return touch;
+    }
+
+    private float calculateMaxZoom(Vector2 bgSize, Vector2 screenSize)
+    {
+        float xRatio = bgSize.x / screenSize.x;
+        float yRatio = bgSize.y / screenSize.y;
+
+        return Math.min(xRatio, yRatio);
+    }
+
+	public void setInputProcessor(GestureDetector gestureDetector){
+
+        Gdx.input.setInputProcessor(gestureDetector);
+	}
+
+    public GameScreenController getGameScreenController() {
+        return gameScreenController;
+    }
+
 }
