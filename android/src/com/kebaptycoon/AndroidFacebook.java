@@ -3,8 +3,7 @@ package com.kebaptycoon;
 import android.content.Context;
 import android.content.Intent;
 
-import com.kebaptycoon.AndroidFacebookActivity;
-import com.kebaptycoon.util.FacebookLoginHelper;
+import com.kebaptycoon.utils.FacebookLoginHelper;
 
 /**
  * Created by Dogancan on 18/12/15.

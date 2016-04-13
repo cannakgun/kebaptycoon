@@ -1,4 +1,4 @@
-package com.kebaptycoon.util;
+package com.kebaptycoon.utils;
 
 /**
  * Created by dogancandemirtas on 27/02/16.

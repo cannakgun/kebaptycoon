@@ -11,8 +11,6 @@ import org.robovm.pods.facebook.core.FBSDKApplicationDelegate;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.kebaptycoon.KebapTycoonGame;
-import com.kebaptycoon.util.FacebookLoginHelper;
 
 public class IOSLauncher extends IOSApplication.Delegate {
 

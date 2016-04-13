@@ -1,4 +1,4 @@
-package com.kebaptycoon.util;
+package com.kebaptycoon.utils;
 
 import com.badlogic.gdx.Preferences;
 import com.kebaptycoon.KebapTycoonGame;

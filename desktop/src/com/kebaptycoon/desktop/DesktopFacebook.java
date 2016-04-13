@@ -1,8 +1,8 @@
 package com.kebaptycoon.desktop;
 
 import com.kebaptycoon.KebapTycoonGame;
-import com.kebaptycoon.util.FacebookLoginHelper;
-import com.kebaptycoon.util.Globals;
+import com.kebaptycoon.utils.FacebookLoginHelper;
+import com.kebaptycoon.utils.Globals;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,10 +1,9 @@
 package com.kebaptycoon;
 
 import com.badlogic.gdx.Gdx;
-import com.kebaptycoon.util.FacebookLoginHelper;
+import com.kebaptycoon.utils.FacebookLoginHelper;
 
 import org.robovm.pods.facebook.core.FBSDKAccessToken;
-import org.robovm.pods.facebook.core.FBSDKProfile;
 
 import java.util.Arrays;
 

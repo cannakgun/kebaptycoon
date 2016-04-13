@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.kebaptycoon.KebapTycoonGame;
-import com.kebaptycoon.util.Globals;
+import com.kebaptycoon.utils.Globals;
 import com.kebaptycoon.utils.TextureManager;
 
 public class SplashScreen implements Screen{
