@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.kebaptycoon.utils.FacebookLoginHelper;
+import com.kebaptycoon.utils.ResourceManager;
 import com.kebaptycoon.view.screens.SplashScreen;
 
 public class KebapTycoonGame extends Game {

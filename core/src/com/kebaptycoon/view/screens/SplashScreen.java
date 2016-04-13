@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.kebaptycoon.KebapTycoonGame;
 import com.kebaptycoon.utils.Globals;
-import com.kebaptycoon.utils.TextureManager;
+import com.kebaptycoon.utils.ResourceManager;
 
 public class SplashScreen implements Screen{
 
@@ -20,12 +20,17 @@ public class SplashScreen implements Screen{
 
     private Texture background;
 
+    private ResourceManager resourceManager;
+
+    private int frame = 0;
+
     public SplashScreen(){
 
+        resourceManager = new ResourceManager();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
-        background = new Texture(Gdx.files.internal("splashScreenBackground.jpeg"));
+        background = new Texture(Gdx.files.internal("textures/screens/splash.jpeg"));
 
     }
 
@@ -41,10 +46,11 @@ public class SplashScreen implements Screen{
             batch.draw(background, 0, 0);
         batch.end();
 
-        TextureManager.getInstance().loadTextures();
+        if(frame++ == 1)
+            resourceManager.loadAssets();
 
         if ((TimeUtils.millis() - startTime) > Globals.SPLASH_SCREEN_DISPLAY_PERIOD)
-            KebapTycoonGame.getInstance().setScreen(new DishSelectionScreen());
+            KebapTycoonGame.getInstance().setScreen(new DishSelectionScreen(resourceManager));
     }
 
     @Override

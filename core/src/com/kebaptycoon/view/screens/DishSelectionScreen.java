@@ -9,22 +9,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.kebaptycoon.KebapTycoonGame;
 import com.kebaptycoon.controller.screenControllers.DishSelectionScreenController;
-import com.kebaptycoon.utils.TextureManager;
+import com.kebaptycoon.utils.ResourceManager;
 
 public class DishSelectionScreen implements Screen{
 
     private DishSelectionScreenController dishSelectionScreenController;
     private SpriteBatch batch;
-    private Texture texture;
+    private Texture background;
     private OrthographicCamera camera;
+    private ResourceManager resourceManager;
 
-    public DishSelectionScreen(){
+    public DishSelectionScreen(ResourceManager resourceManager){
 
+        this.resourceManager = resourceManager;
         dishSelectionScreenController = new DishSelectionScreenController();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
-        texture = TextureManager.getInstance().dishSelectionScreenBackground;
+        background = resourceManager.textures.get("screens_dishSelection");
         Gdx.input.setInputProcessor(new GestureDetector(dishSelectionScreenController));
     }
 
@@ -41,11 +43,11 @@ public class DishSelectionScreen implements Screen{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-            batch.draw(texture, 0, 0);
+            batch.draw(background, 0, 0);
         batch.end();
 
         if(dishSelectionScreenController.isDishTypeSelected()){
-            KebapTycoonGame.getInstance().setScreen(new GameScreen());
+            KebapTycoonGame.getInstance().setScreen(new GameScreen(resourceManager));
         }
     }
 

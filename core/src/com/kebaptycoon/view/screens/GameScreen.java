@@ -12,13 +12,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
+import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.utils.IsometricHelper;
-import com.kebaptycoon.utils.TextureManager;
 import com.badlogic.gdx.utils.viewport.*;
+import com.kebaptycoon.utils.ResourceManager;
 
 public class GameScreen implements Screen{
 
-	private GameScreenController gameScreenController;
+    private ResourceManager resourceManager;
+    private GameScreenController gameScreenController;
 	
 	private Matrix4 			isoTransform = null;
 	private Matrix4				invIsotransform = null;
@@ -34,8 +36,11 @@ public class GameScreen implements Screen{
     private Viewport            viewPortMenu;
     private float               maxZoom, minZoom = 0.5f;
     private float               menuHeight;
+    private Entity              testEntity;
 
-	public GameScreen() {
+	public GameScreen(ResourceManager resourceManager) {
+
+        this.resourceManager = resourceManager;
 
 		//Create Controller
 		gameScreenController = new GameScreenController(this);
@@ -50,7 +55,7 @@ public class GameScreen implements Screen{
 		//Create sprite batch
         spriteBatch = new SpriteBatch();
         menuBatch = new SpriteBatch();
-		background = TextureManager.getInstance().background;
+		background = resourceManager.textures.get("restaurants_inonu");
 
 		//Identity Matrix
 		id = new Matrix4();
@@ -79,6 +84,8 @@ public class GameScreen implements Screen{
                 new Vector2(viewPortWorld.getWorldWidth(), viewPortWorld.getWorldHeight()
                         - menuHeight));
         minZoom = Math.min(minZoom, maxZoom);
+
+        testEntity = new Entity(0,0,0, resourceManager.animations.get("test"));
 
         worldCamera.zoom = maxZoom;
 
@@ -124,6 +131,7 @@ public class GameScreen implements Screen{
         //shapeRenderer.setTransformMatrix(id);
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0);
+        spriteBatch.draw(testEntity.cycleAnimation(delta), 50, 50);
         renderMap();
         renderEntities();
         spriteBatch.end();
@@ -132,15 +140,15 @@ public class GameScreen implements Screen{
         menuBatch.setProjectionMatrix(menuCamera.combined);
 
         menuBatch.begin();
-            menuBatch.draw(TextureManager.getInstance().menuBar, 0, 0,
-                    viewPortMenu.getWorldWidth(), 200);
-            menuBatch.draw(TextureManager.getInstance().advertisement, 50, 10, 150, 180);
-            menuBatch.draw(TextureManager.getInstance().menu, 328, 10, 150, 180);
-            menuBatch.draw(TextureManager.getInstance().estate, 606, 10, 150, 180);
-            menuBatch.draw(TextureManager.getInstance().market, 885, 10, 150, 180);
-            menuBatch.draw(TextureManager.getInstance().reports, 1163, 10, 150, 180);
-            menuBatch.draw(TextureManager.getInstance().stock, 1442, 10, 150, 180);
-            menuBatch.draw(TextureManager.getInstance().staff, 1720, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_background"), 0, 0,
+                    1920, menuHeight);
+            menuBatch.draw(resourceManager.textures.get("menu_advertisement"), 50, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_menu"), 328, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_estate"), 606, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_market"), 885, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_reports"), 1163, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_stock"), 1442, 10, 150, 180);
+            menuBatch.draw(resourceManager.textures.get("menu_staff"), 1720, 10, 150, 180);
 
         menuBatch.end();
 

@@ -21,7 +21,7 @@ public class DishDetailsMenu extends Menu {
         super.menuController = new DishDetailsMenuController(gameScreen);
         super.shapeRenderer = new ShapeRenderer();
         Gdx.input.setInputProcessor(new GestureDetector(menuController));
-        //texture = TextureManager.getInstance().dishDetailsBackground;
+        //texture = ResourceManager.getInstance().dishDetailsBackground;
 
     }
 
