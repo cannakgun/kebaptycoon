@@ -2,9 +2,13 @@ package com.kebaptycoon.view.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.DishMenuController;
+import com.kebaptycoon.utils.TextureManager;
 import com.kebaptycoon.view.screens.GameScreen;
 
 /**
@@ -18,12 +22,11 @@ public class DishMenu extends Menu{
         Gdx.input.setInputProcessor(new GestureDetector(menuController));
     }
 
-    public void render(){
+    public void render(SpriteBatch batch, Viewport viewPort){
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLUE);
-        renderRect(100, 100, 500, 500);
-        shapeRenderer.end();
+        batch.begin();
+        batch.draw(TextureManager.getInstance().badLogic,100,100,500,500);
+        batch.end();
     }
 
 }

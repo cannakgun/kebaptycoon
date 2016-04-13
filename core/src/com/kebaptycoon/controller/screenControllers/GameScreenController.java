@@ -1,6 +1,5 @@
 package com.kebaptycoon.controller.screenControllers;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -34,8 +33,9 @@ public class GameScreenController implements GestureDetector.GestureListener{
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-		touchPositionX = Gdx.input.getX();
-		touchPositionY = Gdx.input.getY();
+        Vector2 actualTouch = gameScreen.menuUnproject(Gdx.input.getX(), Gdx.input.getY());
+        touchPositionX = (int)actualTouch.x;
+		touchPositionY = (int)actualTouch.y;
 		//check for pressed menu
 		if(touchPositionY >= 900&& touchPositionY <= 1080)
 			setMenuUtilities();
@@ -90,7 +90,6 @@ public class GameScreenController implements GestureDetector.GestureListener{
 	public void setMenuUtilities(){
 
 		if(touchPositionX <= 200) {
-            System.out.println("gamescreencontroller yemekler menüsüne basıldı");
             menuStack.push(new DishMenu(gameScreen));
             GestureDetector gestureDetector = new GestureDetector(menuStack.getTop().getMenuController());
             gameScreen.setInputProcessor(gestureDetector);
