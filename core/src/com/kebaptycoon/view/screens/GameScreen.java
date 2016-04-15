@@ -274,12 +274,11 @@ public class GameScreen implements Screen{
         worldCamera.position.set(newX, newY, worldCamera.position.z);
     }
 
-    public Vector2 worldUnproject(int x, int y) {
-        Vector2 touch = new Vector2(x,y);
-        touch = viewPortWorld.unproject(touch);
-        touch.x = touch.x + (1920/2);
-        touch.y = touch.y + (1080/2);
-        return touch;
+    public Vector2 worldUnproject(float x, float y) {
+        Vector3 touch = worldCamera.unproject(new Vector3(x, y, 0),
+                viewPortWorld.getScreenX(),viewPortWorld.getScreenY(),
+                viewPortWorld.getScreenWidth(),viewPortWorld.getScreenHeight());
+        return new Vector2(touch.x, touch.y);
     }
 
     public float getMenuHeight() {
@@ -292,12 +291,10 @@ public class GameScreen implements Screen{
     }
 
     public Vector2 menuUnproject(float x, float y) {
-        Vector2 touch = new Vector2(x,y);
-        Vector2 screenPos = new Vector2(viewPortMenu.getScreenX(), viewPortMenu.getScreenY());
-        float scale = viewPortMenu.getWorldHeight() / viewPortMenu.getScreenHeight();
-        Vector2 deltaTouch = touch.sub(screenPos).scl(scale, -scale)
-                .add(0, viewPortMenu.getWorldHeight());
-        return deltaTouch;
+        Vector3 touch = menuCamera.unproject(new Vector3(x, y, 0),
+                viewPortMenu.getScreenX(),viewPortMenu.getScreenY(),
+                viewPortMenu.getScreenWidth(),viewPortMenu.getScreenHeight());
+        return new Vector2(touch.x, touch.y);
     }
 
     private float calculateMaxZoom(Vector2 bgSize, Vector2 screenSize)
