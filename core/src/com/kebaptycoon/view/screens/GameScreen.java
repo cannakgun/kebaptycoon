@@ -292,14 +292,12 @@ public class GameScreen implements Screen{
     }
 
     public Vector2 menuUnproject(float x, float y) {
-        System.out.println(x + " " + y);
-        float yR = viewPortMenu.getScreenHeight() / (y - viewPortMenu.getScreenX()); // the y ratio
-        y = viewPortMenu.getWorldHeight() / yR;
-
-        float xR = viewPortMenu.getWorldWidth() / (x - viewPortMenu.getScreenY()); // the x ratio
-        x = viewPortWorld.getWorldWidth() / xR;
-        //Vector3 touch = viewPortMenu.unproject(new Vector3(x, y, 0));
-        return new Vector2(x, y);
+        Vector2 touch = new Vector2(x,y);
+        Vector2 screenPos = new Vector2(viewPortMenu.getScreenX(), viewPortMenu.getScreenY());
+        float scale = viewPortMenu.getWorldHeight() / viewPortMenu.getScreenHeight();
+        Vector2 deltaTouch = touch.sub(screenPos).scl(scale, -scale)
+                .add(0, viewPortMenu.getWorldHeight());
+        return deltaTouch;
     }
 
     private float calculateMaxZoom(Vector2 bgSize, Vector2 screenSize)
