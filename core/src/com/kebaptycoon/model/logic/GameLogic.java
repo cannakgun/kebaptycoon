@@ -1,7 +1,18 @@
 package com.kebaptycoon.model.logic;
 
-/**
- * Created by dogancandemirtas on 27/02/16.
- */
+import com.kebaptycoon.model.managers.*;
+
 public class GameLogic {
+
+    RecipeManager recipeManager;
+
+    public GameLogic(){
+
+        recipeManager = new RecipeManager();
+
+    }
+
+    public RecipeManager getRecipeManager() {
+        return recipeManager;
+    }
 }

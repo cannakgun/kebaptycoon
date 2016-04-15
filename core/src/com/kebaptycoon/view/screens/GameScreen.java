@@ -13,14 +13,17 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
 import com.kebaptycoon.model.entities.Entity;
+import com.kebaptycoon.model.logic.GameLogic;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
 import com.kebaptycoon.utils.ResourceManager;
 
 public class GameScreen implements Screen{
 
-    private ResourceManager resourceManager;
+    private ResourceManager      resourceManager;
     private GameScreenController gameScreenController;
+    private GameLogic            gameLogic;
+
 	
 	private Matrix4 			isoTransform = null;
 	private Matrix4				invIsotransform = null;
@@ -41,6 +44,7 @@ public class GameScreen implements Screen{
 	public GameScreen(ResourceManager resourceManager) {
 
         this.resourceManager = resourceManager;
+        gameLogic = new GameLogic();
 
 		//Create Controller
 		gameScreenController = new GameScreenController(this);
@@ -140,7 +144,7 @@ public class GameScreen implements Screen{
         menuBatch.setProjectionMatrix(menuCamera.combined);
 
         menuBatch.begin();
-            menuBatch.draw(resourceManager.textures.get("menu_background"), 0, 0,
+            menuBatch.draw(resourceManager.textures.get("menu_bar"), 0, 0,
                     1920, menuHeight);
             menuBatch.draw(resourceManager.textures.get("menu_advertisement"), 50, 10, 150, 180);
             menuBatch.draw(resourceManager.textures.get("menu_menu"), 328, 10, 150, 180);
@@ -278,12 +282,24 @@ public class GameScreen implements Screen{
         return touch;
     }
 
-    public Vector2 menuUnproject(int x, int y) {
-        Vector2 touch = new Vector2(x,y);
-        touch = viewPortMenu.unproject(touch);
-        touch.x = touch.x + (1920/2);
-        touch.y = touch.y + (1080/2);
-        return touch;
+    public float getMenuHeight() {
+        return menuHeight;
+    }
+
+    public ResourceManager getResourceManager() {
+
+        return resourceManager;
+    }
+
+    public Vector2 menuUnproject(float x, float y) {
+        System.out.println(x + " " + y);
+        float yR = viewPortMenu.getScreenHeight() / (y - viewPortMenu.getScreenX()); // the y ratio
+        y = viewPortMenu.getWorldHeight() / yR;
+
+        float xR = viewPortMenu.getWorldWidth() / (x - viewPortMenu.getScreenY()); // the x ratio
+        x = viewPortWorld.getWorldWidth() / xR;
+        //Vector3 touch = viewPortMenu.unproject(new Vector3(x, y, 0));
+        return new Vector2(x, y);
     }
 
     private float calculateMaxZoom(Vector2 bgSize, Vector2 screenSize)
@@ -303,4 +319,7 @@ public class GameScreen implements Screen{
         return gameScreenController;
     }
 
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
 }

@@ -11,5 +11,6 @@ public class Globals {
     public static final int     FACEBOOK_LOGIN_QUERY_TIMER_PERIOD   = 1000;
     public static final int     SPLASH_SCREEN_DISPLAY_PERIOD        = 3000;
     public static final float   ANIMATION_DURATION_PER_FRAME        = .3f;
+    public static final float   GAME_TIME_SCALE                     = 60f;
 
 }

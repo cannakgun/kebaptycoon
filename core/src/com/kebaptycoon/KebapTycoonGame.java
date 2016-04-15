@@ -3,6 +3,7 @@ package com.kebaptycoon;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.kebaptycoon.model.managers.RecipeManager;
 import com.kebaptycoon.utils.FacebookLoginHelper;
 import com.kebaptycoon.utils.ResourceManager;
 import com.kebaptycoon.view.screens.SplashScreen;
@@ -19,7 +20,7 @@ public class KebapTycoonGame extends Game {
         if(!facebookLoginHelper.isConnectedFacebook()){
             facebookLoginHelper.connectFacebook();
         }
-
+        RecipeManager recipeManager = new RecipeManager();
         this.setScreen(new SplashScreen());
 	}
 

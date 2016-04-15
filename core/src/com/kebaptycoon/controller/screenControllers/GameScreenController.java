@@ -18,8 +18,6 @@ public class GameScreenController implements GestureDetector.GestureListener{
 	private Vector2 			oldInitialFirstPointer;
 	private Vector2 			oldInitialSecondPointer;
 	private float 				oldScale;
-	private int 				touchPositionX;
-	private int 				touchPositionY;
     private GameScreen          gameScreen;
     private MenuStack 			menuStack;
 	
@@ -33,12 +31,12 @@ public class GameScreenController implements GestureDetector.GestureListener{
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        Vector2 actualTouch = gameScreen.menuUnproject(Gdx.input.getX(), Gdx.input.getY());
-        touchPositionX = (int)actualTouch.x;
-		touchPositionY = (int)actualTouch.y;
+        Vector2 actualTouch = gameScreen.menuUnproject(x, y);
+        System.out.println(actualTouch);
+        int touchPositionY = (int)actualTouch.y;
 		//check for pressed menu
-		if(touchPositionY >= 900&& touchPositionY <= 1080)
-			setMenuUtilities();
+		if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
+			setMenuUtilities((int) actualTouch.x);
 		return false;
     }
 
@@ -87,9 +85,10 @@ public class GameScreenController implements GestureDetector.GestureListener{
         gameScreen.zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
 		return true;
 	}
-	public void setMenuUtilities(){
+	public void setMenuUtilities(int x){
 
-		if(touchPositionX <= 200) {
+		if(x <= 200) {
+            System.out.println("DIIISH");
             menuStack.push(new DishMenu(gameScreen));
             GestureDetector gestureDetector = new GestureDetector(menuStack.getTop().getMenuController());
             gameScreen.setInputProcessor(gestureDetector);
@@ -138,21 +137,5 @@ public class GameScreenController implements GestureDetector.GestureListener{
     public void setMenuStack(MenuStack menuStack) {
         this.menuStack = menuStack;
     }
-
-	public int getTouchPositionX() {
-		return touchPositionX;
-	}
-
-	public void setTouchPositionX(int touchPositionX) {
-		this.touchPositionX = touchPositionX;
-	}
-
-	public int getTouchPositionY() {
-		return touchPositionY;
-	}
-
-	public void setTouchPositionY(int touchPositionY) {
-		this.touchPositionY = touchPositionY;
-	}
 
 }

@@ -1,0 +1,19 @@
+[{
+  "name" : "Şiş Kebap",
+  "price" : 15,
+  "minLevel" : 3,
+  "available" : true,
+  "process" : ["Cooker"],
+  "ingredients" : [{"left" : "Onion", "right" : 5}],
+  "texture" : "recipe_sisKebap"
+
+},
+{
+  "name" : "Adana Kebap",
+  "price" : 17,
+  "minLevel" : 4,
+  "available" : true,
+  "process" : ["Cooker"],
+  "ingredients" : [{"left" : "Yoghurt", "right" : 5}],
+  "texture" : "recipe_sisKebap"
+}]

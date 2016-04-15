@@ -26,6 +26,6 @@ public enum Ingredient {
 	Spice,
 	Tomato,
 	TomatoSauce,
-	Yogurt,
+	Yoghurt,
 	Water
 }

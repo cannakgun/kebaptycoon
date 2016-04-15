@@ -7,9 +7,10 @@ package com.kebaptycoon.utils;
  */
 public class Pair<L,R> {
 
-	private final L left;
-	private final R right;
+	public L left;
+	public R right;
 
+	public Pair(){}
 	public Pair(L left, R right) {
 		this.left = left;
 		this.right = right;
@@ -28,5 +29,10 @@ public class Pair<L,R> {
 		return this.left.equals(pairo.getLeft()) &&
 				this.right.equals(pairo.getRight());
 	}
+
+    public String toString()
+    {
+        return "[" + left.toString() + ", " + right.toString() + "]";
+    }
 
 }
