@@ -1,12 +1,14 @@
 package com.kebaptycoon.model.entities;
 
+import com.badlogic.gdx.math.Vector3;
+
 public class Dish extends Entity{
 	
 	private Recipe 	recipe;
 	private int		remaining;
 	
-	public Dish(int x, int y, int z, Recipe recipe, int remaining) {
-		super(x, y, z);
+	public Dish(Vector3 position, Recipe recipe, int remaining) {
+		super(position);
 		this.recipe = recipe;
 		this.remaining = remaining;
 	}
