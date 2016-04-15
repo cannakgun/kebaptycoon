@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Vector3;
 public class IsometricHelper {
 	
 	//Scale of the isometric grid.
-	public static final float Scale = 0.5f;
+	public static final float Scale = 50;
 	
 	//Angle of the isometric grid
-	public static final float Angle = (float) (Math.PI / 3);
+	public static final float Angle = (float) (Math.PI / 6);
 	
 	//Scale of the z coordinate
 	public static final float HeightScale = 1f;
@@ -21,10 +21,11 @@ public class IsometricHelper {
     public static Vector2 origin = new Vector2(0,0);
 	
 	public static Vector2 project(Vector3 point) {
+        point = point.cpy();
         float deltaX = (point.x - point.y) * (float)Math.cos(Angle);
         float deltaY = ((point.x + point.y) * (float)Math.sin(Angle)) + (point.z * HeightScale);
         Vector2 delta = new Vector2(deltaX, deltaY);
-		return delta.add(origin);
+		return delta.scl(Scale).add(origin);
 	}
 
     public static Vector2 project(float x, float y, float z)
@@ -34,12 +35,13 @@ public class IsometricHelper {
 
     public static Vector3 unproject(Vector2 point, float height)
     {
-        Vector2 ground = point.sub(0f, height - HeightScale);
+        point = point.cpy();
+        Vector2 ground = point.sub(origin).scl(1 / Scale).sub(0f, height * HeightScale);
         float delta = ground.x / (float)Math.cos(Angle);
         float sum = ground.y / (float)Math.sin(Angle);
         float x = (sum + delta) / 2f;
         float y = (sum - delta) / 2f;
-        return new Vector3(x, y, height);
+        return new Vector3(x , y, height);
     }
 
     public static Vector3 unproject(float x, float y, float height)
