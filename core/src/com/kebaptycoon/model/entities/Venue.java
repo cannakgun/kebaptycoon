@@ -8,7 +8,8 @@ public class Venue {
 
 	ArrayList<Pair<Ingredient,Integer>> 	stock;
 	ArrayList<Employee> 					employees;
-	ArrayList<Furniture> 					furnitures;
+    ArrayList<Furniture> 					furnitures;
+    ArrayList<Customer> 					customers;
 	int										width;
 	int										height;
 	int										kitchenWidth;
@@ -48,7 +49,15 @@ public class Venue {
 		this.furnitures = furnitures;
 	}
 
-	public boolean isManaged() {
+    public ArrayList<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(ArrayList<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public boolean isManaged() {
 		return managed;
 	}
 
