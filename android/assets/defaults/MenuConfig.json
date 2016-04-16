@@ -1,11 +1,11 @@
 [
   {
     "left" : "stock",
-    "right" : 1
+    "right" : 2
   },
   {
     "left" : "menu",
-    "right" : 2
+    "right" : 1
   },
   {
     "left" : "market",

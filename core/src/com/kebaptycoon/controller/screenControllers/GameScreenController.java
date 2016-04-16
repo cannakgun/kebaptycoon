@@ -1,48 +1,59 @@
 package com.kebaptycoon.controller.screenControllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.kebaptycoon.utils.Pair;
+import com.kebaptycoon.view.menus.AdvertisementMenu;
 import com.kebaptycoon.view.menus.DishMenu;
+import com.kebaptycoon.view.menus.EstateMenu;
+import com.kebaptycoon.view.menus.MarketMenu;
 import com.kebaptycoon.view.menus.Menu;
+import com.kebaptycoon.view.menus.ReportsMenu;
+import com.kebaptycoon.view.menus.StaffMenu;
+import com.kebaptycoon.view.menus.StockMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class GameScreenController implements GestureDetector.GestureListener, InputProcessor{
 
     private static final float SCROLL_SCALE = .06f;
 
-	private Vector2 			oldInitialFirstPointer;
-	private Vector2 			oldInitialSecondPointer;
-	private float 				oldScale;
-    private GameScreen          gameScreen;
-    private MenuStack 			menuStack;
-	
-	public GameScreenController(GameScreen gameScreen)
-	{
+	private Vector2 			    oldInitialFirstPointer;
+	private Vector2 			    oldInitialSecondPointer;
+	private float 				    oldScale;
+    private GameScreen              gameScreen;
+    private Stack<Menu> 			menuStack;
+
+	public GameScreenController(GameScreen gameScreen) {
+
 		oldInitialFirstPointer = null;
 		oldInitialSecondPointer = null;
-        menuStack = new MenuStack();
+        menuStack = new Stack<Menu>();
+        //menus = {};
         this.gameScreen = gameScreen;
 	}
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        Vector2 actualTouch = gameScreen.menuUnproject(x, y);
-        System.out.println(actualTouch);
-        int touchPositionY = (int)actualTouch.y;
-		//check for pressed menu
-		if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
-			setMenuUtilities((int) actualTouch.x);
+
 		return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
+        Vector2 actualTouch = gameScreen.menuUnproject(x, y);
+        System.out.println(actualTouch);
+        int touchPositionY = (int)actualTouch.y;
+        //check for pressed menu
+        if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
+            setMenuUtilities((int) actualTouch.x);
         return false;
     }
 
@@ -86,20 +97,53 @@ public class GameScreenController implements GestureDetector.GestureListener, In
         gameScreen.zoomCamera(center, oldScale * initialFirstPointer.dst(initialSecondPointer) / firstPointer.dst(secondPointer));
 		return true;
 	}
+
 	public void setMenuUtilities(int x){
 
-		if(x <= 200) {
-            System.out.println("DIIISH");
-            menuStack.push(new DishMenu(gameScreen));
-            GestureDetector gestureDetector = new GestureDetector(menuStack.getTop().getMenuController());
-            gameScreen.setInputProcessor(gestureDetector);
-		}
+        float unit = 1920/(gameScreen.getMenuBarItems().size() + 1);
 
-		//TODO: set menu types according to the coordinates that player pressed
-	}
+        for (int i = 0; i < gameScreen.getMenuBarItems().size(); i++) {
+
+            float centerX = gameScreen.getMenuBarItems().get(i).getRight() * unit;
+
+            String name = gameScreen.
+                    getMenuBarItems().get(i).getLeft();
+
+            Texture tx = gameScreen.getResourceManager().textures.get("menu_" + name);
+            float leftX = centerX - (tx.getWidth() / 2);
+            float rightX = centerX + (tx.getWidth() / 2);
+
+            if(x > leftX && x < rightX && name.equals("stock"))
+                menuStack.push(new StockMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("menu"))
+                menuStack.push(new DishMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("market"))
+                menuStack.push(new MarketMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("staff"))
+                menuStack.push(new StaffMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("estate"))
+                menuStack.push(new EstateMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("advertisement"))
+                menuStack.push(new AdvertisementMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("reports"))
+                menuStack.push(new ReportsMenu(gameScreen));
+
+            if(!menuStack.isEmpty()){
+                InputProcessor ip = menuStack.peek().getMenuController();
+                gameScreen.setInputProcessor(ip);
+            }
+        }
+
+    }
 
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.BACK){
+            System.out.println("exit yaptık");
+
+            Gdx.app.exit();
+
+        }
         return false;
     }
 
@@ -141,45 +185,11 @@ public class GameScreenController implements GestureDetector.GestureListener, In
         return false;
     }
 
-    public class MenuStack {
-
-        private ArrayList<Menu> stackArray;
-
-        public MenuStack() {
-            stackArray = new ArrayList<Menu>();
-        }
-
-        public void push(Menu menu) {
-            stackArray.add(menu);
-        }
-
-        public Menu pop() {
-            Menu menu = stackArray.get(stackArray.size() - 1);
-            stackArray.remove(stackArray.size() - 1);
-            return menu;
-        }
-        public int size(){
-            return stackArray.size();
-        }
-
-        public Menu getTop() {
-            return stackArray.get(stackArray.size() - 1);
-        }
-
-        public boolean isEmpty() {
-            return (stackArray.size() == 0);
-        }
-
-        public Menu getMenuAtIndex(int index){
-            return stackArray.get(index);
-        }
-    }
-
-    public MenuStack getMenuStack() {
+    public Stack<Menu> getMenuStack() {
         return menuStack;
     }
 
-    public void setMenuStack(MenuStack menuStack) {
+    public void setMenuStack(Stack<Menu> menuStack) {
         this.menuStack = menuStack;
     }
 

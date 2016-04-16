@@ -1,5 +1,7 @@
 package com.kebaptycoon.controller.menuControllers;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.kebaptycoon.view.screens.GameScreen;
@@ -7,7 +9,7 @@ import com.kebaptycoon.view.screens.GameScreen;
 /**
  * Created by Can Akgün on 7.4.2016.
  */
-public abstract class MenuController implements GestureDetector.GestureListener {
+public abstract class MenuController implements GestureDetector.GestureListener, InputProcessor {
     int touchPositionX;
     int touchPositionY;
     GameScreen gameScreen;
@@ -51,6 +53,48 @@ public abstract class MenuController implements GestureDetector.GestureListener 
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+        return false;
+    }
+
+
+    @Override
+    public boolean keyDown(int keycode) {
+
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
         return false;
     }
 }

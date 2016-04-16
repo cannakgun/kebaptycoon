@@ -5,19 +5,18 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class ResourceManager {
 
     public HashMap<String, Texture> textures;
     public HashMap<String, Animation> animations;
-
+    public HashMap<String, FreeTypeFontGenerator> fonts;
     private boolean isLoaded = false;
 
     public void loadAssets(){
@@ -26,7 +25,7 @@ public class ResourceManager {
 
         textures = new HashMap<String, Texture>();
         animations = new HashMap<String, Animation>();
-
+        fonts = new HashMap<String, FreeTypeFontGenerator>();
 
         /*FileHandle[] textureFiles = Gdx.files.internal("textures/").list();
         for(FileHandle topFile: textureFiles) {
@@ -40,6 +39,8 @@ public class ResourceManager {
         loadTextures("", Gdx.files.internal("textures/"));
 
         loadAnimations("", Gdx.files.internal("anim/"));
+
+        loadFonts();
 
         isLoaded = true;
     }
@@ -107,5 +108,22 @@ public class ResourceManager {
         newAnim.setPlayMode(Animation.PlayMode.LOOP);
 
         animations.put(past.substring(0, past.length()-1), newAnim);
+    }
+
+    private void loadFonts(){
+        FileHandle folder = Gdx.files.internal("fonts/");
+
+        FileHandle[] children = folder.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return !name.startsWith(".");
+            }
+        });
+
+        for (FileHandle child:children) {
+
+            fonts.put(child.nameWithoutExtension(),
+                    new FreeTypeFontGenerator(child));
+        }
     }
 }

@@ -25,6 +25,7 @@ import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
 import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.utils.ResourceManager;
+import com.kebaptycoon.view.menus.Menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,9 +70,6 @@ public class GameScreen implements Screen{
             menuBarItems = mapper.readValue(menuBarJSON,
                     new TypeReference<ArrayList<Pair<String, Integer>>>(){});
 
-            for (Pair pair: menuBarItems) {
-                System.out.println(pair);
-            }
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -79,7 +77,6 @@ public class GameScreen implements Screen{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 		//Create Controller
 		gameScreenController = new GameScreenController(this);
@@ -127,8 +124,6 @@ public class GameScreen implements Screen{
                         - menuHeight));
         minZoom = Math.min(minZoom, maxZoom);
 
-        testEntity = new Entity(new Vector3(0,0,0), resourceManager.animations.get("test"));
-
         worldCamera.zoom = maxZoom;
 
 		/*/Create the isometric transform matrix
@@ -173,7 +168,6 @@ public class GameScreen implements Screen{
         //shapeRenderer.setTransformMatrix(id);
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0);
-        spriteBatch.draw(testEntity.cycleAnimation(delta), 50, 50);
         renderMap();
         renderEntities();
         spriteBatch.end();
@@ -186,10 +180,9 @@ public class GameScreen implements Screen{
                     1920, menuHeight);
 
         float unit = 1920/(menuBarItems.size() + 1);
-        int i = 0;
 
-        for (Pair pair: menuBarItems) {
-            float centerX = (++i) * unit;
+        for (Pair<String, Integer> pair: menuBarItems) {
+            float centerX = pair.getRight() * unit;
             float centerY = menuHeight / 2;
             Texture tx = resourceManager.textures.get("menu_" + pair.getLeft());
             float actualX = centerX - (tx.getWidth() / 2);
@@ -200,12 +193,8 @@ public class GameScreen implements Screen{
 
         menuBatch.end();
 
-        //check any of the menus is pressed and if so render it
-        if(!gameScreenController.getMenuStack().isEmpty()) {
-            for (i = 0; i < gameScreenController.getMenuStack().size(); i++) {
-                gameScreenController.getMenuStack().getMenuAtIndex(i).render(menuBatch, viewPortMenu);
-
-            }
+        for(Menu menu: gameScreenController.getMenuStack()) {
+            menu.render(menuBatch, viewPortMenu);
         }
 
 		//Set isometric transform matrix as transform matrix
@@ -349,7 +338,7 @@ public class GameScreen implements Screen{
         return Math.min(xRatio, yRatio);
     }
 
-	public void setInputProcessor(GestureDetector gestureDetector){
+	public void setInputProcessor(InputProcessor gestureDetector){
 
         Gdx.input.setInputProcessor(gestureDetector);
 	}
@@ -360,5 +349,16 @@ public class GameScreen implements Screen{
 
     public GameLogic getGameLogic() {
         return gameLogic;
+    }
+
+    public ArrayList<Pair<String, Integer>> getMenuBarItems(){
+        return menuBarItems;
+    }
+
+    public void resetController() {
+        GestureDetector gd = new GestureDetector(gameScreenController);
+        InputProcessor ip = gameScreenController;
+        InputMultiplexer mul = new InputMultiplexer(gd, ip);
+        Gdx.input.setInputProcessor(mul);
     }
 }

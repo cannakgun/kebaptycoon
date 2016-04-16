@@ -13,4 +13,6 @@ public class Globals {
     public static final float   ANIMATION_DURATION_PER_FRAME        = .3f;
     public static final float   GAME_TIME_SCALE                     = 60f;
 
+    public static final String DISH_MENU_TITLE                      = "Yemekler";
+
 }

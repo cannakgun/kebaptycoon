@@ -1,6 +1,9 @@
 package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.kebaptycoon.view.menus.DishDetailsMenu;
 import com.kebaptycoon.view.screens.GameScreen;
@@ -25,20 +28,34 @@ public class DishMenuController extends MenuController {
         checkPressedPosition(touchPositionX, touchPositionY);
         return false;
     }
+
+    @Override
+    public boolean keyDown (int keycode){
+        if(keycode == Input.Keys.BACK){
+            checkPressedPosition(-1, -1);
+        }
+        return false;
+    }
+
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
 
-        if(touchPositionX >= 100 && touchPositionX <= 600 && touchPositionY >= 100 && touchPositionY <= 600){
-            gameScreen.getGameScreenController().getMenuStack().pop();
-            if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
-                GestureDetector gestureDetector = new GestureDetector(gameScreen.getGameScreenController());
-                gameScreen.setInputProcessor(gestureDetector);
-            }
+        if(touchPositionX >= 300 && touchPositionX <= 1588 && touchPositionY >= 300 && touchPositionY <= 965){
+            /*            gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen));
+            InputProcessor mul = gameScreen.getGameScreenController().getMenuStack()
+                                                                    .peek().getMenuController();
+            gameScreen.setInputProcessor(mul);
+            */
         }
         else{
-            gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen));
-            GestureDetector gestureDetector = new GestureDetector(gameScreen.getGameScreenController().getMenuStack()
-                                                                                        .getTop().getMenuController());
-            gameScreen.setInputProcessor(gestureDetector);
+
+            gameScreen.getGameScreenController().getMenuStack().pop();
+            if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
+                gameScreen.resetController();
+            }
+            else {
+                gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
+                        .peek().getMenuController());
+            }
         }
     }
 

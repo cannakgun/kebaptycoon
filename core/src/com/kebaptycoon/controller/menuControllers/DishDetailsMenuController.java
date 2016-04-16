@@ -2,6 +2,7 @@ package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.kebaptycoon.view.screens.GameScreen;
@@ -40,9 +41,9 @@ public class DishDetailsMenuController extends MenuController{
             }
             else
             {
-                GestureDetector gestureDetector = new GestureDetector(gameScreen.getGameScreenController().getMenuStack()
-                                                                                            .getTop().getMenuController());
-                gameScreen.setInputProcessor(gestureDetector);
+                InputProcessor ip = gameScreen.getGameScreenController().getMenuStack()
+                                                        .peek().getMenuController();
+                gameScreen.setInputProcessor(ip);
             }
         }
         else{

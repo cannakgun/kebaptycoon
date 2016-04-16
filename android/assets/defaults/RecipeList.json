@@ -1,5 +1,5 @@
 [{
-  "name" : "Şiş Kebap",
+  "name" : "Sis Kebap",
   "price" : 15,
   "minLevel" : 3,
   "available" : true,
@@ -9,11 +9,58 @@
 
 },
 {
-  "name" : "Adana Kebap",
-  "price" : 17,
-  "minLevel" : 4,
+  "name" : "    Köfte",
+  "price" : 15,
+  "minLevel" : 2,
   "available" : true,
   "process" : ["Cooker"],
   "ingredients" : [{"left" : "Yoghurt", "right" : 5}],
-  "texture" : "recipe_sisKebap"
-}]
+  "texture" : "recipe_kofte"
+},
+{
+  "name" : "   Döner",
+  "price" : 12,
+  "minLevel" : 2,
+  "available" : true,
+  "process" : ["Cooker"],
+  "ingredients" : [{"left" : "Yoghurt", "right" : 5}],
+  "texture" : "recipe_donerEkmek"
+},
+  {
+    "name" : "Sis Kebap - 2 ",
+    "price" : 15,
+    "minLevel" : 3,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "Onion", "right" : 5}],
+    "texture" : "recipe_sisKebap"
+
+  },
+  {
+    "name" : "    Köfte - 2",
+    "price" : 15,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "Yoghurt", "right" : 5}],
+    "texture" : "recipe_kofte"
+  },
+  {
+    "name" : "   Döner - 2",
+    "price" : 12,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "Yoghurt", "right" : 5}],
+    "texture" : "recipe_donerEkmek"
+  },
+  {
+    "name" : "   Döner - 3",
+    "price" : 12,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "Yoghurt", "right" : 5}],
+    "texture" : "recipe_donerEkmek"
+  }
+]
