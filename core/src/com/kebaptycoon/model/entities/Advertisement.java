@@ -55,11 +55,11 @@ public class Advertisement {
 		}
 	}
 	
-	private Quality quality;
-	private Duration duration;
-	private Platform platform;
-	private Customer.Type focus;
-	private Date startDate;
+	Quality quality;
+	Duration duration;
+	Platform platform;
+	Customer.Type focus;
+	Date startDate;
 	
 	public Advertisement(Quality quality, Duration duration, Platform platform, Type focus, Date startDate) {
 		this.quality = quality;

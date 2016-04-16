@@ -5,14 +5,15 @@ import java.util.ArrayList;
 public class Customer extends Person{
 
 	public enum Type {
+		genc(5,50,null, null)
 		;//TODO: Create customer archetypes
 
 		private int 				waitingTime;
 		private int 				budget;
-		private ArrayList<Recipe> 	likes;
-		private ArrayList<Recipe> 	dislikes;
+		private ArrayList<String> 	likes;
+		private ArrayList<String> 	dislikes;
 		
-		private Type(int waitingTime, int budget, ArrayList<Recipe> likes, ArrayList<Recipe> dislikes) {
+		private Type(int waitingTime, int budget, ArrayList<String> likes, ArrayList<String> dislikes) {
 			this.waitingTime = waitingTime;
 			this.budget = budget;
 			this.likes = likes;
@@ -27,11 +28,11 @@ public class Customer extends Person{
 			return budget;
 		}
 
-		public ArrayList<Recipe> getLikes() {
+		public ArrayList<String> getLikes() {
 			return likes;
 		}
 
-		public ArrayList<Recipe> getDislikes() {
+		public ArrayList<String> getDislikes() {
 			return dislikes;
 		}
 	}
