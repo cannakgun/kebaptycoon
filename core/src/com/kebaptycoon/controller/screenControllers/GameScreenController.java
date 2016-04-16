@@ -1,19 +1,20 @@
 package com.kebaptycoon.controller.screenControllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kebaptycoon.view.menus.DishMenu;
 import com.kebaptycoon.view.menus.Menu;
 import com.kebaptycoon.view.screens.GameScreen;
 
 import java.util.ArrayList;
 
-/**
- * Created by dogancandemirtas on 27/02/16.
- */
-public class GameScreenController implements GestureDetector.GestureListener{
+public class GameScreenController implements GestureDetector.GestureListener, InputProcessor{
+
+    private static final float SCROLL_SCALE = .06f;
 
 	private Vector2 			oldInitialFirstPointer;
 	private Vector2 			oldInitialSecondPointer;
@@ -96,6 +97,50 @@ public class GameScreenController implements GestureDetector.GestureListener{
 
 		//TODO: set menu types according to the coordinates that player pressed
 	}
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        Vector3 mouse = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        gameScreen.zoomCamera(mouse,
+                gameScreen.getCameraZoom() - (amount * SCROLL_SCALE));
+        return false;
+    }
+
     public class MenuStack {
 
         private ArrayList<Menu> stackArray;

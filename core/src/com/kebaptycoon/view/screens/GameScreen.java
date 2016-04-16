@@ -1,6 +1,8 @@
 package com.kebaptycoon.view.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -81,7 +83,10 @@ public class GameScreen implements Screen{
 
 		//Create Controller
 		gameScreenController = new GameScreenController(this);
-		Gdx.input.setInputProcessor(new GestureDetector(gameScreenController));
+        GestureDetector gd = new GestureDetector(gameScreenController);
+        InputProcessor ip = gameScreenController;
+        InputMultiplexer mul = new InputMultiplexer(gd, ip);
+		Gdx.input.setInputProcessor(mul);
 
 		//Set up graphics
 		GL20 gl = Gdx.graphics.getGL20();
@@ -266,10 +271,10 @@ public class GameScreen implements Screen{
 		gl.glDisable(GL20.GL_TEXTURE_2D);
 
 	}
-	
-	public float getCameraZoom(){
-		return worldCamera.zoom;
-	}
+
+    public float getCameraZoom(){
+        return worldCamera.zoom;
+    }
 
 	public void zoomCamera(Vector3 origin, float scale){
 
@@ -289,7 +294,7 @@ public class GameScreen implements Screen{
         worldCamera.position.add(
                 worldCamera.unproject(new Vector3(0, 0, 0))
                         .add(worldCamera.unproject(new Vector3(deltaX, deltaY, 0)).scl(-1f))
-		);
+        );
 		return true;
 	}
 
@@ -315,8 +320,8 @@ public class GameScreen implements Screen{
 
     public Vector2 worldUnproject(float x, float y) {
         Vector3 touch = worldCamera.unproject(new Vector3(x, y, 0),
-                viewPortWorld.getScreenX(),viewPortWorld.getScreenY(),
-                viewPortWorld.getScreenWidth(),viewPortWorld.getScreenHeight());
+                viewPortWorld.getScreenX(), viewPortWorld.getScreenY(),
+                viewPortWorld.getScreenWidth(), viewPortWorld.getScreenHeight());
         return new Vector2(touch.x, touch.y);
     }
 
