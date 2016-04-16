@@ -79,5 +79,42 @@ public class Venue {
 	public int getKitchenHeight() {
 		return kitchenHeight;
 	}
+
+    /**
+     * Tries to increment the given ingredient by given number.
+     * Doesn't allow negative stock.
+     * @param ing Type of the ingredient to be changed
+     * @param delta Amount of the ingredient to be changed, can be negative
+     * @return Whether the operation is successful
+     */
+	public boolean incrementIngredient(Ingredient ing, int delta) {
+        //Find the index of given ingredient
+		int ind = -1;
+		for (int i = 0; i < stock.size(); i++) {
+			if (stock.get(i).getLeft() == ing) {
+				ind = i;
+				break;
+			}
+		}
+
+
+		if (ind == -1) { //If ingredient does not exists
+            if (delta >= 0)
+            {
+                stock.add(new Pair<Ingredient, Integer>(ing, delta));
+                return true;
+            }
+            else
+                return false;
+		}
+        else { //If ingredient does exist
+            if (stock.get(ind).right + delta < 0)
+                return false;
+            else {
+                stock.get(ind).right += delta;
+                return true;
+            }
+        }
+	}
 	
 }

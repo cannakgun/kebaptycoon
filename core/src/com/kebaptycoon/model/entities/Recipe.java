@@ -87,4 +87,35 @@ public class Recipe {
 	public String getTexture(){
 		return texture;
 	}
+
+	/**
+	 * Tries to increment the given ingredient by given number.
+	 * Doesn't allow negative stock or changing nonexistent ingredients.
+	 * @param ing Type of the ingredient to be changed
+	 * @param delta Amount of the ingredient to be changed, can be negative
+	 * @return Whether the operation is successful
+	 */
+	public boolean incrementIngredient(Ingredient ing, int delta) {
+		//Find the index of given ingredient
+		int ind = -1;
+		for (int i = 0; i < ingredients.size(); i++) {
+			if (ingredients.get(i).getLeft() == ing) {
+				ind = i;
+				break;
+			}
+		}
+
+
+		if (ind == -1) {
+			return false;
+		}
+		else { //If ingredient does exist
+			if (ingredients.get(ind).right + delta < 0)
+				return false;
+			else {
+				ingredients.get(ind).right += delta;
+				return true;
+			}
+		}
+	}
 }

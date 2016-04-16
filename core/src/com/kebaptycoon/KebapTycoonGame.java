@@ -20,7 +20,6 @@ public class KebapTycoonGame extends Game {
         if(!facebookLoginHelper.isConnectedFacebook()){
             facebookLoginHelper.connectFacebook();
         }
-        RecipeManager recipeManager = new RecipeManager();
         this.setScreen(new SplashScreen());
 	}
 
