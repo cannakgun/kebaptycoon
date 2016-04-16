@@ -4,6 +4,7 @@ public class Person extends Entity{
 	
 	private int speed;
 	private String spriteName;
+	private Orientation orientation;
 	
 	public Person(int speed, String spriteName) {
 		this.speed = speed;
@@ -25,4 +26,14 @@ public class Person extends Entity{
 	public void setSpriteName(String spriteName) {
 		this.spriteName = spriteName;
 	}
+
+	public Orientation getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(Orientation orientation) {
+		this.orientation = orientation;
+	}
+
+	public void think() {}
 }

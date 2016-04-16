@@ -55,6 +55,7 @@ public class Customer extends Person{
 	private Dish dish;
 	private boolean waitOverride;
 	private State state;
+	private boolean markedForDeletion;
 	
 	public Customer(int speed, String spriteName, Type type, int waitingTime, int budget) {
 		super(speed,spriteName);
@@ -64,6 +65,7 @@ public class Customer extends Person{
 		this.dish = null;
 		this.waitOverride = false;
 		this.state = State.WaitForTable;
+        this.markedForDeletion = false;
 	}
 
 	public Dish getDish() {
@@ -101,4 +103,12 @@ public class Customer extends Person{
 	public int getBudget() {
 		return budget;
 	}
+
+    public boolean isMarkedForDeletion() {
+        return markedForDeletion;
+    }
+
+    public void setMarkedForDeletion(boolean markedForDeletion) {
+        this.markedForDeletion = markedForDeletion;
+    }
 }
