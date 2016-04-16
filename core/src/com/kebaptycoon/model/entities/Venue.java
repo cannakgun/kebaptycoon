@@ -6,15 +6,15 @@ import com.kebaptycoon.utils.Pair;
 
 public class Venue {
 
-	private ArrayList<Pair<Ingredient,Integer>> 	stock;
-	private ArrayList<Employee> 					employees;
-	private ArrayList<Furniture> 					furnitures;
-	private int										width;
-	private int										height;
-	private int										kitchenWidth;
-	private int										kitchenHeight;
-	private boolean									managed;
-	private boolean									operational;
+	ArrayList<Pair<Ingredient,Integer>> 	stock;
+	ArrayList<Employee> 					employees;
+	ArrayList<Furniture> 					furnitures;
+	int										width;
+	int										height;
+	int										kitchenWidth;
+	int										kitchenHeight;
+	boolean									managed;
+	boolean									operational;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed) {
 		this.width = width;
