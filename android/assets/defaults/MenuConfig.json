@@ -1,0 +1,30 @@
+[
+  {
+    "left" : "stock",
+    "right" : 1
+  },
+  {
+    "left" : "menu",
+    "right" : 2
+  },
+  {
+    "left" : "market",
+    "right" : 3
+  },
+  {
+    "left" : "staff",
+    "right" : 4
+  },
+  {
+    "left" : "estate",
+    "right" : 5
+  },
+  {
+    "left" : "advertisement",
+    "right" : 6
+  },
+  {
+    "left" : "reports",
+    "right" : 7
+  }
+]

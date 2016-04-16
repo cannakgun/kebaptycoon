@@ -11,40 +11,73 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
 import com.kebaptycoon.model.entities.Entity;
+import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.logic.GameLogic;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
+import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.utils.ResourceManager;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameScreen implements Screen{
 
-    private ResourceManager      resourceManager;
-    private GameScreenController gameScreenController;
-    private GameLogic            gameLogic;
+    private ResourceManager                     resourceManager;
+    private GameScreenController                gameScreenController;
+    private GameLogic                           gameLogic;
 
 	
-	private Matrix4 			isoTransform = null;
-	private Matrix4				invIsotransform = null;
-    private Matrix4				id = null;
-    private SpriteBatch			spriteBatch = null;
-    private SpriteBatch			menuBatch = null;
-    private OrthographicCamera  worldCamera = null;
-    private OrthographicCamera	menuCamera = null;
-	private float				tileWidth = 1.0f;
-	private float				tileHeight = (float) Math.tan(IsometricHelper.Angle);
-	private Texture             background;
-    private Viewport            viewPortWorld;
-    private Viewport            viewPortMenu;
-    private float               maxZoom, minZoom = 0.5f;
-    private float               menuHeight;
-    private Entity              testEntity;
+	private Matrix4 		                    isoTransform = null;
+	private Matrix4			                    invIsotransform = null;
+    private Matrix4			                    id = null;
+    private SpriteBatch		                    spriteBatch = null;
+    private SpriteBatch		                    menuBatch = null;
+    private OrthographicCamera                  worldCamera = null;
+    private OrthographicCamera                  menuCamera = null;
+	private float			                    tileWidth = 1.0f;
+	private float			                    tileHeight = (float) Math.tan(IsometricHelper.Angle);
+	private Texture                             background;
+    private Viewport                            viewPortWorld;
+    private Viewport                            viewPortMenu;
+    private float                               maxZoom, minZoom = 0.5f;
+    private float                               menuHeight;
+    private Entity                              testEntity;
+
+    private ArrayList<Pair<String, Integer>>    menuBarItems;
 
 	public GameScreen(ResourceManager resourceManager) {
 
         this.resourceManager = resourceManager;
         gameLogic = new GameLogic();
+
+        //Create menu bar items from JSON config file
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            String menuBarJSON = Gdx.files.internal("defaults/MenuConfig.json").readString();
+
+            menuBarItems = mapper.readValue(menuBarJSON,
+                    new TypeReference<ArrayList<Pair<String, Integer>>>(){});
+
+            for (Pair pair: menuBarItems) {
+                System.out.println(pair);
+            }
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 		//Create Controller
 		gameScreenController = new GameScreenController(this);
@@ -89,7 +122,7 @@ public class GameScreen implements Screen{
                         - menuHeight));
         minZoom = Math.min(minZoom, maxZoom);
 
-        testEntity = new Entity(0,0,0, resourceManager.animations.get("test"));
+        testEntity = new Entity(new Vector3(0,0,0), resourceManager.animations.get("test"));
 
         worldCamera.zoom = maxZoom;
 
@@ -146,19 +179,25 @@ public class GameScreen implements Screen{
         menuBatch.begin();
             menuBatch.draw(resourceManager.textures.get("menu_bar"), 0, 0,
                     1920, menuHeight);
-            menuBatch.draw(resourceManager.textures.get("menu_advertisement"), 50, 10, 150, 180);
-            menuBatch.draw(resourceManager.textures.get("menu_menu"), 328, 10, 150, 180);
-            menuBatch.draw(resourceManager.textures.get("menu_estate"), 606, 10, 150, 180);
-            menuBatch.draw(resourceManager.textures.get("menu_market"), 885, 10, 150, 180);
-            menuBatch.draw(resourceManager.textures.get("menu_reports"), 1163, 10, 150, 180);
-            menuBatch.draw(resourceManager.textures.get("menu_stock"), 1442, 10, 150, 180);
-            menuBatch.draw(resourceManager.textures.get("menu_staff"), 1720, 10, 150, 180);
+
+        float unit = 1920/(menuBarItems.size() + 1);
+        int i = 0;
+
+        for (Pair pair: menuBarItems) {
+            float centerX = (++i) * unit;
+            float centerY = menuHeight / 2;
+            Texture tx = resourceManager.textures.get("menu_" + pair.getLeft());
+            float actualX = centerX - (tx.getWidth() / 2);
+            float actualY = centerY - (tx.getHeight() / 2);
+            menuBatch.draw(tx, actualX, actualY);
+        }
+
 
         menuBatch.end();
 
         //check any of the menus is pressed and if so render it
         if(!gameScreenController.getMenuStack().isEmpty()) {
-            for (int i = 0; i < gameScreenController.getMenuStack().size(); i++) {
+            for (i = 0; i < gameScreenController.getMenuStack().size(); i++) {
                 gameScreenController.getMenuStack().getMenuAtIndex(i).render(menuBatch, viewPortMenu);
 
             }
