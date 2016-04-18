@@ -16,4 +16,8 @@ public class AdvertisementManager {
     public ArrayList<Advertisement> getAdvertisementList() {
         return advertisementList;
     }
+
+    public void removeAdvertisement(Advertisement ad) {
+        advertisementList.remove(ad);
+    }
 }

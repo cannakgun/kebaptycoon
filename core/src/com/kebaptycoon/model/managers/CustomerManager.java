@@ -1,5 +1,6 @@
 package com.kebaptycoon.model.managers;
 
+import com.kebaptycoon.model.entities.Advertisement;
 import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.Venue;
@@ -43,6 +44,12 @@ public class CustomerManager {
         float old = popularities.get(type);
         float clamp = Math.max(MIN_POPULARITY, Math.min(MAX_POPULARITY, old + rate));
         popularities.put(type, clamp);
+    }
+
+    public void applyAdvertisement(Advertisement ad) {
+        for(Map.Entry<Customer.Type, Float> entry: popularities.entrySet()) {
+            increasePopularity(entry.getKey(), ad.getAbsoluteEffect(entry.getKey()));
+        }
     }
 
     public void generateCustomers(ArrayList<Venue> venueList) {

@@ -110,15 +110,19 @@ public class GameLogic {
 
     private void OnDayEnd()
     {
+        customerManager.decayPopularity();
         processAdvertisements();
     }
 
     private void processAdvertisements() {
-        ArrayList<Advertisement> updateList = new ArrayList<Advertisement>(advertisementManager.getAdvertisementList());
+        ArrayList<Advertisement> oldList = new ArrayList<Advertisement>(advertisementManager.getAdvertisementList());
 
-        for(Advertisement ad: advertisementManager.getAdvertisementList()) {
-            //for
+        for(Advertisement ad: oldList) {
             ad.incrementElapsedDuration();
+            customerManager.applyAdvertisement(ad);
+
+            if(ad.isExpired())
+                advertisementManager.removeAdvertisement(ad);
         }
     }
 
