@@ -130,11 +130,23 @@ public class GameLogic {
 
     public ArrayList<Recipe> getAvailableRecipes()
     {
-        ArrayList<Recipe> r = recipeManager.getRecipes();
+        ArrayList<Recipe> r = new ArrayList<Recipe>(recipeManager.getRecipes());
         r.removeIf(new Predicate<Recipe>() {
             @Override
             public boolean test(Recipe recipe) {
-                return !(recipe.isAvailable() || level >= recipe.getMinLevel());
+                return !(recipe.isAvailable() || level > recipe.getMinLevel());
+            }
+        });
+        return r;
+    }
+
+    public ArrayList<Recipe> getUnlockedRecipes()
+    {
+        ArrayList<Recipe> r = new ArrayList<Recipe>(recipeManager.getRecipes());
+        r.removeIf(new Predicate<Recipe>() {
+            @Override
+            public boolean test(Recipe recipe) {
+                return level <= recipe.getMinLevel();
             }
         });
         return r;
