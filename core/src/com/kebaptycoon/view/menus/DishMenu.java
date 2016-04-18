@@ -30,9 +30,9 @@ public class DishMenu extends Menu{
     private FreeTypeFontGenerator menuTitleGenerator, dishTitleGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter menuTitleParameter, dishTitleParameter;
 
-    BitmapFont titleFont, dishFont;
+    private BitmapFont titleFont, dishFont;
 
-    int currentPage;
+    private int currentPage;
 
     public DishMenu(GameScreen gameScreen) {
         resourceManager = gameScreen.getResourceManager();
@@ -54,7 +54,7 @@ public class DishMenu extends Menu{
         dishFont = dishTitleGenerator.generateFont(dishTitleParameter);
         dishFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        MenuController mc = new DishMenuController(gameScreen);
+        MenuController mc = new DishMenuController(gameScreen, this);
         GestureDetector gd = new GestureDetector(mc);
         InputProcessor ip = mc;
         InputMultiplexer mul = new InputMultiplexer(gd, ip);
@@ -77,15 +77,24 @@ public class DishMenu extends Menu{
         titleFont.draw(batch, Globals.DISH_MENU_TITLE, 845, 920);
 
         ArrayList<Recipe> recipes = gameLogic.getRecipeManager().getRecipes();
-        int  i = Math.min((currentPage+1)*3, recipes.size());
+        int  min = Math.min((currentPage + 1) * 3, recipes.size());
 
-        for (i = currentPage * 3; i < recipes.size(); i++) {
+        for (int i = currentPage * 3; i < min; i++) {
             Recipe rec = recipes.get(i);
-            batch.draw(resourceManager.textures.get(rec.getTexture()), (i) * 350 + 500, 550);
-            dishFont.draw(batch, rec.getName(), i * 350 + 500, 500);
+            batch.draw(resourceManager.textures.get(rec.getTexture()), (i % 3) * 350 + 500, 550);
+            dishFont.draw(batch, rec.getName(), (i % 3) * 350 + 500, 500);
 
 
         }
         batch.end();
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void changeCurrentPage(int delta) {
+        int pages = ((gameLogic.getRecipeManager().getRecipes().size() - 1) / 3) + 1;
+        this.currentPage = (currentPage + pages + delta) % pages;
     }
 }

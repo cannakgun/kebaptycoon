@@ -32,7 +32,6 @@ public class DishDetailsMenuController extends MenuController{
         //System.out.println("adana menu controller");
        // System.out.println("x: " + touchPositionX + "y: " + touchPositionY );
         if(touchPositionX >= 50 && touchPositionX <= 250 && touchPositionY >= 50 && touchPositionY <= 250){
-            //System.out.println("adana menu controller kordinat tuttu");
             gameScreen.getGameScreenController().getMenuStack().pop();
             if(gameScreen.getGameScreenController().getMenuStack().isEmpty())
             {

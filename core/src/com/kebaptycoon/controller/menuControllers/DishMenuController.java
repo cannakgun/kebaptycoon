@@ -5,7 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector2;
+import com.kebaptycoon.model.entities.Dish;
 import com.kebaptycoon.view.menus.DishDetailsMenu;
+import com.kebaptycoon.view.menus.DishMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
 /**
@@ -14,16 +17,19 @@ import com.kebaptycoon.view.screens.GameScreen;
 public class DishMenuController extends MenuController {
 
     private GameScreen gameScreen;
+    private DishMenu dishMenu;
 
-    public DishMenuController(GameScreen gameScreen) {
+    public DishMenuController(GameScreen gameScreen, DishMenu dishMenu) {
         super(gameScreen);
         this.gameScreen = gameScreen;
+        this.dishMenu = dishMenu;
     }
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        super.touchPositionX = Gdx.input.getX();
-        super.touchPositionY = Gdx.input.getY();
+        Vector2 vector2 = gameScreen.menuUnproject(x, y);
+        super.touchPositionX = (int)(vector2.x);
+        super.touchPositionY = (int)(vector2.y);
 
         checkPressedPosition(touchPositionX, touchPositionY);
         return false;
@@ -45,6 +51,7 @@ public class DishMenuController extends MenuController {
                                                                     .peek().getMenuController();
             gameScreen.setInputProcessor(mul);
             */
+            dishMenu.changeCurrentPage(1);
         }
         else{
 
