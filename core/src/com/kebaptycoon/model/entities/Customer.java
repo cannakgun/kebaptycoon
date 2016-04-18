@@ -4,23 +4,29 @@ import java.util.ArrayList;
 
 public class Customer extends Person{
 
-	public enum Type {
-		genc(5,50,null, null)
-		;//TODO: Create customer archetypes
+	public class Type {
 
-		private int 				waitingTime;
-		private int 				budget;
-		private ArrayList<String> 	likes;
-		private ArrayList<String> 	dislikes;
-		
-		private Type(int waitingTime, int budget, ArrayList<String> likes, ArrayList<String> dislikes) {
+        String              spriteName;
+		int 				waitingTime;
+		int 				budget;
+		ArrayList<String> 	likes;
+		ArrayList<String> 	dislikes;
+
+        Type() {
+        }
+
+		Type(String spriteName, int waitingTime, int budget, ArrayList<String> likes, ArrayList<String> dislikes) {
 			this.waitingTime = waitingTime;
 			this.budget = budget;
 			this.likes = likes;
 			this.dislikes = dislikes;
 		}
 
-		public int getWaitingTime() {
+        public String getSpriteName() {
+            return spriteName;
+        }
+
+        public int getWaitingTime() {
 			return waitingTime;
 		}
 

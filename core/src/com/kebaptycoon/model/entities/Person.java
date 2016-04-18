@@ -1,14 +1,28 @@
 package com.kebaptycoon.model.entities;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import java.util.HashMap;
+
 public class Person extends Entity{
+
+	public enum AnimationState {
+		Standing,
+		Walking,
+		Carrying,
+        Sitting
+	}
+
+	protected int speed;
+	protected Orientation orientation;
+	protected AnimationState animationState;
+    HashMap<Orientation, HashMap<AnimationState, Animation>> animations = null;
+
 	
-	private int speed;
-	private String spriteName;
-	private Orientation orientation;
-	
-	public Person(int speed, String spriteName) {
+	public Person(int speed, String name) {
+        super(name);
 		this.speed = speed;
-		this.spriteName = spriteName;
 	}
 
 	public int getSpeed() {
@@ -19,14 +33,6 @@ public class Person extends Entity{
 		this.speed = speed;
 	}
 
-	public String getSpriteName() {
-		return spriteName;
-	}
-
-	public void setSpriteName(String spriteName) {
-		this.spriteName = spriteName;
-	}
-
 	public Orientation getOrientation() {
 		return orientation;
 	}
@@ -35,5 +41,27 @@ public class Person extends Entity{
 		this.orientation = orientation;
 	}
 
-	public void think() {}
+	public AnimationState getAnimationState() {
+		return animationState;
+	}
+
+	public void setAnimationState(AnimationState animationState) {
+		this.animationState = animationState;
+	}
+
+    public void resetAnimations()
+    {
+        animations = new HashMap<Orientation, HashMap<AnimationState, Animation>>();
+    }
+
+    public HashMap<Orientation, HashMap<AnimationState, Animation>> getAnimations() {
+        return animations;
+    }
+
+    @Override
+    public TextureRegion getCurrentFrame() {
+        return this.animations.get(orientation).get(animationState).getKeyFrame(animationTime);
+    }
+
+    public void think() {}
 }

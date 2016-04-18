@@ -2,6 +2,7 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.utils.Pair;
 
 public class Venue {
@@ -9,13 +10,14 @@ public class Venue {
 	ArrayList<Pair<Ingredient,Integer>> 	stock;
 	ArrayList<Employee> 					employees;
     ArrayList<Furniture> 					furnitures;
-    ArrayList<Customer> 					customers;
+    ArrayList<CustomerPack> 				customers;
 	int										width;
 	int										height;
 	int										kitchenWidth;
 	int										kitchenHeight;
 	boolean									managed;
 	boolean									operational;
+	public Vector3							spawnPosition;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed) {
 		this.width = width;
@@ -49,11 +51,11 @@ public class Venue {
 		this.furnitures = furnitures;
 	}
 
-    public ArrayList<Customer> getCustomers() {
+    public ArrayList<CustomerPack> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(ArrayList<Customer> customers) {
+    public void setCustomers(ArrayList<CustomerPack> customers) {
         this.customers = customers;
     }
 
