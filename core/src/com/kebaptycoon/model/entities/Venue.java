@@ -27,6 +27,8 @@ public class Venue {
 		this.kitchenWidth = kitchenWidth;
 		this.kitchenHeight = kitchenHeight;
 		this.managed = managed;
+		this.operational = true;
+		this.orderManager = new OrderManager();
 	}
 
 	public ArrayList<Pair<Ingredient,Integer>> getStock() {
@@ -93,7 +95,19 @@ public class Venue {
 		return kitchenHeight;
 	}
 
-    /**
+	public Vector3 getSpawnPosition() {
+		return spawnPosition;
+	}
+
+	public void setSpawnPosition(Vector3 spawnPosition) {
+		this.spawnPosition = spawnPosition;
+	}
+
+	public OrderManager getOrderManager() {
+		return orderManager;
+	}
+
+	/**
      * Tries to increment the given ingredient by given number.
      * Doesn't allow negative stock.
      * @param ing Type of the ingredient to be changed
