@@ -3,6 +3,7 @@ package com.kebaptycoon.model.entities;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.managers.OrderManager;
 import com.kebaptycoon.utils.Pair;
 
 public class Venue {
@@ -18,6 +19,7 @@ public class Venue {
 	boolean									managed;
 	boolean									operational;
 	public Vector3							spawnPosition;
+	public OrderManager 					orderManager;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed) {
 		this.width = width;

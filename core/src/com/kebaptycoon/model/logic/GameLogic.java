@@ -16,7 +16,6 @@ public class GameLogic {
     private AdvertisementManager advertisementManager;
     private CustomerManager customerManager;
     private MarketManager marketManager;
-    private OrderManager orderManager;
     private VenueManager venueManager;
     private AnimationManager animationManager;
 
@@ -35,7 +34,6 @@ public class GameLogic {
         advertisementManager = new AdvertisementManager();
         customerManager = new CustomerManager();
         marketManager = new MarketManager();
-        orderManager = new OrderManager();
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
         date = new Calendar.Builder().setTimeOfDay(6, 0, 0).build();
@@ -99,10 +97,6 @@ public class GameLogic {
 
     public MarketManager getMarketManager() {
         return marketManager;
-    }
-
-    public OrderManager getOrderManager() {
-        return orderManager;
     }
 
     public VenueManager getVenueManager() {
