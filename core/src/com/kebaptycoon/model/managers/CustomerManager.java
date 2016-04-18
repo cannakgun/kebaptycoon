@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class CustomerManager {
 
+    private final static float MAX_POPULARITY = 1f;
+    private final static float MIN_POPULARITY = 0.01f;
     private final static float SPAWN_CHANCE = 0.01f;
     private final static float SIZE_CHANCE = 0.3f;
     private final static float DECAY_RATE = -0.01f;
@@ -39,7 +41,8 @@ public class CustomerManager {
 
     public void increasePopularity(Customer.Type type, float rate) {
         float old = popularities.get(type);
-        popularities.put(type, old + rate);
+        float clamp = Math.max(MIN_POPULARITY, Math.min(MAX_POPULARITY, old + rate));
+        popularities.put(type, clamp);
     }
 
     public void generateCustomers(ArrayList<Venue> venueList) {
