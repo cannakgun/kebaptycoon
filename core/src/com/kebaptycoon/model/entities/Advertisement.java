@@ -5,19 +5,22 @@ import java.util.Date;
 import com.kebaptycoon.model.entities.Customer.Type;
 
 public class Advertisement {
-	
+
+    private final static float BASE_MULTIPLIER = 0.001f;
+    private final static float FOCUS_MULTIPLIER = 0.01f;
+
 	public static enum Quality {
 		Low(1),
 		Medium(2),
 		High(3);
 
-		private int value;    
+		private float value;
 		
-		private Quality(int value) {
+		private Quality(float value) {
 			this.value = value;
 		}
 		
-		public int getValue() {
+		public float getValue() {
 			return value;
 		}
 	}
@@ -27,7 +30,7 @@ public class Advertisement {
 		Week(7),
 		Month(30);
 
-		private int value;    
+		private int value;
 		
 		private Duration(int value) {
 			this.value = value;
@@ -44,13 +47,13 @@ public class Advertisement {
 		Billboard(3),
 		Television(5);
 
-		private int value;    
+		private float value;
 		
-		private Platform(int value) {
+		private Platform(float value) {
 			this.value = value;
 		}
 		
-		public int getValue() {
+		public float getValue() {
 			return value;
 		}
 	}
@@ -59,14 +62,14 @@ public class Advertisement {
 	Duration duration;
 	Platform platform;
 	Customer.Type focus;
-	Date startDate;
+    int elapsedDuration;
 	
-	public Advertisement(Quality quality, Duration duration, Platform platform, Type focus, Date startDate) {
+	public Advertisement(Quality quality, Duration duration, Platform platform, Type focus) {
 		this.quality = quality;
 		this.duration = duration;
 		this.platform = platform;
 		this.focus = focus;
-		this.startDate = startDate;
+		this.elapsedDuration = 0;
 	}
 
 	public Quality getQuality() {
@@ -85,8 +88,21 @@ public class Advertisement {
 		return focus;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+    public int getElapsedDuration() {
+        return elapsedDuration;
+    }
+
+	public boolean isExpired() {
+		return elapsedDuration >= duration.getValue();
 	}
-	
+
+    public float getAbsoluteEffect(Customer.Type type) {
+        float mul = (type == this.focus) ? FOCUS_MULTIPLIER : BASE_MULTIPLIER;
+
+        return quality.getValue() * platform.getValue() * mul;
+    }
+
+    public void incrementElapsedDuration() {
+        elapsedDuration++;
+    }
 }
