@@ -69,12 +69,12 @@ public class GameLogic {
                 //Execute person AI
                 for (CustomerPack customerPack: venue.getCustomers()) {
                     for(Customer customer: customerPack.getCustomers()) {
-                        customer.think();
+                        customer.think(venue);
                     }
                 }
 
                 for (Employee employee: venue.getEmployees()) {
-                    employee.think();
+                    employee.think(venue);
                 }
             }
 
