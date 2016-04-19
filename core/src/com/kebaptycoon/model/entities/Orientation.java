@@ -2,9 +2,6 @@ package com.kebaptycoon.model.entities;
 
 import com.badlogic.gdx.math.Vector3;
 
-/**
- * Created by Can Akgün on 16.4.2016.
- */
 public enum Orientation {
     East,
     North,
@@ -37,5 +34,27 @@ public enum Orientation {
                 return North;
         }
         return null;
+    }
+
+    public static Orientation fromVector(Vector3 vector) {
+        float absX = Math.abs(vector.x);
+        float absY = Math.abs(vector.y);
+
+        if(absX > absY) {
+            if (vector.x >= 0) {
+                return East;
+            }
+            else {
+                return West;
+            }
+        }
+        else {
+            if (vector.y >= 0) {
+                return North;
+            }
+            else {
+                return South;
+            }
+        }
     }
 }
