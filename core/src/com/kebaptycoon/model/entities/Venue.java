@@ -2,6 +2,7 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.managers.OrderManager;
 import com.kebaptycoon.utils.Pair;
@@ -20,8 +21,10 @@ public class Venue {
 	boolean									operational;
 	public Vector3							spawnPosition;
 	public OrderManager 					orderManager;
+    public Texture                          background;
 	
-	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed) {
+	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed,
+                 Texture background) {
 		this.width = width;
 		this.height = height;
 		this.kitchenWidth = kitchenWidth;
@@ -29,6 +32,7 @@ public class Venue {
 		this.managed = managed;
 		this.operational = true;
 		this.orderManager = new OrderManager();
+        this.background = background;
 	}
 
 	public ArrayList<Pair<Ingredient,Integer>> getStock() {
@@ -107,7 +111,11 @@ public class Venue {
 		return orderManager;
 	}
 
-	/**
+    public Texture getBackground() {
+        return background;
+    }
+
+    /**
      * Tries to increment the given ingredient by given number.
      * Doesn't allow negative stock.
      * @param ing Type of the ingredient to be changed
