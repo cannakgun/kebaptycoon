@@ -3,6 +3,7 @@ package com.kebaptycoon.model.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Furniture extends Entity{
@@ -22,7 +23,8 @@ public class Furniture extends Entity{
     Orientation orientation;
     int width;
     int height;
-    Person user;
+    int maximumUsers;
+    ArrayList<Person> users;
     HashMap<Orientation, Animation> animations = null;
 
     public Type getType() {
@@ -57,12 +59,20 @@ public class Furniture extends Entity{
         this.height = height;
     }
 
-    public Person getUser() {
-        return user;
+    public int getMaximumUsers() {
+        return maximumUsers;
     }
 
-    public void setUser(Person user) {
-        this.user = user;
+    public void setMaximumUsers(int maximumUsers) {
+        this.maximumUsers = maximumUsers;
+    }
+
+    public ArrayList<Person> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<Person> user) {
+        this.users = user;
     }
 
     public HashMap<Orientation, Animation> getAnimations() {
