@@ -8,7 +8,8 @@ public class Dish extends Entity{
 	private int		remaining;
 	
 	public Dish(Vector3 position, Recipe recipe, int remaining) {
-		super(position);
+		super();
+		setPosition(position);
 		this.recipe = recipe;
 		this.remaining = remaining;
 	}

@@ -2,26 +2,40 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.managers.OrderManager;
+import com.kebaptycoon.model.managers.TableManager;
 import com.kebaptycoon.utils.Pair;
 
 public class Venue {
 
-	private ArrayList<Pair<Ingredient,Integer>> 	stock;
-	private ArrayList<Employee> 					employees;
-	private ArrayList<Furniture> 					furnitures;
-	private int										width;
-	private int										height;
-	private int										kitchenWidth;
-	private int										kitchenHeight;
-	private boolean									managed;
-	private boolean									operational;
+	ArrayList<Pair<Ingredient,Integer>> 	stock;
+	ArrayList<Employee> 					employees;
+    ArrayList<Furniture> 					furnitures;
+    ArrayList<CustomerPack> 				customers;
+	int										width;
+	int										height;
+	int										kitchenWidth;
+	int										kitchenHeight;
+	boolean									managed;
+	boolean									operational;
+	public Vector3							spawnPosition;
+    public OrderManager 					orderManager;
+    public TableManager                     tableManager;
+    public Texture                          background;
 	
-	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed) {
+	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed,
+                 Texture background) {
 		this.width = width;
 		this.height = height;
 		this.kitchenWidth = kitchenWidth;
 		this.kitchenHeight = kitchenHeight;
 		this.managed = managed;
+		this.operational = true;
+        this.orderManager = new OrderManager();
+        this.tableManager = new TableManager();
+        this.background = background;
 	}
 
 	public ArrayList<Pair<Ingredient,Integer>> getStock() {
@@ -48,7 +62,15 @@ public class Venue {
 		this.furnitures = furnitures;
 	}
 
-	public boolean isManaged() {
+    public ArrayList<CustomerPack> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(ArrayList<CustomerPack> customers) {
+        this.customers = customers;
+    }
+
+    public boolean isManaged() {
 		return managed;
 	}
 
@@ -79,5 +101,69 @@ public class Venue {
 	public int getKitchenHeight() {
 		return kitchenHeight;
 	}
-	
+
+	public Vector3 getSpawnPosition() {
+		return spawnPosition;
+	}
+
+	public void setSpawnPosition(Vector3 spawnPosition) {
+		this.spawnPosition = spawnPosition;
+	}
+
+    public OrderManager getOrderManager() {
+        return orderManager;
+    }
+
+    public TableManager getTableManager() {
+        return tableManager;
+    }
+
+    public Texture getBackground() {
+        return background;
+    }
+
+    /**
+     * Tries to increment the given ingredient by given number.
+     * Doesn't allow negative stock.
+     * @param ing Type of the ingredient to be changed
+     * @param delta Amount of the ingredient to be changed, can be negative
+     * @return Whether the operation is successful
+     */
+	public boolean incrementIngredient(Ingredient ing, int delta) {
+        //Find the index of given ingredient
+		int ind = -1;
+		for (int i = 0; i < stock.size(); i++) {
+			if (stock.get(i).getLeft() == ing) {
+				ind = i;
+				break;
+			}
+		}
+
+
+		if (ind == -1) { //If ingredient does not exists
+            if (delta >= 0)
+            {
+                stock.add(new Pair<Ingredient, Integer>(ing, delta));
+                return true;
+            }
+            else
+                return false;
+		}
+        else { //If ingredient does exist
+            if (stock.get(ind).right + delta < 0)
+                return false;
+            else {
+                stock.get(ind).right += delta;
+                return true;
+            }
+        }
+	}
+
+    public boolean isPathable(Vector3 point) {
+        for (Furniture furniture:furnitures) {
+            if (furniture.contains(point))
+                return false;
+        }
+        return true;
+    }
 }

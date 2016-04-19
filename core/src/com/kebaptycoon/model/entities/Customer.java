@@ -1,25 +1,33 @@
 package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Customer extends Person{
 
-	public enum Type {
-		;//TODO: Create customer archetypes
+	public class Type {
 
-		private int 				waitingTime;
-		private int 				budget;
-		private ArrayList<Recipe> 	likes;
-		private ArrayList<Recipe> 	dislikes;
-		
-		private Type(int waitingTime, int budget, ArrayList<Recipe> likes, ArrayList<Recipe> dislikes) {
+        String              spriteName;
+		int 				waitingTime;
+		int 				budget;
+		ArrayList<String> 	likes;
+		ArrayList<String> 	dislikes;
+
+        Type() {
+        }
+
+		Type(String spriteName, int waitingTime, int budget, ArrayList<String> likes, ArrayList<String> dislikes) {
 			this.waitingTime = waitingTime;
 			this.budget = budget;
 			this.likes = likes;
 			this.dislikes = dislikes;
 		}
 
-		public int getWaitingTime() {
+        public String getSpriteName() {
+            return spriteName;
+        }
+
+        public int getWaitingTime() {
 			return waitingTime;
 		}
 
@@ -27,11 +35,11 @@ public class Customer extends Person{
 			return budget;
 		}
 
-		public ArrayList<Recipe> getLikes() {
+		public ArrayList<String> getLikes() {
 			return likes;
 		}
 
-		public ArrayList<Recipe> getDislikes() {
+		public ArrayList<String> getDislikes() {
 			return dislikes;
 		}
 	}
@@ -54,6 +62,7 @@ public class Customer extends Person{
 	private Dish dish;
 	private boolean waitOverride;
 	private State state;
+	private boolean markedForDeletion;
 	
 	public Customer(int speed, String spriteName, Type type, int waitingTime, int budget) {
 		super(speed,spriteName);
@@ -63,6 +72,7 @@ public class Customer extends Person{
 		this.dish = null;
 		this.waitOverride = false;
 		this.state = State.WaitForTable;
+        this.markedForDeletion = false;
 	}
 
 	public Dish getDish() {
@@ -100,4 +110,27 @@ public class Customer extends Person{
 	public int getBudget() {
 		return budget;
 	}
+
+    public boolean isMarkedForDeletion() {
+        return markedForDeletion;
+    }
+
+    public void setMarkedForDeletion(boolean markedForDeletion) {
+        this.markedForDeletion = markedForDeletion;
+    }
+
+    @Override
+    public void think(Venue venue) {
+        //Find the pack this guy belongs to
+        CustomerPack pack = venue.customers.stream()
+                .filter(new Predicate<CustomerPack>() {
+                    @Override
+                    public boolean test(CustomerPack customerPack) {
+                        return customerPack.getCustomers().contains(this);
+                    }
+                }).findFirst().get();
+
+        //If no pack think fails
+        if (pack == null) return;
+    }
 }

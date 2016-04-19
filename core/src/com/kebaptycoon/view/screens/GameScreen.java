@@ -58,7 +58,7 @@ public class GameScreen implements Screen{
 	public GameScreen(ResourceManager resourceManager) {
 
         this.resourceManager = resourceManager;
-        gameLogic = new GameLogic();
+        gameLogic = new GameLogic(resourceManager);
 
         //Create menu bar items from JSON config file
         ObjectMapper mapper = new ObjectMapper();
@@ -147,6 +147,8 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta)
 	{
+        gameLogic.update();
+
 		//TODO: Call the game logic from here
 
         clampCamera();
