@@ -21,7 +21,7 @@ public class Person extends Entity{
 	protected Orientation orientation;
 	protected AnimationState animationState;
     HashMap<Orientation, HashMap<AnimationState, Animation>> animations = null;
-
+    Furniture usedFurniture = null;
 	
 	public Person(int speed, String name) {
         super(name);
@@ -74,4 +74,29 @@ public class Person extends Entity{
     }
 
     public void think(Venue venue) {}
+
+    public boolean use(Furniture furniture) {
+        if (usedFurniture != null) return false;
+
+        if(furniture.getUsers().size() < furniture.getMaximumUsers()) {
+            furniture.getUsers().add(this);
+            usedFurniture = furniture;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean stopUsing(Furniture furniture) {
+
+        if (usedFurniture == null) return false;
+
+        if(furniture.getUsers().contains(this)) {
+            furniture.getUsers().remove(this);
+            usedFurniture = null;
+            return true;
+        }
+
+        return false;
+    }
 }
