@@ -3,6 +3,7 @@ package com.kebaptycoon.model.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.HashMap;
 
@@ -66,13 +67,24 @@ public class Person extends Entity{
         return this.animations.get(orientation).get(animationState).getKeyFrame(animationTime);
     }
 
+    public float getAbsoluteSpeed() {
+        return speed * SPEED_SCALE;
+    }
+
     public void move(Orientation direction) {
+        move(direction, getAbsoluteSpeed());
+    }
+
+    public void move(Orientation direction, float disance) {
         this.orientation = direction;
-        Vector3 delta = direction.getUnitVector().scl(speed * SPEED_SCALE);
+        Vector3 delta = direction.getUnitVector().scl(disance);
         Vector3 total = getPosition().cpy().add(delta);
         setPosition(total);
     }
 
+    public void move(Orientation direction, float distance, float cap) {
+        move(direction, Math.min(distance, cap));
+    }
     public void think(Venue venue) {}
 
     public boolean use(Furniture furniture) {
