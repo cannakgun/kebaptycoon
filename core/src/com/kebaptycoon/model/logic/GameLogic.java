@@ -10,6 +10,9 @@ import java.util.function.Predicate;
 
 public class GameLogic {
 
+    public static final int START_HOUR = 8;
+    public static final int END_HOUR = 18;
+
     //Managers
     private ResourceManager resourceManager;
     private RecipeManager recipeManager;
@@ -36,8 +39,8 @@ public class GameLogic {
         marketManager = new MarketManager();
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
-        date = new Calendar.Builder().setTimeOfDay(6, 0, 0).build();
         afterHours = false;
+        resetDayTime();
     }
 
     public void update() {
@@ -81,7 +84,11 @@ public class GameLogic {
     }
 
     private boolean isAfterHours() {
-        return date.get(Calendar.HOUR) >= 18;
+        return date.get(Calendar.HOUR) >= END_HOUR;
+    }
+
+    private void resetDayTime() {
+        date = new Calendar.Builder().setTimeOfDay(START_HOUR, 0, 0).build();
     }
 
     public RecipeManager getRecipeManager() {
