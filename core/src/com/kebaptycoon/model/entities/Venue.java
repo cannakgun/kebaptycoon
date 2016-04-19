@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.managers.OrderManager;
+import com.kebaptycoon.model.managers.TableManager;
 import com.kebaptycoon.utils.Pair;
 
 public class Venue {
@@ -20,7 +21,8 @@ public class Venue {
 	boolean									managed;
 	boolean									operational;
 	public Vector3							spawnPosition;
-	public OrderManager 					orderManager;
+    public OrderManager 					orderManager;
+    public TableManager                     tableManager;
     public Texture                          background;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed,
@@ -31,7 +33,8 @@ public class Venue {
 		this.kitchenHeight = kitchenHeight;
 		this.managed = managed;
 		this.operational = true;
-		this.orderManager = new OrderManager();
+        this.orderManager = new OrderManager();
+        this.tableManager = new TableManager();
         this.background = background;
 	}
 
@@ -107,9 +110,13 @@ public class Venue {
 		this.spawnPosition = spawnPosition;
 	}
 
-	public OrderManager getOrderManager() {
-		return orderManager;
-	}
+    public OrderManager getOrderManager() {
+        return orderManager;
+    }
+
+    public TableManager getTableManager() {
+        return tableManager;
+    }
 
     public Texture getBackground() {
         return background;
