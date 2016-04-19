@@ -12,6 +12,7 @@ public class GameLogic {
 
     public static final int START_HOUR = 8;
     public static final int END_HOUR = 18;
+    public static final int SECONDS_PER_FRAME = 60;
 
     //Managers
     private ResourceManager resourceManager;
@@ -61,7 +62,7 @@ public class GameLogic {
 
         //Working hours
         else {
-            date.add(Calendar.MINUTE, 1);
+            date.add(Calendar.SECOND, SECONDS_PER_FRAME);
             afterHours = false;
 
             //Customer generation
