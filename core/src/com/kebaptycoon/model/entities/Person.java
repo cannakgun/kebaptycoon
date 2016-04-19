@@ -3,10 +3,12 @@ package com.kebaptycoon.model.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.function.Predicate;
 
 public class Person extends Entity{
 
@@ -102,6 +104,24 @@ public class Person extends Entity{
         move(Orientation.fromVector(delta), getAbsoluteSpeed(), dist);
         if(dist < getAbsoluteSpeed())
             currentPath.remove(0);
+    }
+
+    public void wander(final Venue venue) {
+        if(currentPath == null || currentPath.size() > 0) return;
+
+        ArrayList<Orientation> possibilities = new ArrayList<Orientation>(Arrays.asList(Orientation.values()));
+        possibilities.removeIf(new Predicate<Orientation>() {
+            @Override
+            public boolean test(Orientation orientation) {
+                return venue.isPathable(orientation.getUnitVector().add(getPosition()));
+            }
+        });
+
+        Random tempRandom = new Random();
+        int randIndex = tempRandom.nextInt(possibilities.size());
+        Orientation selection = possibilities.get(randIndex);
+
+        currentPath.add(selection.getUnitVector().add(getPosition()));
     }
 
     public void think(Venue venue) {}
