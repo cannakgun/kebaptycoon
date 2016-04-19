@@ -26,7 +26,7 @@ public class Entity {
     public Entity(String name) {
         this.name = name;
         this.position = new Vector3(0f,0f,0f);
-        this.render3DDelta = new Vector3(.5f,.5f,0f);
+        this.render3DDelta = new Vector3(0f,0f,0f);
         this.render2DDelta = new Vector2(0f,0f);
         animation = null;
         animationTime = 0f;
@@ -35,7 +35,7 @@ public class Entity {
 	public Entity(String name, Vector3 position) {
         this.name = name;
         this.position = position.cpy();
-        this.render3DDelta = new Vector3(.5f,.5f,0f);
+        this.render3DDelta = new Vector3(0f,0f,0f);
         this.render2DDelta = new Vector2(0f,0f);
         animation = null;
         animationTime = 0f;
@@ -44,7 +44,7 @@ public class Entity {
     public Entity(String name, Vector3 position, Animation animation) {
         this.name = name;
         this.position = position.cpy();
-        this.render3DDelta = new Vector3(.5f,.5f,0f);
+        this.render3DDelta = new Vector3(0f,0f,0f);
         this.render2DDelta = new Vector2(0f,0f);
         this.animation = animation;
         animationTime = 0;
