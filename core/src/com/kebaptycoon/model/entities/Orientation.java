@@ -18,8 +18,9 @@ public enum Orientation {
                 return new Vector3(-1,0,0);
             case South:
                 return new Vector3(0,-1,0);
+            default:
+                return new Vector3(0,0,0);
         }
-        return null;
     }
 
     public Orientation getReverse() {
@@ -32,8 +33,9 @@ public enum Orientation {
                 return East;
             case South:
                 return North;
+            default:
+                return null;
         }
-        return null;
     }
 
     public static Orientation fromVector(Vector3 vector) {
