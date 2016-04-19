@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Person extends Entity{
@@ -23,6 +24,7 @@ public class Person extends Entity{
 	protected AnimationState animationState;
     HashMap<Orientation, HashMap<AnimationState, Animation>> animations = null;
     Furniture usedFurniture = null;
+    ArrayList<Vector3> currentPath = new ArrayList<Vector3>();
 	
 	public Person(int speed, String name) {
         super(name);
@@ -52,6 +54,10 @@ public class Person extends Entity{
 	public void setAnimationState(AnimationState animationState) {
 		this.animationState = animationState;
 	}
+
+    public ArrayList<Vector3> getCurrentPath() {
+        return currentPath;
+    }
 
     public void resetAnimations()
     {
@@ -85,6 +91,19 @@ public class Person extends Entity{
     public void move(Orientation direction, float distance, float cap) {
         move(direction, Math.min(distance, cap));
     }
+
+    public void followPath() {
+        if(currentPath == null || currentPath.size() <= 0) return;
+
+        Vector3 next = currentPath.get(0).cpy();
+        next.z = getPosition().z;
+        float dist = next.dst(getPosition());
+        Vector3 delta = next.cpy().sub(getPosition());
+        move(Orientation.fromVector(delta), getAbsoluteSpeed(), dist);
+        if(dist < getAbsoluteSpeed())
+            currentPath.remove(0);
+    }
+
     public void think(Venue venue) {}
 
     public boolean use(Furniture furniture) {
