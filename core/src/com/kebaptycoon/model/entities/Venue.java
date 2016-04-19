@@ -158,5 +158,12 @@ public class Venue {
             }
         }
 	}
-	
+
+    public boolean isPathable(Vector3 point) {
+        for (Furniture furniture:furnitures) {
+            if (furniture.contains(point))
+                return false;
+        }
+        return true;
+    }
 }
