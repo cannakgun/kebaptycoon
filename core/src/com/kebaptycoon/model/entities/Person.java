@@ -73,5 +73,5 @@ public class Person extends Entity{
         setPosition(total);
     }
 
-    public void think() {}
+    public void think(Venue venue) {}
 }
