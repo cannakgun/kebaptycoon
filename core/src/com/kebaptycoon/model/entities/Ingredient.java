@@ -5,7 +5,7 @@ public enum Ingredient {
 	Bulgur,
 	Butter,
 	Cucumber,
-	DicedMeat,
+	DicedMeat, //kusbasi
 	DonerMeat,
 	Egg,
 	Garlic,
@@ -13,7 +13,7 @@ public enum Ingredient {
 	Lavash,
 	Lemon,
 	Lettuce,
-	MincedMeat,
+	MincedMeat, //kıyma
 	OliveOil,
 	Onion,
 	Parsley,

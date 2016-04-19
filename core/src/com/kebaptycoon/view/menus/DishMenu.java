@@ -58,7 +58,6 @@ public class DishMenu extends Menu{
         GestureDetector gd = new GestureDetector(mc);
         InputProcessor ip = mc;
         InputMultiplexer mul = new InputMultiplexer(gd, ip);
-        Gdx.input.setInputProcessor(mul);
 
         super.menuController = mul;
         Gdx.input.setInputProcessor(menuController);
@@ -83,7 +82,6 @@ public class DishMenu extends Menu{
             Recipe rec = recipes.get(i);
             batch.draw(resourceManager.textures.get(rec.getTexture()), (i % 3) * 350 + 500, 550);
             dishFont.draw(batch, rec.getName(), (i % 3) * 350 + 500, 500);
-
 
         }
         batch.end();
