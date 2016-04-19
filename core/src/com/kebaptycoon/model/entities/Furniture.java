@@ -2,6 +2,7 @@ package com.kebaptycoon.model.entities;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,5 +88,11 @@ public class Furniture extends Entity{
     @Override
     public TextureRegion getCurrentFrame() {
         return this.animations.get(orientation).getKeyFrame(animationTime);
+    }
+
+    public boolean contains(Vector3 point)
+    {
+        Vector3 delta = point.cpy().sub(getPosition());
+        return (delta.x >= 0 && delta.x <= width) && (delta.y >= 0 && delta.y <= height);
     }
 }
