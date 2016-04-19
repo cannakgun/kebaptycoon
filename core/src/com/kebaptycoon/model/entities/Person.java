@@ -81,9 +81,9 @@ public class Person extends Entity{
         move(direction, getAbsoluteSpeed());
     }
 
-    public void move(Orientation direction, float disance) {
+    public void move(Orientation direction, float distance) {
         this.orientation = direction;
-        Vector3 delta = direction.getUnitVector().scl(disance);
+        Vector3 delta = direction.getUnitVector().scl(distance);
         Vector3 total = getPosition().cpy().add(delta);
         setPosition(total);
     }
