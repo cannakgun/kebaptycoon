@@ -45,7 +45,7 @@ public class GameLogic {
         if(paused) return;
 
         //After hours, no game logic, but
-        if(date.get(Calendar.HOUR) >= 18) {
+        if(isAfterHours()) {
             if (afterHours) {
                 return;
             }
@@ -77,10 +77,11 @@ public class GameLogic {
                     employee.think(venue);
                 }
             }
-
-
         }
+    }
 
+    private boolean isAfterHours() {
+        return date.get(Calendar.HOUR) >= 18;
     }
 
     public RecipeManager getRecipeManager() {
