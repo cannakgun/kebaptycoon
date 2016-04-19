@@ -1,6 +1,7 @@
 package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Customer extends Person{
 
@@ -116,5 +117,20 @@ public class Customer extends Person{
 
     public void setMarkedForDeletion(boolean markedForDeletion) {
         this.markedForDeletion = markedForDeletion;
+    }
+
+    @Override
+    public void think(Venue venue) {
+        //Find the pack this guy belongs to
+        CustomerPack pack = venue.customers.stream()
+                .filter(new Predicate<CustomerPack>() {
+                    @Override
+                    public boolean test(CustomerPack customerPack) {
+                        return customerPack.getCustomers().contains(this);
+                    }
+                }).findFirst().get();
+
+        //If no pack think fails
+        if (pack == null) return;
     }
 }
