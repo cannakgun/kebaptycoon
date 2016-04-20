@@ -54,6 +54,8 @@ public class DishMenuController extends MenuController {
             gameScreen.getGameScreenController().getMenuStack().pop();
             if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
                 gameScreen.resetController();
+                gameScreen.getGameScreenController()
+                        .processTouch(new Vector2(touchPositionX, touchPositionY));
             }
             else {
                 gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
