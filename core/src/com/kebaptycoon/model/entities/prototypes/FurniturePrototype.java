@@ -2,6 +2,8 @@ package com.kebaptycoon.model.entities.prototypes;
 
 import com.kebaptycoon.model.entities.Furniture;
 
+import java.util.ArrayList;
+
 public class FurniturePrototype {
 
     public String name;
@@ -10,6 +12,14 @@ public class FurniturePrototype {
     public int width;
     public int height;
     public int maximumUsers;
+    public ArrayList<Point> userPositions;
 
     public FurniturePrototype() {}
+
+    public static class Point {
+        public float x;
+        public float y;
+
+        Point() {}
+    }
 }

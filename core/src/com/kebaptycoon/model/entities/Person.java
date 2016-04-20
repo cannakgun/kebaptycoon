@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 public class Person extends Entity{
 
-    public static final float SPEED_SCALE = 0.05f;
+    public static final float SPEED_SCALE = 0.01f;
 
 	public enum AnimationState {
 		Standing,
@@ -31,6 +31,8 @@ public class Person extends Entity{
 	public Person(int speed, String name) {
         super(name);
 		this.speed = speed;
+        orientation = Orientation.East;
+        animationState = AnimationState.Standing;
 	}
 
 	public int getSpeed() {
