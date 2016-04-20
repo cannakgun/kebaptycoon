@@ -14,5 +14,6 @@ public class Globals {
     public static final float   GAME_TIME_SCALE                     = 60f;
 
     public static final String DISH_MENU_TITLE                      = "Yemekler";
+    public static final String STOCK_MENU_TITLE                      = "Stok";
 
 }
