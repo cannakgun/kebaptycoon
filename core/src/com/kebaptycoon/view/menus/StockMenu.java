@@ -3,19 +3,16 @@ package com.kebaptycoon.view.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.kebaptycoon.controller.menuControllers.DishMenuController;
 import com.kebaptycoon.controller.menuControllers.MenuController;
 import com.kebaptycoon.controller.menuControllers.StockMenuController;
 import com.kebaptycoon.utils.Globals;
 import com.kebaptycoon.view.screens.GameScreen;
 
 public class StockMenu extends Menu {
+
     public StockMenu(GameScreen gameScreen) {
 
         super(gameScreen);

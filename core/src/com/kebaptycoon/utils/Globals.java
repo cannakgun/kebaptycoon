@@ -14,6 +14,11 @@ public class Globals {
     public static final float   GAME_TIME_SCALE                     = 60f;
 
     public static final String DISH_MENU_TITLE                      = "Yemekler";
-    public static final String STOCK_MENU_TITLE                      = "Stok";
+    public static final String STOCK_MENU_TITLE                     = "Stok";
+    public static final String STAFF_MENU_TITLE                     = "Elemanlar";
+    public static final String REPORTS_MENU_TITLE                   = "Raporlar";
+    public static final String MARKET_MENU_TITLE                    = "Market";
+    public static final String ADVERTISEMENT_MENU_TITLE             = "Reklamlar";
+    public static final String ESTATE_MENU_TITLE                    = "Emlak";
 
 }
