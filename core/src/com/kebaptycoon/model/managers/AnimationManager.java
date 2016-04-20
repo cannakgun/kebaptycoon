@@ -52,8 +52,6 @@ public class AnimationManager {
             furniture.getAnimations().put(orientation,resourceManager.animations
                     .get(name + "_" + orientation.toString().toLowerCase()));
         }
-
-        furniture.setAnimation(resourceManager.animations.get(name));
     }
 
     private void setUpAnimations(Person person) {
@@ -67,12 +65,10 @@ public class AnimationManager {
             for(Person.AnimationState state: Person.AnimationState.values()) {
                 stateAnimations.put(state, resourceManager.animations
                         .get(name + "_" + orientation.toString().toLowerCase()
-                                + "_" + orientation.toString().toLowerCase()));
+                                + "_" + state.toString().toLowerCase()));
             }
 
             person.getAnimations().put(orientation,stateAnimations);
         }
-
-        person.setAnimation(resourceManager.animations.get(name));
     }
 }
