@@ -113,7 +113,7 @@ public class Person extends Entity{
         possibilities.removeIf(new Predicate<Orientation>() {
             @Override
             public boolean test(Orientation orientation) {
-                return venue.isPathable(orientation.getUnitVector().add(getPosition()));
+                return !venue.isPathable(orientation.getUnitVector().add(getPosition()));
             }
         });
 
@@ -124,7 +124,10 @@ public class Person extends Entity{
         currentPath.add(selection.getUnitVector().add(getPosition()));
     }
 
-    public void think(Venue venue) {}
+    public void think(Venue venue) {
+        wander(venue);
+        followPath();
+    }
 
     public boolean use(Furniture furniture) {
         if (usedFurniture != null) return false;
