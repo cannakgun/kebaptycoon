@@ -49,7 +49,6 @@ public class GameScreenController implements GestureDetector.GestureListener, In
     @Override
     public boolean tap(float x, float y, int count, int button) {
         Vector2 actualTouch = gameScreen.menuUnproject(x, y);
-        System.out.println(actualTouch);
         int touchPositionY = (int)actualTouch.y;
         //check for pressed menu
         if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
