@@ -40,6 +40,7 @@ public class GameLogic {
         marketManager = new MarketManager();
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
+        paused = false;
         afterHours = false;
         resetDayTime();
     }
@@ -62,8 +63,12 @@ public class GameLogic {
 
         //Working hours
         else {
+            if(afterHours) {
+                afterHours = false;
+                OnDayStart();
+            }
+
             date.add(Calendar.SECOND, SECONDS_PER_FRAME);
-            afterHours = false;
 
             //Customer generation
             customerManager.generateCustomers(venueManager.getVenueList());
@@ -115,6 +120,9 @@ public class GameLogic {
     public int getMoney() {
 
         return money;
+    }
+
+    private void OnDayStart() {
     }
 
     private void OnDayEnd()
