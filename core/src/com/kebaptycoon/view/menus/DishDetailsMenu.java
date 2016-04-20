@@ -26,8 +26,6 @@ public class DishDetailsMenu extends Menu {
 
     private int dishIndex;
 
-    private ResourceManager resourceManager;
-
     private FreeTypeFontGenerator menuTitleGenerator, priceFontGenerator, ingredientAmountFontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter menuTitleParameter, priceFontParameter,
             ingredientAmountFontParameter;
@@ -40,7 +38,6 @@ public class DishDetailsMenu extends Menu {
         this.gameScreen = gameScreen;
         this.dishIndex = dishIndex;
 
-        resourceManager = gameScreen.getResourceManager();
 
         menuTitleGenerator = resourceManager.fonts.get("Boogaloo");
         menuTitleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

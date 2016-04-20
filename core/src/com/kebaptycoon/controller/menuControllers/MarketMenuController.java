@@ -1,19 +1,16 @@
 package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.kebaptycoon.view.menus.DishDetailsMenu;
-import com.kebaptycoon.view.menus.DishMenu;
+import com.kebaptycoon.view.menus.MarketMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
-public class DishMenuController extends MenuController {
+public class MarketMenuController extends MenuController {
 
-    private DishMenu dishMenu;
-
-    public DishMenuController(GameScreen gameScreen, DishMenu dishMenu) {
+    private MarketMenu marketMenu;
+    public MarketMenuController(GameScreen gameScreen, MarketMenu marketMenu) {
         super(gameScreen);
-        this.dishMenu = dishMenu;
+        this.marketMenu = marketMenu;
     }
 
     @Override
@@ -37,20 +34,13 @@ public class DishMenuController extends MenuController {
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
 
         if(touchPositionX > 297 && touchPositionX < 388 && touchPositionY > 440 && touchPositionY < 770)
-            dishMenu.changeCurrentPage(-1);
+            marketMenu.changeCurrentPage(-1);
         else if(touchPositionX > 1500 && touchPositionX < 1590 && touchPositionY > 440 && touchPositionY < 770)
-            dishMenu.changeCurrentPage(1);
+            marketMenu.changeCurrentPage(1);
         else if(touchPositionX >= 300 && touchPositionX <= 1588 && touchPositionY >= 300 && touchPositionY <= 965){
-            int dishIndex = (touchPositionX - 500) / 350 + dishMenu.getCurrentPage() * 3;
-            gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen, dishIndex));
-
-            InputProcessor mul = gameScreen.getGameScreenController().getMenuStack()
-                                                                    .peek().getMenuController();
-            gameScreen.setInputProcessor(mul);
 
         }
         else{
-
             gameScreen.getGameScreenController().getMenuStack().pop();
             if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
                 gameScreen.resetController();

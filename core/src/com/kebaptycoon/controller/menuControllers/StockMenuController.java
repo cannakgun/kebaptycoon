@@ -7,17 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.kebaptycoon.view.menus.StockMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
-/**
- * Created by Can Akgün on 20.4.2016.
- */
 public class StockMenuController extends MenuController {
 
-    private GameScreen gameScreen;
     private StockMenu stockMenu;
 
     public StockMenuController(GameScreen gameScreen, StockMenu stockMenu) {
         super(gameScreen);
-        this.gameScreen = gameScreen;
         this.stockMenu = stockMenu;
     }
     @Override
@@ -45,12 +40,6 @@ public class StockMenuController extends MenuController {
         else if(touchPositionX > 1500 && touchPositionX < 1590 && touchPositionY > 440 && touchPositionY < 770)
             stockMenu.changeCurrentPage(1);
         else if(touchPositionX >= 300 && touchPositionX <= 1588 && touchPositionY >= 300 && touchPositionY <= 965){
-            /*int dishIndex = (touchPositionX - 500) / 350 + dishMenu.getCurrentPage() * 3;
-            gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen, dishIndex));
-
-            InputProcessor mul = gameScreen.getGameScreenController().getMenuStack()
-                    .peek().getMenuController();
-            gameScreen.setInputProcessor(mul);*/
 
         }
         else{

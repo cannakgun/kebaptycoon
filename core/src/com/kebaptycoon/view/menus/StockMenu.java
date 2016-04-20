@@ -15,30 +15,8 @@ import com.kebaptycoon.controller.menuControllers.StockMenuController;
 import com.kebaptycoon.utils.Globals;
 import com.kebaptycoon.view.screens.GameScreen;
 
-/**
- * Created by dogancandemirtas on 16/04/16.
- */
 public class StockMenu extends Menu {
     public StockMenu(GameScreen gameScreen) {
-
-        resourceManager = gameScreen.getResourceManager();
-
-        heading1Generator = resourceManager.fonts.get("Boogaloo");
-        heading1Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        heading1Parameter.size = 72;
-        heading1Parameter.color = Color.BLACK;
-
-        heading1Font = heading1Generator.generateFont(heading1Parameter);
-        heading1Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-
-        heading2Generator = resourceManager.fonts.get("ClearSans");
-        heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        heading2Parameter.size = 45;
-        heading2Parameter.color = Color.BLACK;
-
-        heading2Font = heading2Generator.generateFont(heading2Parameter);
-        heading2Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         MenuController mc = new StockMenuController(gameScreen, this);
         GestureDetector gd = new GestureDetector(mc);
