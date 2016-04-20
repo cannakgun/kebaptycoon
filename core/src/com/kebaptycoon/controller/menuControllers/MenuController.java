@@ -10,9 +10,11 @@ import com.kebaptycoon.view.screens.GameScreen;
  * Created by Can Akgün on 7.4.2016.
  */
 public abstract class MenuController implements GestureDetector.GestureListener, InputProcessor {
+
     int touchPositionX;
     int touchPositionY;
     GameScreen gameScreen;
+
     public MenuController(GameScreen gameScreen){
         this.gameScreen = gameScreen;
     }
@@ -52,16 +54,10 @@ public abstract class MenuController implements GestureDetector.GestureListener,
     }
 
     @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        return false;
-    }
-
+    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {return false;}
 
     @Override
-    public boolean keyDown(int keycode) {
-
-        return false;
-    }
+    public boolean keyDown(int keycode) {return false;}
 
     @Override
     public boolean keyUp(int keycode) {
