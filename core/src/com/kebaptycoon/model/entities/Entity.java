@@ -95,12 +95,12 @@ public class Entity {
     }
 
     public TextureRegion cycleAnimation(float delta) {
-        if (animation == null) return null;
         incrementAnimationTime(delta);
         return getCurrentFrame();
     }
 
     public TextureRegion getCurrentFrame() {
+        if (animation == null) return null;
         return this.animation.getKeyFrame(animationTime);
     }
 
