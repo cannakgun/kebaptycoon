@@ -10,6 +10,7 @@ import com.kebaptycoon.view.screens.GameScreen;
 public class ReportsMenu extends Menu {
     public ReportsMenu(GameScreen gameScreen) {
 
+        super(gameScreen);
     }
 
     @Override

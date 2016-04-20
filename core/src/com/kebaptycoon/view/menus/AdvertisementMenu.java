@@ -12,6 +12,7 @@ public class AdvertisementMenu extends Menu {
 
     public AdvertisementMenu(GameScreen gameScreen) {
 
+        super(gameScreen);
     }
 
     @Override

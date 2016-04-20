@@ -10,6 +10,7 @@ import com.kebaptycoon.view.screens.GameScreen;
 public class MarketMenu extends Menu {
     public MarketMenu(GameScreen gameScreen) {
 
+        super(gameScreen);
     }
 
     @Override

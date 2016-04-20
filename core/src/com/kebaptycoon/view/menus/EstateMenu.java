@@ -8,6 +8,7 @@ public class EstateMenu extends Menu {
 
     public EstateMenu(GameScreen gameScreen) {
 
+        super(gameScreen);
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.kebaptycoon.view.screens.GameScreen;
 public class StockMenu extends Menu {
     public StockMenu(GameScreen gameScreen) {
 
+        super(gameScreen);
         MenuController mc = new StockMenuController(gameScreen, this);
         GestureDetector gd = new GestureDetector(mc);
         InputProcessor ip = mc;
@@ -25,9 +26,6 @@ public class StockMenu extends Menu {
 
         super.menuController = mul;
         Gdx.input.setInputProcessor(menuController);
-        this.gameScreen = gameScreen;
-
-        gameLogic = gameScreen.getGameLogic();
 
         currentPage = 0;
     }

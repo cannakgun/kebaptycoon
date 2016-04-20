@@ -20,15 +20,16 @@ public abstract class Menu {
     GameLogic gameLogic;
     GameScreen gameScreen;
     ResourceManager resourceManager;
-    FreeTypeFontGenerator heading1Generator;
-    FreeTypeFontGenerator.FreeTypeFontParameter heading1Parameter;
-    FreeTypeFontGenerator heading2Generator;
-    FreeTypeFontGenerator.FreeTypeFontParameter heading2Parameter;
-    BitmapFont heading1Font, heading2Font;
+    FreeTypeFontGenerator heading1Generator, heading2Generator,heading3Generator ;
+    FreeTypeFontGenerator.FreeTypeFontParameter heading1Parameter, heading2Parameter, heading3Parameter;
+    BitmapFont heading1Font, heading2Font, heading3Font;
     int currentPage;
 
-    public Menu(){
+    public Menu(GameScreen gameScreen){
+
+        this.gameScreen = gameScreen;
         resourceManager = gameScreen.getResourceManager();
+        gameLogic = gameScreen.getGameLogic();
 
         heading1Generator = resourceManager.fonts.get("Boogaloo");
         heading1Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -46,6 +47,13 @@ public abstract class Menu {
 
         heading2Font = heading2Generator.generateFont(heading2Parameter);
         heading2Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        heading3Generator = resourceManager.fonts.get("ClearSans");
+        heading3Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        heading3Parameter.size = 20;
+        heading3Parameter.color = Color.BLACK;
+        heading3Font = heading3Generator.generateFont(heading3Parameter);
+        heading3Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         Gdx.input.setCatchBackKey(true);
     }
