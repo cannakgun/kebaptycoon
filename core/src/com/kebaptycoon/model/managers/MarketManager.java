@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.model.entities.Furniture;
 import com.kebaptycoon.model.entities.Ingredient;
+import com.kebaptycoon.model.entities.Venue;
+import com.kebaptycoon.model.entities.prototypes.FurniturePrototype;
+import com.kebaptycoon.model.entities.prototypes.VenuePrototype;
 import com.kebaptycoon.utils.Pair;
 
 import java.io.IOException;
@@ -14,12 +17,14 @@ import java.util.ArrayList;
 
 public class MarketManager {
 
-    private ArrayList<Pair<Furniture, Integer>>  furnitures;
+    private ArrayList<Pair<FurniturePrototype, Integer>>  furnitures;
+    private ArrayList<Pair<VenuePrototype, Integer>>  venues;
     private ArrayList<Pair<Ingredient, Integer>> ingredients;
 
     public MarketManager() {
 
-        furnitures = new ArrayList<Pair<Furniture, Integer>>();
+        furnitures = new ArrayList<Pair<FurniturePrototype, Integer>>();
+        venues = new ArrayList<Pair<VenuePrototype, Integer>>();
         ingredients = new ArrayList<Pair<Ingredient, Integer>>();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -29,12 +34,17 @@ public class MarketManager {
             String furnitureJSON = Gdx.files.internal("defaults/FurnitureList.json").readString();
 
             furnitures = mapper.readValue(furnitureJSON,
-                    new TypeReference<ArrayList<Pair<Furniture, Integer>>>() {});
+                    new TypeReference<ArrayList<Pair<FurniturePrototype, Integer>>>() {});
+
+            String venueJSON = Gdx.files.internal("defaults/VenueList.json").readString();
+
+            venues = mapper.readValue(venueJSON,
+                    new TypeReference<ArrayList<Pair<VenuePrototype, Integer>>>() {});
 
             String ingredientJSON = Gdx.files.internal("defaults/IngredientList.json").readString();
 
             ingredients = mapper.readValue(ingredientJSON,
-                    new TypeReference<ArrayList<Pair<Furniture, Integer>>>() {});
+                    new TypeReference<ArrayList<Pair<Ingredient, Integer>>>() {});
 
 
         } catch (JsonGenerationException e) {
@@ -46,8 +56,12 @@ public class MarketManager {
         }
     }
 
-    public ArrayList<Pair<Furniture, Integer>> getFurnitures() {
+    public ArrayList<Pair<FurniturePrototype, Integer>> getFurnitures() {
         return furnitures;
+    }
+
+    public ArrayList<Pair<VenuePrototype, Integer>> getVenues() {
+        return venues;
     }
 
     public ArrayList<Pair<Ingredient, Integer>> getIngredients() {
