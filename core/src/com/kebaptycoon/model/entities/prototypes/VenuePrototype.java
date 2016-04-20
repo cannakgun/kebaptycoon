@@ -1,5 +1,7 @@
 package com.kebaptycoon.model.entities.prototypes;
 
+import java.util.ArrayList;
+
 public class VenuePrototype {
 
     public int height;
@@ -9,6 +11,16 @@ public class VenuePrototype {
     public float spawnX;
     public float spawnY;
     public String background;
+    public ArrayList<Blocker> blockers;
 
     public VenuePrototype() {}
+
+    public static class Blocker {
+        public float x;
+        public float y;
+        public float w;
+        public float h;
+
+        Blocker() {}
+    }
 }
