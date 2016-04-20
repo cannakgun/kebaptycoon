@@ -24,6 +24,7 @@ public class CustomerManager {
 
     public CustomerManager() {
         random = new Random();
+        popularities = new HashMap<Customer.Type, Float>();
     }
 
     public HashMap<Customer.Type, Float> getPopularities() {
