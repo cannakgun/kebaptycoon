@@ -27,6 +27,10 @@ public class Venue {
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed,
                  Texture background) {
+		stock = new ArrayList<Pair<Ingredient, Integer>>();
+		employees = new ArrayList<Employee>();
+		furnitures = new ArrayList<Furniture>();
+		customers = new ArrayList<CustomerPack>();
 		this.width = width;
 		this.height = height;
 		this.kitchenWidth = kitchenWidth;
