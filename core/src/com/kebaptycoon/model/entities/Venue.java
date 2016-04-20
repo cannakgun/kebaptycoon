@@ -38,7 +38,7 @@ public class Venue {
 		this.managed = managed;
 		this.operational = true;
         this.orderManager = new OrderManager();
-        this.tableManager = new TableManager();
+        this.tableManager = new TableManager(this);
         this.background = background;
 	}
 
