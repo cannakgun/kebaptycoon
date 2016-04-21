@@ -1,12 +1,19 @@
 package com.kebaptycoon.model.managers;
 
+import com.badlogic.gdx.Gdx;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.model.entities.Advertisement;
 import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.Venue;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -25,6 +32,30 @@ public class CustomerManager {
     public CustomerManager() {
         random = new Random();
         popularities = new HashMap<Customer.Type, Float>();
+
+        List<Customer.Type> types = new ArrayList<Customer.Type>();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            String furnitureJSON = Gdx.files.internal("defaults/FurnitureList.json").readString();
+
+            types = mapper.readValue(furnitureJSON,
+                    new TypeReference<ArrayList<Customer.Type>>() {
+                    });
+
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (Customer.Type type: types) {
+            popularities.put(type, MIN_POPULARITY);
+        }
     }
 
     public HashMap<Customer.Type, Float> getPopularities() {
