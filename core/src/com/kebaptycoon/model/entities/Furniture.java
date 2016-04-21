@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class Furniture extends Entity{
 
     public static enum Type{
+        FoodCart,
 		Cooker,
 		Oven,
 		Frier,
