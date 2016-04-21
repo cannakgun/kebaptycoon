@@ -140,9 +140,9 @@ public class Customer extends Person{
 
         switch (state) {
             case WaitForTable:
-                onWaitForTable(venue);
+                onWaitForTable(venue, pack);
             case GoToTable:
-                onGoToTable(venue);
+                onGoToTable(venue, pack);
             case Order:
                 onOrder(venue);
             case WaitForFood:
@@ -160,8 +160,8 @@ public class Customer extends Person{
         }
     }
 
-    private void onWaitForTable(Venue venue) {
-        Furniture table = venue.getTableManager().getTableOf(this);
+    private void onWaitForTable(Venue venue, CustomerPack pack) {
+        Furniture table = venue.getTableManager().getTableFor(pack);
 
         if (table == null) {
             wander(venue);
@@ -172,12 +172,16 @@ public class Customer extends Person{
         }
     }
 
-    private void onGoToTable(Venue venue) {
+    private void onGoToTable(Venue venue, CustomerPack pack) {
         if(currentPath == null) return;
 
-        Furniture table = venue.getTableManager().getTableOf(this);
+        Furniture table = venue.getTableManager().getTableFor(pack);
+
+        if(table == null) return;
+
         if(table.getPosition().dst(getPosition()) <= 1) {
             use(table);
+            animationState = AnimationState.Sitting;
             state = State.Order;
             return;
         }

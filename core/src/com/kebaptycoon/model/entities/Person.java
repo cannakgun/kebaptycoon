@@ -63,6 +63,10 @@ public class Person extends Entity{
         return currentPath;
     }
 
+    public void resetCurrentPath() {
+        currentPath = new ArrayList<Vector3>();
+    }
+
     public void resetAnimations()
     {
         animations = new HashMap<Orientation, HashMap<AnimationState, Animation>>();
@@ -137,6 +141,7 @@ public class Person extends Entity{
         if(furniture.getUsers().size() < furniture.getMaximumUsers()) {
             furniture.onUse(this);
             usedFurniture = furniture;
+            resetCurrentPath();
             return true;
         }
 
