@@ -47,10 +47,10 @@ public class MarketManager {
             ingredients = mapper.readValue(ingredientJSON,
                     new TypeReference<ArrayList<Pair<Ingredient, Integer>>>() {});
 
-            /*String staffJSON = Gdx.files.internal("defaults/StaffList.json").readString();
+            String staffJSON = Gdx.files.internal("defaults/StaffList.json").readString();
 
             staff = mapper.readValue(staffJSON,
-                    new TypeReference<ArrayList<Pair<EmployeePrototype, Integer>>>() {});*/
+                    new TypeReference<ArrayList<Pair<EmployeePrototype, Integer>>>() {});
 
 
         } catch (JsonGenerationException e) {
