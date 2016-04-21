@@ -135,7 +135,7 @@ public class Person extends Entity{
         if (usedFurniture != null) return false;
 
         if(furniture.getUsers().size() < furniture.getMaximumUsers()) {
-            furniture.getUsers().add(this);
+            furniture.onUse(this);
             usedFurniture = furniture;
             return true;
         }
@@ -148,7 +148,7 @@ public class Person extends Entity{
         if (usedFurniture == null) return false;
 
         if(furniture.getUsers().contains(this)) {
-            furniture.getUsers().remove(this);
+            furniture.onStopUse(this);
             usedFurniture = null;
             return true;
         }

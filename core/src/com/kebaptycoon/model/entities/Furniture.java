@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Furniture extends Entity{
-	
-	public static enum Type{
+
+    public static enum Type{
 		Cooker,
 		Oven,
 		Frier,
@@ -94,5 +94,13 @@ public class Furniture extends Entity{
     {
         Vector3 delta = point.cpy().sub(getPosition());
         return (delta.x >= 0 && delta.x <= width) && (delta.y >= 0 && delta.y <= height);
+    }
+
+    public void onUse(Person person) {
+        getUsers().add(person);
+    }
+
+    public void onStopUse(Person person) {
+        getUsers().remove(person);
     }
 }

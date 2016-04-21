@@ -5,7 +5,6 @@ import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.ResourceManager;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.function.Predicate;
 
 public class GameLogic {
@@ -24,7 +23,7 @@ public class GameLogic {
     private AnimationManager animationManager;
 
     //Global game data
-    private Calendar date;
+    private int time;
     private int money;
     private int level;
 
@@ -68,7 +67,7 @@ public class GameLogic {
                 OnDayStart();
             }
 
-            date.add(Calendar.SECOND, SECONDS_PER_FRAME);
+            time++;
 
             //Customer generation
             customerManager.generateCustomers(venueManager.getVenueList());
@@ -90,11 +89,11 @@ public class GameLogic {
     }
 
     private boolean isAfterHours() {
-        return date.get(Calendar.HOUR) >= END_HOUR;
+        return time/60 >= 10;
     }
 
     private void resetDayTime() {
-        date = new Calendar.Builder().setTimeOfDay(START_HOUR, 0, 0).build();
+        time = 0;
     }
 
     public RecipeManager getRecipeManager() {
@@ -165,10 +164,6 @@ public class GameLogic {
             }
         });
         return r;
-    }
-
-    public Calendar getDate() {
-        return date;
     }
 
     public void setMoney(int money) {

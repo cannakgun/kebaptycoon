@@ -1,14 +1,19 @@
 package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.function.Predicate;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.logic.GameLogic;
 import com.kebaptycoon.model.managers.OrderManager;
 import com.kebaptycoon.model.managers.TableManager;
 import com.kebaptycoon.utils.Pair;
 
 public class Venue {
+
+    public GameLogic                        gameLogic;
 
 	ArrayList<Pair<Ingredient,Integer>> 	stock;
 	ArrayList<Employee> 					employees;
@@ -26,7 +31,8 @@ public class Venue {
     public Texture                          background;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed,
-                 Texture background) {
+                 Texture background, GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
 		stock = new ArrayList<Pair<Ingredient, Integer>>();
 		employees = new ArrayList<Employee>();
 		furnitures = new ArrayList<Furniture>();
@@ -169,5 +175,62 @@ public class Venue {
                 return false;
         }
         return true;
+    }
+
+    public ArrayList<Furniture> getFurnitures(final Furniture.Type type) {
+
+        ArrayList<Furniture> r = new ArrayList<Furniture>(getFurnitures());
+        r.removeIf(new Predicate<Furniture>() {
+            @Override
+            public boolean test(Furniture f) {
+                return f.getType() != type;
+            }
+        });
+        return r;
+    }
+
+    public ArrayList<Vector3> findPath(Vector3 source, Vector3 target) {
+        ArrayList<Vector3> returnVal = new ArrayList<Vector3>();
+
+        LinkedList<Vector3> open = new LinkedList<Vector3>();
+        LinkedList<Vector3> closed = new LinkedList<Vector3>();
+
+        Vector3 current;
+
+        return returnVal;
+    }
+
+    public ArrayList<Recipe> getAvailableRecipes() {
+        ArrayList<Recipe> all = gameLogic.getAvailableRecipes();
+        all.removeIf(new Predicate<Recipe>() {
+            @Override
+            public boolean test(Recipe recipe) {
+                for(Pair<Ingredient, Integer> p: recipe.ingredients) {
+                    if (p.right > getStock(p.left))
+                        return false;
+                }
+                return true;
+            }
+        });
+        return all;
+    }
+
+    private int getStock(final Ingredient ing) {
+        Pair<Ingredient, Integer> pair = stock.stream()
+                .filter(new Predicate<Pair<Ingredient, Integer>>() {
+                    @Override
+                    public boolean test(Pair<Ingredient, Integer> pair) {
+                        return pair.left == ing;
+                    }
+                }).findFirst().get();
+
+        if(pair == null)
+            return 0;
+        else
+            return pair.right;
+    }
+
+    public void getPaid(int money) {
+        gameLogic.setMoney(gameLogic.getMoney() + money);
     }
 }
