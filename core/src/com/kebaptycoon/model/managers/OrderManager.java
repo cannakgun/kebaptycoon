@@ -1,7 +1,7 @@
 package com.kebaptycoon.model.managers;
 
 import com.kebaptycoon.model.entities.Customer;
-import com.kebaptycoon.model.entities.Dish;
+import com.kebaptycoon.model.entities.Order;
 import com.kebaptycoon.model.entities.Recipe;
 
 import java.util.HashMap;
@@ -10,42 +10,34 @@ import java.util.Map;
 
 public class OrderManager {
 
-    private HashMap<Customer, Recipe> newOrders;
-    private HashMap<Customer, Recipe> procesOrders;
-    private HashMap<Customer, Dish> dishes;
+    private HashMap<Customer, Order> newOrders;
+    private HashMap<Customer, Order> processOrders;
 
     public OrderManager() {
-        newOrders = new HashMap<Customer, Recipe>();
-        procesOrders = new HashMap<Customer, Recipe>();
-        dishes = new HashMap<Customer, Dish>();
+        newOrders = new HashMap<Customer, Order>();
+        processOrders = new HashMap<Customer, Order>();
     }
 
     public void order(Customer customer, Recipe recipe) {
-        newOrders.put(customer,recipe);
+        Order n = new Order(recipe, customer);
+        newOrders.put(customer,n);
     }
 
     public void abortOrder(Customer customer) {
         newOrders.remove(customer);
-        procesOrders.remove(customer);
-        dishes.remove(customer);
+        processOrders.remove(customer);
     }
 
-    public Recipe getOrderForProcessing() {
-        Iterator<Map.Entry<Customer, Recipe>> it = newOrders.entrySet().iterator();
+    public Order getOrderForProcessing() {
+        Iterator<Map.Entry<Customer, Order>> it = newOrders.entrySet().iterator();
 
         if(!it.hasNext()) return null;
 
-        Map.Entry<Customer, Recipe> ent = it.next();
+        Map.Entry<Customer, Order> ent = it.next();
 
-        procesOrders.put(ent.getKey(), ent.getValue());
+        processOrders.put(ent.getKey(), ent.getValue());
         newOrders.remove(ent.getKey());
 
         return ent.getValue();
-    }
-
-    public void markOrderReady(Customer customer, Dish dish) {
-        newOrders.remove(customer);
-        procesOrders.remove(customer);
-        dishes.put(customer, dish);
     }
 }

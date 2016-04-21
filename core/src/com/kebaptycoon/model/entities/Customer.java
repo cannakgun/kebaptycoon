@@ -3,6 +3,8 @@ package com.kebaptycoon.model.entities;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -67,6 +69,7 @@ public class Customer extends Person{
 	private boolean waitOverride;
 	private State state;
 	private boolean markedForDeletion;
+    private CustomerPack pack;
 	
 	public Customer(int speed, String spriteName, Type type, int waitingTime, int budget) {
 		super(speed,spriteName);
@@ -78,6 +81,7 @@ public class Customer extends Person{
         this.waitDuration = 0;
 		this.state = State.WaitForTable;
         this.markedForDeletion = false;
+        pack = null;
 	}
 
 	public Dish getDish() {
@@ -126,23 +130,25 @@ public class Customer extends Person{
 
     @Override
     public void think(Venue venue) {
-        //Find the pack this guy belongs to
-        CustomerPack pack = venue.customers.stream()
-                .filter(new Predicate<CustomerPack>() {
-                    @Override
-                    public boolean test(CustomerPack customerPack) {
-                        return customerPack.getCustomers().contains(this);
-                    }
-                }).findFirst().get();
+        if (pack == null) {
+            //Find the pack this guy belongs to
+            pack = venue.customers.stream()
+                    .filter(new Predicate<CustomerPack>() {
+                        @Override
+                        public boolean test(CustomerPack customerPack) {
+                            return customerPack.getCustomers().contains(this);
+                        }
+                    }).findFirst().get();
+        }
 
         //If no pack think fails
         if (pack == null) return;
 
         switch (state) {
             case WaitForTable:
-                onWaitForTable(venue, pack);
+                onWaitForTable(venue);
             case GoToTable:
-                onGoToTable(venue, pack);
+                onGoToTable(venue);
             case Order:
                 onOrder(venue);
             case WaitForFood:
@@ -152,7 +158,7 @@ public class Customer extends Person{
             case EvaluateFood:
                 onEvaluateFood(venue);
             case WaitPack:
-                onWaitPack(venue, pack);
+                onWaitPack(venue);
             case Pay:
                 onPay(venue);
             case Leave:
@@ -160,7 +166,7 @@ public class Customer extends Person{
         }
     }
 
-    private void onWaitForTable(Venue venue, CustomerPack pack) {
+    private void onWaitForTable(Venue venue) {
         Furniture table = venue.getTableManager().getTableFor(pack);
 
         if (table == null) {
@@ -172,7 +178,7 @@ public class Customer extends Person{
         }
     }
 
-    private void onGoToTable(Venue venue, CustomerPack pack) {
+    private void onGoToTable(Venue venue) {
         if(currentPath == null) return;
 
         Furniture table = venue.getTableManager().getTableFor(pack);
@@ -250,8 +256,14 @@ public class Customer extends Person{
         state = State.WaitPack;
     }
 
-    private void onWaitPack(Venue venue, CustomerPack pack) {
+    private void onWaitPack(Venue venue) {
+        State[] stateArr = {State.EvaluateFood, State.WaitPack, State.Pay, State.Leave};
+        List<State> states = Arrays.asList(stateArr);
 
+        for (Customer friend: pack.getCustomers()){
+            if(!states.contains(friend.getState()))
+                return;
+        }
 
         state = State.Pay;
     }
@@ -262,6 +274,7 @@ public class Customer extends Person{
     }
 
     private void onLeave(Venue venue) {
+        venue.getTableManager().leaveTable(pack);
         markedForDeletion = true;
 
         if(currentPath == null) return;

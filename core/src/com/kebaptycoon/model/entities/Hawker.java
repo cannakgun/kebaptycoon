@@ -1,6 +1,9 @@
 package com.kebaptycoon.model.entities;
 
 public class Hawker extends Employee{
+
+    public static final int PREPARE_TIME = 250;
+
 	public static enum State{
 		Wait,
 		PrepareOrder,
@@ -10,6 +13,7 @@ public class Hawker extends Employee{
 	private Order 	currentOrder;
 	private Dish 	currentDish;
 	private State 	state;
+    private int     prepareDuration;
 	
 	public Hawker(int speed, String spriteName)
 	{
@@ -48,4 +52,91 @@ public class Hawker extends Employee{
 	public void setState(State state) {
 		this.state = state;
 	}
+
+	@Override
+    public void think(Venue venue) {
+        switch (state) {
+            case Wait:
+                onWait(venue);
+            case PrepareOrder:
+                onPrepareOrder(venue);
+            case DeliverOrder:
+                onDeliverOrder(venue);
+        }
+    }
+
+    private void onWait(Venue venue) {
+        animationState = AnimationState.Standing;
+        Order ord = venue.getOrderManager().getOrderForProcessing();
+
+        if(ord == null) return;
+
+        currentOrder = ord;
+        state = State.PrepareOrder;
+        prepareDuration = 0;
+    }
+
+    private void onPrepareOrder(Venue venue) {
+        if(usedFurniture == null) {
+            Furniture cart = venue.getFurnitures(Furniture.Type.FoodCart).get(0);
+
+            if(cart == null) return;
+
+            if(cart.getPosition().dst(getPosition()) <= 1) {
+                use(cart);
+                animationState = AnimationState.Standing;
+                return;
+            }
+
+            if(currentPath.size() <= 0) {
+                currentPath = venue.findPath(getPosition(), cart.getPosition());
+            }
+
+            followPath();
+        }
+        else {
+            if(++prepareDuration >= PREPARE_TIME) {
+                stopUsing(usedFurniture);
+                currentDish = new Dish(getPosition(), currentOrder.getRecipe(), 500);
+                state = State.DeliverOrder;
+            }
+        }
+    }
+
+    private void onDeliverOrder(Venue venue) {
+        if (currentDish != null) {
+            Customer target = currentOrder.getOrderer();
+
+            if (target == null) return;
+
+            if (target.getPosition().dst(getPosition()) <= 1) {
+                target.setDish(currentDish);
+                currentDish = null;
+                return;
+            }
+
+            if(currentPath.size() <= 0) {
+                currentPath = venue.findPath(getPosition(), target.getPosition());
+            }
+
+            followPath();
+        }
+        else {
+            Furniture cart = venue.getFurnitures(Furniture.Type.FoodCart).get(0);
+
+            if(cart == null) return;
+
+            if(cart.getPosition().dst(getPosition()) <= 1) {
+                animationState = AnimationState.Standing;
+                state = State.Wait;
+                return;
+            }
+
+            if(currentPath.size() <= 0) {
+                currentPath = venue.findPath(getPosition(), cart.getPosition());
+            }
+
+            followPath();
+        }
+    }
 }
