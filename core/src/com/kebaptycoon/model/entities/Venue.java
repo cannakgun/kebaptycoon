@@ -1,7 +1,10 @@
 package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.function.Predicate;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -189,15 +192,51 @@ public class Venue {
         return r;
     }
 
-    public ArrayList<Vector3> findPath(Vector3 source, Vector3 target) {
-        ArrayList<Vector3> returnVal = new ArrayList<Vector3>();
+    public ArrayList<Vector3> findPath(Vector3 source, Vector3 target)
+    {
+        Comparator<Pair<Vector3, Float>> comparator = new QueueComparator();
 
-        LinkedList<Vector3> open = new LinkedList<Vector3>();
-        LinkedList<Vector3> closed = new LinkedList<Vector3>();
+        PriorityQueue<Pair<Vector3, Float>> frontier = new PriorityQueue<Pair<Vector3, Float>>(10, comparator);
+        frontier.add(new Pair<Vector3, Float>(source, 0.f));
 
-        Vector3 current;
+        HashMap<Vector3, Pair<Vector3, Float>> cameFrom = new HashMap<Vector3, Pair<Vector3, Float>>();
+        cameFrom.put(source, null);
 
-        return returnVal;
+        HashMap<Vector3, Integer> costSoFar = new HashMap<Vector3, Integer>();
+        costSoFar.put(source, 0);
+
+        while(!frontier.isEmpty())
+        {
+            final Pair<Vector3, Float> current = frontier.poll();
+
+            if(current.getLeft() == target)
+                break;
+
+            for(Vector3 next : getNeighbors(current.getLeft()))
+            {
+                int newCost = costSoFar.get(current) + 1;
+
+                if((costSoFar.containsKey(next)) || (newCost < costSoFar.get(next)))
+                {
+                    costSoFar.put(next, newCost);
+                    float priority = newCost + target.dst(next);
+                    frontier.add(new Pair<Vector3, Float>(next, priority));
+                    cameFrom.put(next, current);
+                }
+            }
+        }
+
+        Vector3 current = target;
+        ArrayList<Vector3> path = new ArrayList<Vector3>();
+        path.add(current);
+
+        while(!current.equals(source))
+        {
+            current = cameFrom.remove(current).getLeft();
+            path.add(current);
+        }
+
+        return path;
     }
 
     public ArrayList<Recipe> getAvailableRecipes() {
@@ -232,5 +271,42 @@ public class Venue {
 
     public void getPaid(int money) {
         gameLogic.setMoney(gameLogic.getMoney() + money);
+    }
+
+    private ArrayList<Vector3> getNeighbors(final Vector3 current)
+    {
+        ArrayList<Orientation> possibilities = new ArrayList<Orientation>(Arrays.asList(Orientation.values()));
+        possibilities.removeIf(new Predicate<Orientation>() {
+            @Override
+            public boolean test(Orientation orientation) {
+                return !isPathable(orientation.getUnitVector().add(current));
+            }
+        });
+
+        ArrayList<Vector3> neighbors = new ArrayList<Vector3>();
+
+        for(Orientation o : possibilities)
+        {
+            neighbors.add(o.getUnitVector().add(current));
+        }
+
+        return neighbors;
+    }
+
+    private class QueueComparator implements Comparator<Pair<Vector3, Float>>
+    {
+        @Override
+        public int compare(Pair<Vector3, Float> x, Pair<Vector3, Float> y)
+        {
+            if (x.getRight() < y.getRight())
+            {
+                return -1;
+            }
+            if (x.getRight() > y.getRight())
+            {
+                return 1;
+            }
+            return 0;
+        }
     }
 }
