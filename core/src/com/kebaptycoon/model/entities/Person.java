@@ -116,10 +116,11 @@ public class Person extends Entity{
         if(currentPath == null || currentPath.size() > 0) return;
 
         ArrayList<Orientation> possibilities = new ArrayList<Orientation>(Arrays.asList(Orientation.values()));
+        final Vector3 cur = getPosition();
         possibilities.removeIf(new Predicate<Orientation>() {
             @Override
             public boolean test(Orientation orientation) {
-                return !venue.isPathable(orientation.getUnitVector().add(getPosition()));
+                return !venue.isPathable(orientation.getUnitVector().add(cur));
             }
         });
 

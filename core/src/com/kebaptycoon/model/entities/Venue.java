@@ -34,7 +34,7 @@ public class Venue {
     public Texture                          background;
 	
 	public Venue(int width, int height, int kitchenWidth, int kitchenHeight, boolean managed,
-                 Texture background, GameLogic gameLogic) {
+                 Texture background, GameLogic gameLogic, Vector3 spawn) {
         this.gameLogic = gameLogic;
 		stock = new ArrayList<Pair<Ingredient, Integer>>();
 		employees = new ArrayList<Employee>();
@@ -49,6 +49,7 @@ public class Venue {
         this.orderManager = new OrderManager();
         this.tableManager = new TableManager(this);
         this.background = background;
+        this.spawnPosition = spawn;
 	}
 
 	public ArrayList<Pair<Ingredient,Integer>> getStock() {

@@ -1,5 +1,6 @@
 package com.kebaptycoon.model.logic;
 
+import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.ResourceManager;
@@ -36,12 +37,16 @@ public class GameLogic {
         recipeManager = new RecipeManager();
         advertisementManager = new AdvertisementManager();
         customerManager = new CustomerManager();
-        marketManager = new MarketManager();
+        //marketManager = new MarketManager();
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
         paused = false;
         afterHours = false;
         resetDayTime();
+
+        Venue inonu = new Venue(30, 30, 5, 5, false,
+                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(10, 0, 0));
+        venueManager.getVenueList().add(inonu);
     }
 
     public void update() {
@@ -72,18 +77,25 @@ public class GameLogic {
             //Customer generation
             customerManager.generateCustomers(venueManager.getVenueList());
 
+
             for (Venue venue: venueManager.getVenueList()) {
+
 
                 //Execute person AI
                 for (CustomerPack customerPack: venue.getCustomers()) {
+                    animationManager.autoSetUp(customerPack.getCustomers());
                     for(Customer customer: customerPack.getCustomers()) {
                         customer.think(venue);
                     }
                 }
 
+                animationManager.autoSetUp(venue.getEmployees());
+
                 for (Employee employee: venue.getEmployees()) {
                     employee.think(venue);
                 }
+
+                animationManager.autoSetUp(venue.getFurnitures());
             }
         }
     }

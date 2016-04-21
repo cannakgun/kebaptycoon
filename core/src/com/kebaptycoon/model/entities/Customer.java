@@ -9,45 +9,6 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public class Customer extends Person{
-
-	public class Type {
-
-        String              spriteName;
-		int 				waitingTime;
-		int 				budget;
-		ArrayList<String> 	likes;
-		ArrayList<String> 	dislikes;
-
-        Type() {
-        }
-
-		Type(String spriteName, int waitingTime, int budget, ArrayList<String> likes, ArrayList<String> dislikes) {
-			this.waitingTime = waitingTime;
-			this.budget = budget;
-			this.likes = likes;
-			this.dislikes = dislikes;
-		}
-
-        public String getSpriteName() {
-            return spriteName;
-        }
-
-        public int getWaitingTime() {
-			return waitingTime;
-		}
-
-		public int getBudget() {
-			return budget;
-		}
-
-		public ArrayList<String> getLikes() {
-			return likes;
-		}
-
-		public ArrayList<String> getDislikes() {
-			return dislikes;
-		}
-	}
 	
 	public enum State {
 		WaitForTable,
@@ -61,7 +22,7 @@ public class Customer extends Person{
 		Leave
 	}
 	
-	private Type type;
+	private CustomerType type;
 	private int waitingTime;
 	private int budget;
     private int waitDuration;
@@ -71,7 +32,7 @@ public class Customer extends Person{
 	private boolean markedForDeletion;
     private CustomerPack pack;
 	
-	public Customer(int speed, String spriteName, Type type, int waitingTime, int budget) {
+	public Customer(int speed, String spriteName, CustomerType type, int waitingTime, int budget) {
 		super(speed,spriteName);
 		this.type = type;
 		this.waitingTime = waitingTime;
@@ -108,7 +69,7 @@ public class Customer extends Person{
 		this.state = state;
 	}
 
-	public Type getType() {
+	public CustomerType getType() {
 		return type;
 	}
 
@@ -131,12 +92,14 @@ public class Customer extends Person{
     @Override
     public void think(Venue venue) {
         if (pack == null) {
+            final Customer t = this;
+
             //Find the pack this guy belongs to
             pack = venue.customers.stream()
                     .filter(new Predicate<CustomerPack>() {
                         @Override
                         public boolean test(CustomerPack customerPack) {
-                            return customerPack.getCustomers().contains(this);
+                            return customerPack.getCustomers().contains(t);
                         }
                     }).findFirst().get();
         }
@@ -147,22 +110,31 @@ public class Customer extends Person{
         switch (state) {
             case WaitForTable:
                 onWaitForTable(venue);
+                break;
             case GoToTable:
                 onGoToTable(venue);
+                break;
             case Order:
                 onOrder(venue);
+                break;
             case WaitForFood:
                 onWaitForFood(venue);
+                break;
             case EatFood:
                 onEatFood(venue);
+                break;
             case EvaluateFood:
                 onEvaluateFood(venue);
+                break;
             case WaitPack:
                 onWaitPack(venue);
+                break;
             case Pay:
                 onPay(venue);
+                break;
             case Leave:
                 onLeave(venue);
+                break;
         }
     }
 
@@ -216,7 +188,7 @@ public class Customer extends Person{
         likes.removeIf(new Predicate<Recipe>() {
             @Override
             public boolean test(Recipe recipe) {
-                return type.getLikes().contains(recipe.getName());
+                return type.likes.contains(recipe.getName());
             }
         });
 

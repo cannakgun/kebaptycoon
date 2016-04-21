@@ -20,7 +20,7 @@ public class AnimationManager {
         past = new HashMap<Entity, Boolean>();
     }
 
-    public void autoSetUp(ArrayList<Entity> list) {
+    public void autoSetUp(ArrayList<? extends Entity> list) {
         for(Entity e: list) {
             if (!past.containsKey(e)) {
                 setUpAnimations(e);

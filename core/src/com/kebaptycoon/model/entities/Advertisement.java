@@ -1,9 +1,5 @@
 package com.kebaptycoon.model.entities;
 
-import java.util.Date;
-
-import com.kebaptycoon.model.entities.Customer.Type;
-
 public class Advertisement {
 
     private final static float BASE_MULTIPLIER = 0.001f;
@@ -61,10 +57,10 @@ public class Advertisement {
 	Quality quality;
 	Duration duration;
 	Platform platform;
-	Customer.Type focus;
+	CustomerType focus;
     int elapsedDuration;
 	
-	public Advertisement(Quality quality, Duration duration, Platform platform, Type focus) {
+	public Advertisement(Quality quality, Duration duration, Platform platform, CustomerType focus) {
 		this.quality = quality;
 		this.duration = duration;
 		this.platform = platform;
@@ -84,7 +80,7 @@ public class Advertisement {
 		return platform;
 	}
 
-	public Customer.Type getFocus() {
+	public CustomerType getFocus() {
 		return focus;
 	}
 
@@ -96,7 +92,7 @@ public class Advertisement {
 		return elapsedDuration >= duration.getValue();
 	}
 
-    public float getAbsoluteEffect(Customer.Type type) {
+    public float getAbsoluteEffect(CustomerType type) {
         float mul = (type == this.focus) ? FOCUS_MULTIPLIER : BASE_MULTIPLIER;
 
         return quality.getValue() * platform.getValue() * mul;
