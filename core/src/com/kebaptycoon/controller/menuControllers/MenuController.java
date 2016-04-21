@@ -18,6 +18,18 @@ public abstract class MenuController implements GestureDetector.GestureListener,
     public MenuController(GameScreen gameScreen){
         this.gameScreen = gameScreen;
     }
+    public void dispose(){
+        gameScreen.getGameScreenController().getMenuStack().pop();
+        if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
+            gameScreen.resetController();
+            gameScreen.getGameScreenController()
+                    .processTouch(new Vector2(touchPositionX, touchPositionY));
+        }
+        else {
+            gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
+                    .peek().getMenuController());
+        }
+    }
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;
