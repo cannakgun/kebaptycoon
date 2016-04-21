@@ -32,7 +32,7 @@ public class AndroidFacebookActivity extends Activity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        List<String> permissionNeeds= Arrays.asList("public_profile");
+        List<String> permissionNeeds= Arrays.asList("public_profile", "user_friends");
 
         LoginManager.getInstance().logInWithReadPermissions(this, permissionNeeds);
 
