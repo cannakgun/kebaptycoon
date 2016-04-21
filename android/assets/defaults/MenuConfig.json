@@ -26,5 +26,9 @@
   {
     "left" : "reports",
     "right" : 7
+  },
+  {
+    "left" : "friends",
+    "right" : 8
   }
 ]

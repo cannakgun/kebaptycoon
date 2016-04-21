@@ -9,12 +9,10 @@ import com.kebaptycoon.view.screens.GameScreen;
 
 public class DishMenuController extends MenuController {
 
-    private GameScreen gameScreen;
     private DishMenu dishMenu;
 
     public DishMenuController(GameScreen gameScreen, DishMenu dishMenu) {
         super(gameScreen);
-        this.gameScreen = gameScreen;
         this.dishMenu = dishMenu;
     }
 
@@ -52,15 +50,7 @@ public class DishMenuController extends MenuController {
 
         }
         else{
-
-            gameScreen.getGameScreenController().getMenuStack().pop();
-            if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
-                gameScreen.resetController();
-            }
-            else {
-                gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
-                        .peek().getMenuController());
-            }
+            dispose();
         }
     }
 }

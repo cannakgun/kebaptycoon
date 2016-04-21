@@ -1,0 +1,206 @@
+[
+  {
+    "left" :  {
+                "name" : "Masa",
+                "desc" : "seyyar masası",
+                "type" : "Table",
+                "width" : "50",
+                "height" : "50",
+                "maximumUsers": "4",
+                "userPositions" : [
+                  {"x" : 10, "y" : 10},
+                  {"x" : 20, "y" : 10},
+                  {"x" : 10, "y" : 20},
+                  {"x" : 10, "y" : 30}
+                ]
+              },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Tabure",
+      "desc" : "seyyar taburesi",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  },
+  {
+    "left" :  {
+      "name" : "Masa",
+      "desc" : "seyyar masası",
+      "type" : "Table",
+      "width" : "50",
+      "height" : "50",
+      "maximumUsers": "4",
+      "userPositions" : [
+        {"x" : 10, "y" : 10},
+        {"x" : 20, "y" : 10},
+        {"x" : 10, "y" : 20},
+        {"x" : 10, "y" : 30}
+      ]
+    },
+    "right" : 10
+  }
+]

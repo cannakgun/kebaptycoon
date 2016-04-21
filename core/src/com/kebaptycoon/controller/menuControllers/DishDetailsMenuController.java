@@ -15,12 +15,10 @@ import com.kebaptycoon.view.screens.GameScreen;
  */
 public class DishDetailsMenuController extends MenuController{
 
-    private GameScreen gameScreen;
     private DishDetailsMenu dishDetailsMenu;
     Recipe rec;
     public DishDetailsMenuController(GameScreen gameScreen, DishDetailsMenu dishDetailsMenu) {
         super(gameScreen);
-        this.gameScreen = gameScreen;
         this.dishDetailsMenu = dishDetailsMenu;
         rec = gameScreen.getGameLogic().getRecipeManager().getRecipes().get(dishDetailsMenu.getDishIndex());
     }
@@ -64,15 +62,7 @@ public class DishDetailsMenuController extends MenuController{
                 rec.setPrice(rec.getPrice()+1);
         }
         else{
-
-            gameScreen.getGameScreenController().getMenuStack().pop();
-            if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
-                gameScreen.resetController();
-            }
-            else {
-                gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
-                        .peek().getMenuController());
-            }
+            dispose();
         }
     }
 

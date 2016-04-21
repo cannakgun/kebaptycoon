@@ -11,6 +11,7 @@ import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.view.menus.AdvertisementMenu;
 import com.kebaptycoon.view.menus.DishMenu;
 import com.kebaptycoon.view.menus.EstateMenu;
+import com.kebaptycoon.view.menus.FriendsMenu;
 import com.kebaptycoon.view.menus.MarketMenu;
 import com.kebaptycoon.view.menus.Menu;
 import com.kebaptycoon.view.menus.ReportsMenu;
@@ -49,12 +50,15 @@ public class GameScreenController implements GestureDetector.GestureListener, In
     @Override
     public boolean tap(float x, float y, int count, int button) {
         Vector2 actualTouch = gameScreen.menuUnproject(x, y);
-        System.out.println(actualTouch);
-        int touchPositionY = (int)actualTouch.y;
+        processTouch(actualTouch);
+        return false;
+    }
+
+    public void processTouch(Vector2 v) {
+        int touchPositionY = (int)v.y;
         //check for pressed menu
         if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
-            setMenuUtilities((int) actualTouch.x);
-        return false;
+            setMenuUtilities((int) v.x);
     }
 
     @Override
@@ -127,6 +131,8 @@ public class GameScreenController implements GestureDetector.GestureListener, In
                 menuStack.push(new AdvertisementMenu(gameScreen));
             else if(x > leftX && x < rightX && name.equals("reports"))
                 menuStack.push(new ReportsMenu(gameScreen));
+            else if(x > leftX && x < rightX && name.equals("friends"))
+                menuStack.push(new FriendsMenu(gameScreen));
 
             if(!menuStack.isEmpty()){
                 InputProcessor ip = menuStack.peek().getMenuController();

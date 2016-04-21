@@ -1,0 +1,119 @@
+[
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Cook",
+      "sprite": "Cook"
+    },
+    "right" : 1000
+  }
+]

@@ -32,40 +32,67 @@
   "texture" : "recipe_donerEkmek"
 },
   {
-    "name" : "Sis Kebap - 2 ",
+    "name" : "Lahmacun",
     "price" : 15,
     "minLevel" : 3,
     "available" : true,
     "process" : ["Cooker"],
     "ingredients" : [{"left" : "Garlic", "right" : 5}],
-    "texture" : "recipe_sisKebap"
+    "texture" : "recipe_lahmacun"
 
   },
   {
-    "name" : "    Köfte - 2",
+    "name" : " Çig Köfte",
     "price" : 15,
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
     "ingredients" : [{"left" : "DicedMeat", "right" : 5}],
-    "texture" : "recipe_kofte"
+    "texture" : "recipe_cigKofte"
   },
   {
-    "name" : "   Döner - 2",
+    "name" : " Kokoreç",
     "price" : 12,
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
     "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
-    "texture" : "recipe_donerEkmek"
+    "texture" : "recipe_kokorec"
   },
   {
-    "name" : "   Döner - 3",
+    "name" : " Iskender",
+    "price" : 12,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
+    "texture" : "recipe_iskender"
+  },
+  {
+    "name" : "   Adana",
+    "price" : 12,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
+    "texture" : "recipe_adana"
+  },
+  {
+    "name" : "  Patates",
     "price" : 12,
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
     "ingredients" : [{"left" : "DonerMeat", "right" : 5}],
-    "texture" : "recipe_donerEkmek"
+    "texture" : "recipe_patates"
+  },
+  {
+    "name" : "   Salata",
+    "price" : 12,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [{"left" : "DonerMeat", "right" : 5}],
+    "texture" : "recipe_salata"
   }
 ]
