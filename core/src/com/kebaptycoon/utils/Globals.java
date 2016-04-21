@@ -20,6 +20,6 @@ public class Globals {
     public static final String MARKET_MENU_TITLE                    = "Market";
     public static final String ADVERTISEMENT_MENU_TITLE             = "Reklamlar";
     public static final String ESTATE_MENU_TITLE                    = "Emlak";
-    public static final String FRIENDS_MENU_TITLE                   = "Friends";
+    public static final String FRIENDS_MENU_TITLE                   = "Arkadaslar";
 
 }
