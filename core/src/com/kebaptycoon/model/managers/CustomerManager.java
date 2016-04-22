@@ -1,12 +1,20 @@
 package com.kebaptycoon.model.managers;
 
+import com.badlogic.gdx.Gdx;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.model.entities.Advertisement;
 import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
+import com.kebaptycoon.model.entities.CustomerType;
 import com.kebaptycoon.model.entities.Venue;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -15,48 +23,73 @@ public class CustomerManager {
 
     private final static float MAX_POPULARITY = 1f;
     private final static float MIN_POPULARITY = 0.01f;
-    private final static float SPAWN_CHANCE = 0.01f;
+    private final static float SPAWN_CHANCE_SCALE = 0.01f;
+    private final static float SPAWN_CHANCE_FLAT = 0.003f;
     private final static float SIZE_CHANCE = 0.3f;
     private final static float DECAY_RATE = -0.01f;
 
-    HashMap<Customer.Type, Float> popularities;
+    HashMap<CustomerType, Float> popularities;
     private Random random;
 
     public CustomerManager() {
         random = new Random();
-        popularities = new HashMap<Customer.Type, Float>();
+        popularities = new HashMap<CustomerType, Float>();
+
+        List<CustomerType> types = new ArrayList<CustomerType>();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            String typeJSON = Gdx.files.internal("defaults/CustomerTypeList.json").readString();
+
+            types = mapper.readValue(typeJSON,
+                    new TypeReference<ArrayList<CustomerType>>() {
+                    });
+
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (CustomerType type: types) {
+            popularities.put(type, MIN_POPULARITY);
+        }
     }
 
-    public HashMap<Customer.Type, Float> getPopularities() {
+    public HashMap<CustomerType, Float> getPopularities() {
         return popularities;
     }
 
-    public Set<Customer.Type> getCustomerTypes() {
+    public Set<CustomerType> getCustomerTypes() {
         return popularities.keySet();
     }
 
     public void decayPopularity() {
-        for(Map.Entry<Customer.Type, Float> entry: popularities.entrySet()) {
+        for(Map.Entry<CustomerType, Float> entry: popularities.entrySet()) {
             increasePopularity(entry.getKey(), DECAY_RATE);
         }
     }
 
-    public void increasePopularity(Customer.Type type, float rate) {
+    public void increasePopularity(CustomerType type, float rate) {
         float old = popularities.get(type);
         float clamp = Math.max(MIN_POPULARITY, Math.min(MAX_POPULARITY, old + rate));
         popularities.put(type, clamp);
     }
 
     public void applyAdvertisement(Advertisement ad) {
-        for(Map.Entry<Customer.Type, Float> entry: popularities.entrySet()) {
+        for(Map.Entry<CustomerType, Float> entry: popularities.entrySet()) {
             increasePopularity(entry.getKey(), ad.getAbsoluteEffect(entry.getKey()));
         }
     }
 
     public void generateCustomers(ArrayList<Venue> venueList) {
-        float sum = popularitySum();
+        float avg = popularitySum() / getCustomerTypes().size();
         for (Venue venue:venueList) {
-            if (random.nextFloat() < (SPAWN_CHANCE * sum)) continue;
+            if (random.nextFloat() > SPAWN_CHANCE_FLAT + (SPAWN_CHANCE_SCALE * avg)) continue;
 
             CustomerPack newCustomer = generateRandomCustomerPack();
 
@@ -80,12 +113,12 @@ public class CustomerManager {
                 size++;
         }
 
-        ArrayList<Customer.Type> types = new ArrayList<Customer.Type>();
+        ArrayList<CustomerType> types = new ArrayList<CustomerType>();
         int waiting = 0;
         int budget = 0;
 
         for (int i = 0; i < size; i++) {
-            Customer.Type newType = weighedRandomType();
+            CustomerType newType = weighedRandomType();
             types.add(newType);
             waiting = Math.max(waiting, newType.getWaitingTime());
             budget = Math.max(budget, newType.getBudget());
@@ -94,7 +127,7 @@ public class CustomerManager {
         ArrayList<Customer> newPack = new ArrayList<Customer>();
 
         for (int i = 0; i < size; i++) {
-            Customer.Type t = types.get(i);
+            CustomerType t = types.get(i);
             Customer newCustomer = new Customer(10, t.getSpriteName(), t, waiting, budget);
             newPack.add(newCustomer);
         }
@@ -106,7 +139,7 @@ public class CustomerManager {
      * Creates a random customer type weighted by their popularity
      * @return Random generated customer type
      */
-    private Customer.Type weighedRandomType() {
+    private CustomerType weighedRandomType() {
         float sum = popularitySum();
 
         if (sum == 0f) return null;
@@ -114,7 +147,7 @@ public class CustomerManager {
         float randomNum = random.nextFloat() * sum;
         float currentSum = 0;
 
-        for(Map.Entry<Customer.Type, Float> entry: popularities.entrySet()) {
+        for(Map.Entry<CustomerType, Float> entry: popularities.entrySet()) {
             float weight = entry.getValue();
 
             if (randomNum > currentSum && randomNum <= currentSum + weight)
@@ -122,6 +155,7 @@ public class CustomerManager {
 
             currentSum += weight;
         }
+
 
         //Should never reach here
         return null;
@@ -132,9 +166,10 @@ public class CustomerManager {
      * @return Sum of the popularity scores
      */
     private float popularitySum() {
-        int sum = 0;
-        for(Map.Entry<Customer.Type, Float> entry: popularities.entrySet())
+        float sum = 0;
+        for(Map.Entry<CustomerType, Float> entry: popularities.entrySet()) {
             sum += entry.getValue();
+        }
         return sum;
     }
 }

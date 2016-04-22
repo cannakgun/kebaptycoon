@@ -14,11 +14,11 @@ public class Order {
 	private Dish dish;
 	private Customer orderer;
 	
-	public Order(Recipe recipe, int currentProcess, State state, Dish dish, Customer orderer) {
+	public Order(Recipe recipe, Customer orderer) {
 		this.recipe = recipe;
-		this.currentProcess = currentProcess;
-		this.state = state;
-		this.dish = dish;
+		this.currentProcess = 0;
+		this.state = State.Kitchen;
+		this.dish = null;
 		this.orderer = orderer;
 	}
 

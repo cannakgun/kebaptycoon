@@ -1,11 +1,12 @@
 package com.kebaptycoon.model.logic;
 
+import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.ResourceManager;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.function.Predicate;
 
 public class GameLogic {
@@ -24,7 +25,7 @@ public class GameLogic {
     private AnimationManager animationManager;
 
     //Global game data
-    private Calendar date;
+    private int time;
     private int money;
     private int level;
 
@@ -43,6 +44,26 @@ public class GameLogic {
         paused = false;
         afterHours = false;
         resetDayTime();
+
+        Venue inonu = new Venue(30, 30, 5, 5, false,
+                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(10, 0, 0));
+
+        Furniture newTable = new Furniture();
+        newTable.setName("person");
+        newTable.setPosition(new Vector3(15,0,0));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
+        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
+
+        inonu.getFurnitures().add(newTable);
+
+        venueManager.getVenueList().add(inonu);
     }
 
     public void update() {
@@ -68,33 +89,42 @@ public class GameLogic {
                 OnDayStart();
             }
 
-            date.add(Calendar.SECOND, SECONDS_PER_FRAME);
+            time++;
 
             //Customer generation
             customerManager.generateCustomers(venueManager.getVenueList());
 
+
             for (Venue venue: venueManager.getVenueList()) {
+
 
                 //Execute person AI
                 for (CustomerPack customerPack: venue.getCustomers()) {
+                    animationManager.autoSetUp(customerPack.getCustomers());
                     for(Customer customer: customerPack.getCustomers()) {
                         customer.think(venue);
                     }
                 }
 
+                animationManager.autoSetUp(venue.getEmployees());
+
                 for (Employee employee: venue.getEmployees()) {
                     employee.think(venue);
                 }
+
+                animationManager.autoSetUp(venue.getFurnitures());
+
+                venue.purgeCustomers();
             }
         }
     }
 
     private boolean isAfterHours() {
-        return date.get(Calendar.HOUR) >= END_HOUR;
+        return time >= 10*60*60;
     }
 
     private void resetDayTime() {
-        date = new Calendar.Builder().setTimeOfDay(START_HOUR, 0, 0).build();
+        time = 0;
     }
 
     public RecipeManager getRecipeManager() {
@@ -165,10 +195,6 @@ public class GameLogic {
             }
         });
         return r;
-    }
-
-    public Calendar getDate() {
-        return date;
     }
 
     public void setMoney(int money) {

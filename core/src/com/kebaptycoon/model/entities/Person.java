@@ -63,6 +63,10 @@ public class Person extends Entity{
         return currentPath;
     }
 
+    public void resetCurrentPath() {
+        currentPath = new ArrayList<Vector3>();
+    }
+
     public void resetAnimations()
     {
         animations = new HashMap<Orientation, HashMap<AnimationState, Animation>>();
@@ -86,6 +90,7 @@ public class Person extends Entity{
     }
 
     public void move(Orientation direction, float distance) {
+        this.animationState = AnimationState.Walking;
         this.orientation = direction;
         Vector3 delta = direction.getUnitVector().scl(distance);
         Vector3 total = getPosition().cpy().add(delta);
@@ -112,10 +117,11 @@ public class Person extends Entity{
         if(currentPath == null || currentPath.size() > 0) return;
 
         ArrayList<Orientation> possibilities = new ArrayList<Orientation>(Arrays.asList(Orientation.values()));
+        final Vector3 cur = getPosition();
         possibilities.removeIf(new Predicate<Orientation>() {
             @Override
             public boolean test(Orientation orientation) {
-                return !venue.isPathable(orientation.getUnitVector().add(getPosition()));
+                return !venue.isPathable(orientation.getUnitVector().add(cur));
             }
         });
 
@@ -135,8 +141,9 @@ public class Person extends Entity{
         if (usedFurniture != null) return false;
 
         if(furniture.getUsers().size() < furniture.getMaximumUsers()) {
-            furniture.getUsers().add(this);
+            furniture.onUse(this);
             usedFurniture = furniture;
+            resetCurrentPath();
             return true;
         }
 
@@ -148,7 +155,7 @@ public class Person extends Entity{
         if (usedFurniture == null) return false;
 
         if(furniture.getUsers().contains(this)) {
-            furniture.getUsers().remove(this);
+            furniture.onStopUse(this);
             usedFurniture = null;
             return true;
         }

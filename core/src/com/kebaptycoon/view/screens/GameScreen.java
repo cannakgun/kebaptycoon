@@ -18,8 +18,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
+import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.model.entities.Recipe;
+import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
@@ -29,6 +31,7 @@ import com.kebaptycoon.view.menus.Menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GameScreen implements Screen{
 
@@ -36,6 +39,7 @@ public class GameScreen implements Screen{
     private GameScreenController                gameScreenController;
     private GameLogic                           gameLogic;
 
+    private Venue                               currentVenue;
 	
 	private Matrix4 		                    isoTransform = null;
 	private Matrix4			                    invIsotransform = null;
@@ -94,17 +98,37 @@ public class GameScreen implements Screen{
 		//Create sprite batch
         spriteBatch = new SpriteBatch();
         menuBatch = new SpriteBatch();
-		background = resourceManager.textures.get("restaurants_inonu");
 
 		//Identity Matrix
 		id = new Matrix4();
 		id.idt();
+
+
+        setVenue(gameLogic.getVenueManager().getVenueList().get(0));
+
+		/*/Create the isometric transform matrix
+		isoTransform = new Matrix4();
+		isoTransform.idt();
+		isoTransform.translate(0.0f, 0.25f, 0.0f);
+		isoTransform.scale((float)(Math.sqrt(2.0) / 2.0), (float)(Math.sqrt(2.0) / 4.0), 1.0f);
+		isoTransform.rotate(0.0f, 0.0f, 1.0f, -45.0f);
+
+		//... and the inverse isometric transform matrix
+		invIsotransform = new Matrix4(isoTransform);
+		invIsotransform.inv();*/
+
+	}
+
+    private void setVenue(Venue venue) {
+        background = venue.background;
 
         //The worldCamera will show 10 tiles
         float camWidth = tileWidth * 10.0f;
 
         //For the height, we just maintain the aspect ratio
         float camHeight = tileHeight * 10;// * ((float)height / (float)width);
+
+        currentVenue = venue;
 
         worldCamera = new OrthographicCamera(camWidth, camHeight);
         worldCamera.position.set(camWidth / 2.0f, 0, 0);
@@ -125,19 +149,7 @@ public class GameScreen implements Screen{
         minZoom = Math.min(minZoom, maxZoom);
 
         worldCamera.zoom = maxZoom;
-
-		/*/Create the isometric transform matrix
-		isoTransform = new Matrix4();
-		isoTransform.idt();
-		isoTransform.translate(0.0f, 0.25f, 0.0f);
-		isoTransform.scale((float)(Math.sqrt(2.0) / 2.0), (float)(Math.sqrt(2.0) / 4.0), 1.0f);
-		isoTransform.rotate(0.0f, 0.0f, 1.0f, -45.0f);
-
-		//... and the inverse isometric transform matrix
-		invIsotransform = new Matrix4(isoTransform);
-		invIsotransform.inv();*/
-
-	}
+    }
 
     @Override
     public void show() {
@@ -173,8 +185,8 @@ public class GameScreen implements Screen{
         spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 2030, 640);
         spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 1400, 1000);
         spriteBatch.draw(resourceManager.textures.get("restaurants_hawker"), 1750, 950);
-        renderMap();
-        renderEntities();
+        renderMap(delta);
+        renderEntities(delta);
         spriteBatch.end();
 
         viewPortMenu.apply();
@@ -219,7 +231,7 @@ public class GameScreen implements Screen{
         menuCamera.position.set(menuCamera.viewportWidth / 2, menuCamera.viewportHeight/2,0);
 	}
 
-	private void renderMap()
+	private void renderMap(float delta)
 	{
 //		for (int x = 0; x < 10; x++)
 //		{
@@ -236,11 +248,36 @@ public class GameScreen implements Screen{
 		//TODO: Render the background associated to the current venue
 	}
 	
-	private void renderEntities()
+	private void renderEntities(float delta)
 	{
-		//TODO: Get the entities to be rendered from the current venue
-		//		and render them in order of distance to the camera
-	}
+		ArrayList<Entity> renderables = new ArrayList<Entity>();
+
+
+        for (CustomerPack customerPack: currentVenue.getCustomers()) {
+            renderables.addAll(customerPack.getCustomers());
+        }
+
+        renderables.addAll(currentVenue.getEmployees());
+
+        renderables.addAll(currentVenue.getFurnitures());
+
+        renderables.sort(new Comparator<Entity>() {
+            @Override
+            public int compare(Entity o1, Entity o2) {
+                float s1 = o1.getPosition().x + o1.getPosition().y;
+                float s2 = o2.getPosition().x + o2.getPosition().y;
+                if (s1 < s2)
+                    return 1;
+                else if (s1 > s2)
+                    return -1;
+                return 0;
+            }
+        });
+
+        for (Entity ent: renderables) {
+            ent.render(spriteBatch, delta);
+        }
+    }
 
 
     @Override

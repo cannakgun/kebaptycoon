@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Furniture extends Entity{
-	
-	public static enum Type{
+
+    public static enum Type{
+        FoodCart,
 		Cooker,
 		Oven,
 		Frier,
@@ -25,7 +26,8 @@ public class Furniture extends Entity{
     int width;
     int height;
     int maximumUsers;
-    ArrayList<Person> users;
+    ArrayList<Person> users = new ArrayList<Person>();
+    ArrayList<Vector3> userPositions = new ArrayList<Vector3>();
     HashMap<Orientation, Animation> animations = null;
 
     public Type getType() {
@@ -68,6 +70,14 @@ public class Furniture extends Entity{
         this.maximumUsers = maximumUsers;
     }
 
+    public ArrayList<Vector3> getUserPositions() {
+        return userPositions;
+    }
+
+    public void setUserPositions(ArrayList<Vector3> userPositions) {
+        this.userPositions = userPositions;
+    }
+
     public ArrayList<Person> getUsers() {
         return users;
     }
@@ -94,5 +104,18 @@ public class Furniture extends Entity{
     {
         Vector3 delta = point.cpy().sub(getPosition());
         return (delta.x >= 0 && delta.x <= width) && (delta.y >= 0 && delta.y <= height);
+    }
+
+    public void onUse(Person person) {
+        person.setPosition(getPosition().cpy().add(userPositions.get(users.size())));
+        person.orientation = Orientation.fromVector(getPosition().cpy().sub(person.getPosition()));
+        getUsers().add(person);
+    }
+
+    public void onStopUse(Person person) {
+        person.orientation = person.orientation.getReverse();
+        float max = Math.max(width, height);
+        person.setPosition(getPosition().cpy().add(person.orientation.getUnitVector().scl(max)));
+        getUsers().remove(person);
     }
 }
