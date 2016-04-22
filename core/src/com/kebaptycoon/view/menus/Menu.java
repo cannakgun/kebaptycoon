@@ -32,7 +32,7 @@ public abstract class Menu {
         heading1Generator = resourceManager.fonts.get("Boogaloo");
         heading1Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading1Parameter.size = 72;
-        heading1Parameter.color = Color.BLACK;
+        heading1Parameter.color = Color.WHITE;
 
         heading1Font = heading1Generator.generateFont(heading1Parameter);
         heading1Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -41,15 +41,15 @@ public abstract class Menu {
         heading2Generator = resourceManager.fonts.get("ClearSans");
         heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading2Parameter.size = 45;
-        heading2Parameter.color = Color.BLACK;
+        heading2Parameter.color = Color.WHITE;
 
         heading2Font = heading2Generator.generateFont(heading2Parameter);
         heading2Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         heading3Generator = resourceManager.fonts.get("ClearSans");
         heading3Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        heading3Parameter.size = 20;
-        heading3Parameter.color = Color.BLACK;
+        heading3Parameter.size = 25;
+        heading3Parameter.color = Color.WHITE;
         heading3Font = heading3Generator.generateFont(heading3Parameter);
         heading3Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 

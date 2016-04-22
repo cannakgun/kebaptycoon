@@ -22,6 +22,7 @@ public abstract class MenuController implements GestureDetector.GestureListener,
         gameScreen.getGameScreenController().getMenuStack().pop();
         if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
             gameScreen.resetController();
+            gameScreen.getGameLogic().setPaused(false);
             gameScreen.getGameScreenController()
                     .processTouch(new Vector2(touchPositionX, touchPositionY));
         }

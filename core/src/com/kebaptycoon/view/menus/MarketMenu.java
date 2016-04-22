@@ -46,7 +46,7 @@ public class MarketMenu extends Menu {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
 
-        heading1Font.draw(batch, Globals.MARKET_MENU_TITLE, 825, 920);
+        heading1Font.draw(batch, Globals.MARKET_MENU_TITLE, 835, 920);
 
         int y = 920;
 

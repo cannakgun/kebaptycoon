@@ -58,7 +58,11 @@ public class GameScreenController implements GestureDetector.GestureListener, In
         int touchPositionY = (int)v.y;
         //check for pressed menu
         if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
+        {
             setMenuUtilities((int) v.x);
+            gameScreen.getGameLogic().setPaused(true);
+        }
+
     }
 
     @Override

@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.title = "Kebap Tycoon";
 		config.width = 1920;
 		config.height = 1080;
+		config.fullscreen = true;
         KebapTycoonGame.setFacebookLoginHelper(new DesktopFacebook());
 		new LwjglApplication(KebapTycoonGame.getInstance(), config);
 	}

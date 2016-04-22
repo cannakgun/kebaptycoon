@@ -30,7 +30,7 @@ public class SplashScreen implements Screen{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
-        background = new Texture(Gdx.files.internal("textures/screens/splash.jpeg"));
+        background = new Texture(Gdx.files.internal("textures/screens/splash2.jpg"));
 
     }
 
@@ -43,7 +43,7 @@ public class SplashScreen implements Screen{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-            batch.draw(background, 0, 0);
+            batch.draw(background, 0, 0, 1920, 1080);
         batch.end();
 
         if(frame++ == 1)

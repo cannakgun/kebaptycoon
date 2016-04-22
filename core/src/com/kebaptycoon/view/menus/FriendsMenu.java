@@ -31,7 +31,7 @@ public class FriendsMenu extends Menu{
     public void render(SpriteBatch batch, Viewport viewPort) {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
-        heading1Font.draw(batch, Globals.FRIENDS_MENU_TITLE, 845, 920);
+        heading1Font.draw(batch, Globals.FRIENDS_MENU_TITLE, 815, 920);
 
         batch.draw(resourceManager.textures.get("friends_can"), 500, 700, 100, 100);
         heading3Font.draw(batch, "Seviye : 3    Günlük gelir : 5000 TL    Acilan yemek sayisi : 4", 650, 750);
