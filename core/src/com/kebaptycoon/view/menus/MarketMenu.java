@@ -46,7 +46,7 @@ public class MarketMenu extends Menu {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
 
-        heading1Font.draw(batch, Globals.MARKET_MENU_TITLE, 845, 920);
+        heading1Font.draw(batch, Globals.MARKET_MENU_TITLE, 825, 920);
 
         int y = 920;
 
@@ -59,7 +59,7 @@ public class MarketMenu extends Menu {
             if(i%4 == 0)
                 y -= 240;
             batch.draw(resourceManager.textures.get("furnitures_" + pro.name),
-                    500 + (i%4) * 240, y, 100, 100);
+                    520 + (i%4) * 240, y, 100, 100);
             heading3Font.draw(batch, furniture.getRight() + " TL ", 500 + (i%4) * 240 + 30, y - 30);
 
         }

@@ -41,7 +41,7 @@ public class StockMenu extends Menu {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
 
-        heading1Font.draw(batch, Globals.STOCK_MENU_TITLE, 845, 920);
+        heading1Font.draw(batch, Globals.STOCK_MENU_TITLE, 865, 920);
 
         int y = 920;
 
