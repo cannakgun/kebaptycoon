@@ -1,6 +1,6 @@
 [{
-  "spriteName" : "person",
-  "waitingTime" : 15,
+  "spriteName" : "defaultPerson",
+  "waitingTime" : 300,
   "budget" : 35,
   "likes" : [],
   "dislikes" : []

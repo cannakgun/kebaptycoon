@@ -90,6 +90,7 @@ public class Person extends Entity{
     }
 
     public void move(Orientation direction, float distance) {
+        this.animationState = AnimationState.Walking;
         this.orientation = direction;
         Vector3 delta = direction.getUnitVector().scl(distance);
         Vector3 total = getPosition().cpy().add(delta);

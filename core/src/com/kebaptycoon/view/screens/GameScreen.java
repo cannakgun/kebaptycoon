@@ -31,6 +31,7 @@ import com.kebaptycoon.view.menus.Menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GameScreen implements Screen{
 
@@ -256,6 +257,19 @@ public class GameScreen implements Screen{
         renderables.addAll(currentVenue.getEmployees());
 
         renderables.addAll(currentVenue.getFurnitures());
+
+        renderables.sort(new Comparator<Entity>() {
+            @Override
+            public int compare(Entity o1, Entity o2) {
+                float s1 = o1.getPosition().x + o1.getPosition().y;
+                float s2 = o2.getPosition().x + o2.getPosition().y;
+                if (s1 < s2)
+                    return 1;
+                else if (s1 > s2)
+                    return -1;
+                return 0;
+            }
+        });
 
         for (Entity ent: renderables) {
             ent.render(spriteBatch, delta);

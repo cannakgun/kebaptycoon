@@ -23,7 +23,8 @@ public class CustomerManager {
 
     private final static float MAX_POPULARITY = 1f;
     private final static float MIN_POPULARITY = 0.01f;
-    private final static float SPAWN_CHANCE = 0.01f;
+    private final static float SPAWN_CHANCE_SCALE = 0.01f;
+    private final static float SPAWN_CHANCE_FLAT = 0.003f;
     private final static float SIZE_CHANCE = 0.3f;
     private final static float DECAY_RATE = -0.01f;
 
@@ -86,9 +87,9 @@ public class CustomerManager {
     }
 
     public void generateCustomers(ArrayList<Venue> venueList) {
-        float sum = popularitySum();
+        float avg = popularitySum() / getCustomerTypes().size();
         for (Venue venue:venueList) {
-            if (random.nextFloat() < (SPAWN_CHANCE * sum)) continue;
+            if (random.nextFloat() > SPAWN_CHANCE_FLAT + (SPAWN_CHANCE_SCALE * avg)) continue;
 
             CustomerPack newCustomer = generateRandomCustomerPack();
 

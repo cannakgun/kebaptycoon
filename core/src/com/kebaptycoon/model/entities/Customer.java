@@ -155,7 +155,10 @@ public class Customer extends Person{
 
         Furniture table = venue.getTableManager().getTableFor(pack);
 
-        if(table == null) return;
+        if(table == null) {
+            state = State.WaitForTable;
+            return;
+        }
 
         if(table.getPosition().dst(getPosition()) <= 1) {
             use(table);
@@ -165,7 +168,7 @@ public class Customer extends Person{
         }
 
         if(currentPath.size() <= 0) {
-            currentPath = venue.findPath(getPosition(), table.getPosition());
+            currentPath = venue.findPath(getPosition(), table.getPosition(), 1f);
         }
 
         followPath();
@@ -173,16 +176,21 @@ public class Customer extends Person{
 
     private void onOrder(Venue venue) {
         ArrayList<Recipe> available = venue.getAvailableRecipes();
-        if (available.size() <= 0) {
-            state = State.Leave;
-            return;
-        }
         available.removeIf(new Predicate<Recipe>() {
             @Override
             public boolean test(Recipe recipe) {
                 return recipe.price > budget;
             }
         });
+        if (available.size() <= 0) {
+            state = State.Leave;
+
+            for (Customer friend: pack.getCustomers()){
+                friend.state = State.Leave;
+            }
+
+            return;
+        }
 
         ArrayList<Recipe> likes = new ArrayList<Recipe>(available);
         likes.removeIf(new Predicate<Recipe>() {
@@ -199,16 +207,29 @@ public class Customer extends Person{
 
         venue.getOrderManager().order(this, likes.get(rand));
         state = State.WaitForFood;
+
+        for (Customer friend: pack.getCustomers()){
+            friend.waitDuration = 0;
+        }
     }
 
     private void onWaitForFood(Venue venue) {
         if(dish != null) {
             state = State.EatFood;
             venue.getOrderManager().abortOrder(this);
+
+            for (Customer friend: pack.getCustomers()){
+                if(friend.waitOverride == true)
+                    return;
+            }
             return;
         }
 
-        waitDuration++;
+
+        for (Customer friend: pack.getCustomers()){
+            if(friend.getState() == State.WaitForFood)
+                waitDuration++;
+        }
 
         if(waitDuration > waitingTime && !waitOverride) {
             state = State.Leave;
@@ -242,10 +263,17 @@ public class Customer extends Person{
 
     private void onPay(Venue venue) {
         venue.getPaid(dish.getRecipe().getPrice());
+        stopUsing(usedFurniture);
+
+        for (Customer friend: pack.getCustomers()){
+            if(friend.waitOverride == false)
+                return;
+        }
         state = State.Leave;
     }
 
     private void onLeave(Venue venue) {
+        stopUsing(usedFurniture);
         venue.getTableManager().leaveTable(pack);
         markedForDeletion = true;
 

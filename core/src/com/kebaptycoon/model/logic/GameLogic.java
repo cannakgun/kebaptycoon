@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.ResourceManager;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -46,6 +47,22 @@ public class GameLogic {
 
         Venue inonu = new Venue(30, 30, 5, 5, false,
                 resourceManager.textures.get("restaurants_inonu"), this, new Vector3(10, 0, 0));
+
+        Furniture newTable = new Furniture();
+        newTable.setName("person");
+        newTable.setPosition(new Vector3(15,0,0));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
+        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
+
+        inonu.getFurnitures().add(newTable);
+
         venueManager.getVenueList().add(inonu);
     }
 
@@ -96,12 +113,14 @@ public class GameLogic {
                 }
 
                 animationManager.autoSetUp(venue.getFurnitures());
+
+                venue.purgeCustomers();
             }
         }
     }
 
     private boolean isAfterHours() {
-        return time/60 >= 10;
+        return time >= 10*60*60;
     }
 
     private void resetDayTime() {

@@ -31,7 +31,7 @@ public class TableManager {
 
         //If the pack is already assigned return the assigned table
 
-        if(assignments.containsValue(pack))
+        if(assignments.containsKey(pack))
         {
             return assignments.get(pack);
         }
@@ -55,7 +55,7 @@ public class TableManager {
             if (assignments.containsValue(table))
                 continue;
 
-            if (table.getMaximumUsers() <= packSize)
+            if (table.getMaximumUsers() >= packSize)
                 return table;
         }
 
