@@ -49,8 +49,8 @@ public class GameLogic {
                 resourceManager.textures.get("restaurants_inonu"), this, new Vector3(10, 0, 0));
 
         Furniture newTable = new Furniture();
-        newTable.setName("person");
-        newTable.setPosition(new Vector3(15,0,0));
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(30, 0, 0));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
@@ -62,6 +62,71 @@ public class GameLogic {
         newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(30, 5, 0));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
+        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
+
+        inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(30, -5, 0));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
+        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
+
+        inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(25, 0, 0));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
+        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
+        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
+
+        inonu.getFurnitures().add(newTable);
+
+        Furniture cart = new Furniture();
+        cart.setName("foodCart");
+        cart.setPosition(new Vector3(35, 0, 0));
+        cart.setRender3DDelta(new Vector3(-2, 0, 0));
+        cart.setWidth(1);
+        cart.setHeight(1);
+        cart.setMaximumUsers(1);
+        cart.setOrientation(Orientation.East);
+        cart.setType(Furniture.Type.FoodCart);
+        cart.getUserPositions().add(new Vector3(.7f, 0, 0));
+
+        inonu.getFurnitures().add(cart);
+
+        inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
+
+        Hawker reis = new Hawker(15, "defaultPerson");
+        reis.setPosition(new Vector3(40, 0, 0));
+
+        inonu.getEmployees().add(reis);
 
         venueManager.getVenueList().add(inonu);
     }

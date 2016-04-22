@@ -202,6 +202,9 @@ public class Venue {
 
     public ArrayList<Vector3> findPath(Vector3 source, Vector3 target, float margin)
     {
+        source = new Vector3(Math.round(source.x), Math.round(source.y), Math.round(source.z));
+        target = new Vector3(Math.round(target.x), Math.round(target.y), Math.round(target.z));
+
         Comparator<Pair<Vector3, Float>> comparator = new QueueComparator();
 
         PriorityQueue<Pair<Vector3, Float>> frontier = new PriorityQueue<Pair<Vector3, Float>>(10, comparator);
@@ -263,7 +266,7 @@ public class Venue {
         all.removeIf(new Predicate<Recipe>() {
             @Override
             public boolean test(Recipe recipe) {
-                for(Pair<Ingredient, Integer> p: recipe.ingredients) {
+                for (Pair<Ingredient, Integer> p : recipe.ingredients) {
                     if (p.right > getStock(p.left))
                         return true;
                 }
@@ -284,6 +287,16 @@ public class Venue {
                 });
 
         if (str.count() <= 0) return 0;
+
+        str.close();
+
+        str = stock.stream()
+                .filter(new Predicate<Pair<Ingredient, Integer>>() {
+                    @Override
+                    public boolean test(Pair<Ingredient, Integer> pair) {
+                        return pair.left == ing;
+                    }
+                });
 
         Pair<Ingredient, Integer> pair = str.findFirst().get();
 

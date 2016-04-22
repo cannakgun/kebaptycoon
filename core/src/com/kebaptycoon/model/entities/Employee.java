@@ -33,4 +33,6 @@ public class Employee extends Person{
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}
+
+	public void onCancelOrder() {}
 }

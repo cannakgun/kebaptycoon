@@ -184,7 +184,6 @@ public class GameScreen implements Screen{
         spriteBatch.draw(background, 0, 0);
         spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 2030, 640);
         spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 1400, 1000);
-        spriteBatch.draw(resourceManager.textures.get("restaurants_hawker"), 1750, 950);
         renderMap(delta);
         renderEntities(delta);
         spriteBatch.end();

@@ -29,6 +29,13 @@ public class Hawker extends Employee{
 		this.state = State.Wait;
 	}
 
+    @Override
+    public void onCancelOrder() {
+        currentOrder = null;
+        currentDish = null;
+        this.state = State.Wait;
+    }
+
 	public Order getCurrentOrder() {
 		return currentOrder;
 	}
@@ -58,18 +65,36 @@ public class Hawker extends Employee{
         switch (state) {
             case Wait:
                 onWait(venue);
+                break;
             case PrepareOrder:
                 onPrepareOrder(venue);
+                break;
             case DeliverOrder:
                 onDeliverOrder(venue);
+                break;
         }
     }
 
     private void onWait(Venue venue) {
         animationState = AnimationState.Standing;
-        Order ord = venue.getOrderManager().getOrderForProcessing();
+        Order ord = venue.getOrderManager().getOrderForProcessing(this);
 
-        if(ord == null) return;
+        if(ord == null) {
+            Furniture cart = venue.getFurnitures(Furniture.Type.FoodCart).get(0);
+
+            if(cart == null) return;
+
+            if(cart.getPosition().dst(getPosition()) <= 1) {
+                resetCurrentPath();
+                use(cart);
+                return;
+            }
+
+            if(currentPath.size() <= 0) {
+                currentPath = venue.findPath(getPosition(), cart.getPosition(), 1);
+            }
+            return;
+        }
 
         currentOrder = ord;
         state = State.PrepareOrder;
@@ -83,13 +108,14 @@ public class Hawker extends Employee{
             if(cart == null) return;
 
             if(cart.getPosition().dst(getPosition()) <= 1) {
+                resetCurrentPath();
                 use(cart);
                 animationState = AnimationState.Standing;
                 return;
             }
 
             if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), cart.getPosition());
+                currentPath = venue.findPath(getPosition(), cart.getPosition(), 1);
             }
 
             followPath();
@@ -98,12 +124,14 @@ public class Hawker extends Employee{
             if(++prepareDuration >= PREPARE_TIME) {
                 stopUsing(usedFurniture);
                 currentDish = new Dish(getPosition(), currentOrder.getRecipe(), 500);
+                currentOrder.getOrderer().setWaitOverride(true);
                 state = State.DeliverOrder;
             }
         }
     }
 
     private void onDeliverOrder(Venue venue) {
+        stopUsing(usedFurniture);
         if (currentDish != null) {
             Customer target = currentOrder.getOrderer();
 
@@ -116,7 +144,7 @@ public class Hawker extends Employee{
             }
 
             if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), target.getPosition());
+                currentPath = venue.findPath(getPosition(), target.getPosition(), 2);
             }
 
             followPath();
@@ -133,7 +161,7 @@ public class Hawker extends Employee{
             }
 
             if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), cart.getPosition());
+                currentPath = venue.findPath(getPosition(), cart.getPosition(), 1);
             }
 
             followPath();

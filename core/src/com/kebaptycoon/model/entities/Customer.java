@@ -217,24 +217,24 @@ public class Customer extends Person{
         if(dish != null) {
             state = State.EatFood;
             venue.getOrderManager().abortOrder(this);
-
-            for (Customer friend: pack.getCustomers()){
-                if(friend.waitOverride == true)
-                    return;
-            }
             return;
         }
 
+        waitDuration++;
 
         for (Customer friend: pack.getCustomers()){
-            if(friend.getState() == State.WaitForFood)
-                waitDuration++;
+            if (friend == this)
+                continue;
+
+            if(friend.waitOverride == true)
+                return;
         }
 
         if(waitDuration > waitingTime && !waitOverride) {
             state = State.Leave;
             venue.getOrderManager().abortOrder(this);
         }
+
     }
 
     private void onEatFood(Venue venue) {
@@ -250,10 +250,13 @@ public class Customer extends Person{
     }
 
     private void onWaitPack(Venue venue) {
-        State[] stateArr = {State.EvaluateFood, State.WaitPack, State.Pay, State.Leave};
+        State[] stateArr = {State.WaitPack, State.Pay, State.Leave};
         List<State> states = Arrays.asList(stateArr);
 
         for (Customer friend: pack.getCustomers()){
+            if (friend == this)
+                continue;
+
             if(!states.contains(friend.getState()))
                 return;
         }
@@ -265,10 +268,6 @@ public class Customer extends Person{
         venue.getPaid(dish.getRecipe().getPrice());
         stopUsing(usedFurniture);
 
-        for (Customer friend: pack.getCustomers()){
-            if(friend.waitOverride == false)
-                return;
-        }
         state = State.Leave;
     }
 
