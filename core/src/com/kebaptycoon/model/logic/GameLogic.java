@@ -38,7 +38,7 @@ public class GameLogic {
         recipeManager = new RecipeManager();
         advertisementManager = new AdvertisementManager();
         customerManager = new CustomerManager();
-        //marketManager = new MarketManager();
+        marketManager = new MarketManager();
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
         paused = false;
