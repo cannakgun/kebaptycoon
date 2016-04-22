@@ -16,19 +16,15 @@
     "right" : 4
   },
   {
-    "left" : "estate",
+    "left" : "advertisement",
     "right" : 5
   },
   {
-    "left" : "advertisement",
+    "left" : "reports",
     "right" : 6
   },
   {
-    "left" : "reports",
-    "right" : 7
-  },
-  {
     "left" : "friends",
-    "right" : 8
+    "right" : 7
   }
 ]
