@@ -36,8 +36,6 @@ public class DishMenu extends Menu{
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_backgrounds_dishBackground"), 300, 300);
 
-        //heading1Font.draw(batch, Globals.DISH_MENU_TITLE, 825, 920);
-
         ArrayList<Recipe> recipes = gameLogic.getAvailableRecipes();//getRecipeManager().getRecipes();
         int  min = Math.min((currentPage + 1) * 3, recipes.size());
 

@@ -33,6 +33,8 @@ public class GameLogic {
     private boolean afterHours;
 
     public GameLogic(ResourceManager resourceManager){
+        level = 15;
+
         this.resourceManager = resourceManager;
         recipeManager = new RecipeManager();
         advertisementManager = new AdvertisementManager();
@@ -202,7 +204,12 @@ public class GameLogic {
 
         inonu.getFurnitures().add(cart);
 
-        inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
+        inonu.incrementIngredient(Ingredient.MincedMeat, 500);
+        inonu.incrementIngredient(Ingredient.Bread, 500);
+        inonu.incrementIngredient(Ingredient.Egg, 500);
+        inonu.incrementIngredient(Ingredient.Parsley, 500);
+        inonu.incrementIngredient(Ingredient.Tomato, 500);
+        inonu.incrementIngredient(Ingredient.Spice, 500);
 
         Hawker reis = new Hawker(7, "defaultPerson");
         reis.setPosition(new Vector3(22, 0, 0));
@@ -255,7 +262,7 @@ public class GameLogic {
         ArrayList<Recipe> returnArr = new ArrayList<Recipe>();
 
         for (Recipe r: recipeManager.getRecipes()) {
-            if (r.isAvailable())
+            if (r.getMinLevel() <= level)
                 returnArr.add(r);
         }
 

@@ -143,7 +143,7 @@ public class Furniture extends Entity{
     }
 
     public Vector3 findUsablePosition() {
-        return getUsePosition(findSuitableOrientation());
+        return getLeavePosition(findSuitableOrientation());
     }
 
     public Vector3 getUsePosition(Orientation o) {
@@ -155,7 +155,24 @@ public class Furniture extends Entity{
 
         Vector3 center = getRender3DDelta().add(getPosition());
 
-        return center.cpy().add(o.getUnitVector().scl(scale/2));
+        return center.cpy().add(o.getUnitVector().scl(scale / 2));
+    }
+
+    public Vector3 getLeavePosition(Orientation o) {
+        float scale;
+        if(o == orientation || o == orientation.getReverse())
+            scale = height;
+        else
+            scale = width;
+
+        Vector3 vec = getRender3DDelta().add(getPosition());
+
+        vec.add(o.getUnitVector().scl(scale / 2));
+
+        while(vec.x % 1 != 0 || vec.y % 1 != 0 || contains(vec))
+            vec.add(o.getUnitVector().scl(.5f));
+
+        return vec;
     }
 
     public void onUse(Person person) {
@@ -171,8 +188,7 @@ public class Furniture extends Entity{
 
     public void onStopUse(Person person) {
         person.orientation = person.orientation.getReverse();
-
-        person.setPosition(oldPositions.get(person));
+        person.setPosition(getLeavePosition(person.orientation));
         oldPositions.remove(person);
         slots.remove(person.orientation);
     }

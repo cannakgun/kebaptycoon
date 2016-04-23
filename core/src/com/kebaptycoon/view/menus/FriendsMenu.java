@@ -65,7 +65,7 @@ public class FriendsMenu extends Menu{
                             name = name.
                                     substring(0, facebookFriends.get(i).getName().indexOf(" "));
 
-                    heading3Font.draw(batch, name, 540 + ((i%3) * 350), 630);
+                    heading3Font.draw(batch, name, 550 + ((i%3) * 350), 630);
                 }
             }
             if (facebookFriends.size() - currentPage * 3 >= 3){

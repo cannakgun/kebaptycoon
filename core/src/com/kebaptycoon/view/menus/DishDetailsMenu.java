@@ -41,7 +41,9 @@ public class DishDetailsMenu extends Menu {
                 , 805, 920);
 
         batch.draw(resourceManager.textures.get(rec.getTexture()), 460, 520);
-        batch.draw(resourceManager.textures.get("menu_check"), 1390 , 350, 70, 70);
+
+        batch.draw(resourceManager.textures.get("menu_approve"), 760 , 320);
+        batch.draw(resourceManager.textures.get("menu_back"), 450 , 320);
 
         heading2Font.draw(batch, "" + rec.getPrice() + " TL", 510, 490);
         batch.draw(resourceManager.textures.get("menu_minus"), 460  , 460);

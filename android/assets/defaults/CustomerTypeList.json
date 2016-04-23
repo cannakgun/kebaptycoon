@@ -1,5 +1,7 @@
 [{
   "spriteName" : "defaultPerson",
+  "textureName" : "gencAdam",
+  "displayName" : "Genc Adam",
   "waitingTime" : 900,
   "budget" : 35,
   "likes" : [],

@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.kebaptycoon.utils.Pair;
 
 public class Recipe {
-	
+
 	ArrayList<Pair<Ingredient,Integer>> 	ingredients;
+	ArrayList<Pair<Ingredient,Integer>> 	optimal;
+	Pair<ArrayList<Float>,ArrayList<Float>> reduce;
 	int 									price;
 	ArrayList<Furniture.Type>				process;
 	int 									minLevel;
@@ -86,6 +88,22 @@ public class Recipe {
 
 	public String getTexture(){
 		return texture;
+	}
+
+	public ArrayList<Pair<Ingredient, Integer>> getOptimal() {
+		return optimal;
+	}
+
+	public void setOptimal(ArrayList<Pair<Ingredient, Integer>> optimal) {
+		this.optimal = optimal;
+	}
+
+	public Pair<ArrayList<Float>, ArrayList<Float>> getReduce() {
+		return reduce;
+	}
+
+	public void setReduce(Pair<ArrayList<Float>, ArrayList<Float>> reduce) {
+		this.reduce = reduce;
 	}
 
 	/**

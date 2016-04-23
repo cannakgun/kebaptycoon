@@ -14,6 +14,7 @@ import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.view.screens.GameScreen;
 
 import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
 
 public class StockMenu extends Menu {
 
@@ -41,22 +42,19 @@ public class StockMenu extends Menu {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_backgrounds_stockBackground"), 300, 300);
 
-        //heading1Font.draw(batch, Globals.STOCK_MENU_TITLE, 865, 920);
-
         int y = 920;
 
         int  min = Math.min((currentPage + 1) * 8, ingredients.size());
 
         for (int i = currentPage * 8; i < min; i++) {
 
-            Pair ingredient = ingredients.get(i);
+            Pair<Ingredient, Integer> ingredient = ingredients.get(i);
             if(i%4 == 0)
                 y -= 240;
             batch.draw(resourceManager.textures.get("ingredients_" + ingredient.getLeft()),
                     530 + (i%4) * 240, y, 100, 100);
             heading3Font.draw(batch, ingredient.getRight() + " TL ", 530 + (i%4) * 240 + 30, y - 30);
-            heading3Font.draw(batch, "0", 570 + (i%4) * 240, y - 60);
-            batch.draw(resourceManager.textures.get("menu_minus"), 510 + (i%4) * 240, y - 80);
+            heading3Font.draw(batch, gameScreen.getCurrentVenue().getStock(ingredient.getLeft()) + "", 560 + (i%4) * 240, y - 60);
             batch.draw(resourceManager.textures.get("menu_plus"),  620 +  (i%4) * 240, y - 80);
         }
 

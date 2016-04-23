@@ -23,6 +23,7 @@ import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
+import com.kebaptycoon.model.logic.StartingDish;
 import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
@@ -60,10 +61,12 @@ public class GameScreen implements Screen{
     private Entity                              testEntity;
     private SoundManager                        soundManager;
     private ArrayList<Pair<String, Integer>>    menuBarItems;
+    private StartingDish                        startingDish;
 
-	public GameScreen(ResourceManager resourceManager) {
+	public GameScreen(ResourceManager resourceManager, StartingDish startingDish) {
 
         this.resourceManager = resourceManager;
+        this.startingDish = startingDish;
         gameLogic = new GameLogic(resourceManager);
         soundManager = new SoundManager(resourceManager);
 
@@ -268,14 +271,20 @@ public class GameScreen implements Screen{
         Collections.sort(renderables, new Comparator<Entity>() {
             @Override
             public int compare(Entity o1, Entity o2) {
-                float s1 = o1.getPosition().x + o1.getPosition().y +
-                        o1.getRender3DDelta().x + o1.getRender3DDelta().y;
-                float s2 = o2.getPosition().x + o2.getPosition().y +
-                        o2.getRender3DDelta().x + o2.getRender3DDelta().y;
+                float s1 = (float)(Math.floor(o1.getPosition().x) + Math.floor(o1.getPosition().y) +
+                        Math.floor(o1.getRender3DDelta().x) + Math.floor(o1.getRender3DDelta().y));
+                float s2 = (float)(Math.floor(o2.getPosition().x) + Math.floor(o2.getPosition().y) +
+                        Math.floor(o2.getRender3DDelta().x) + Math.floor(o2.getRender3DDelta().y));
                 if (s1 < s2)
                     return 1;
                 else if (s1 > s2)
                     return -1;
+                else if(o1.getPosition().z + o1.getRender3DDelta().z
+                        < o1.getPosition().z + o2.getRender3DDelta().z)
+                    return -1;
+                else if(o1.getPosition().z + o1.getRender3DDelta().z
+                        > o1.getPosition().z + o2.getRender3DDelta().z)
+                    return 1;
                 return 0;
             }
         });
@@ -401,6 +410,9 @@ public class GameScreen implements Screen{
 
     public ArrayList<Pair<String, Integer>> getMenuBarItems(){
         return menuBarItems;
+    }
+    public Venue getCurrentVenue() {
+        return currentVenue;
     }
 
     public void resetController() {

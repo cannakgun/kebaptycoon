@@ -191,8 +191,7 @@ public class Venue {
     }
 
     public ArrayList<Vector3> findPath(Vector3 source, Furniture target) {
-        float margin = Math.min(target.getHeight(), target.getWidth());
-        return findPath(source, target.getRender3DDelta().add(target.getPosition()), margin);
+        return findPath(source, target.findUsablePosition(), 1);
     }
 
     public ArrayList<Vector3> findPath(Vector3 source, Vector3 target)
@@ -272,13 +271,18 @@ public class Venue {
         return returnArr;
     }
 
-    private int getStock(final Ingredient ing) {
-
-        for (Pair<Ingredient, Integer> p: stock) {
-            if(p.getLeft() == ing)
-                return p.getRight();
+    private int getStockIndex(Ingredient ing) {
+        for (int i = 0; i < stock.size(); i++) {
+            if(stock.get(i).getLeft() == ing)
+                return i;
         }
+        return -1;
+    }
 
+    public int getStock(Ingredient ing) {
+        int index = getStockIndex(ing);
+        if (index != -1)
+            return stock.get(index).getRight();
         return 0;
     }
 

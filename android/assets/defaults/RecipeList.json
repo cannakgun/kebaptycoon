@@ -4,40 +4,111 @@
   "minLevel" : 3,
   "available" : true,
   "process" : ["Cooker"],
-  "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
+  "ingredients" : [
+    {"left" : "Butter", "right" : 1},
+    {"left" : "DicedMeat", "right" : 1},
+    {"left" : "Pepper", "right" : 1},
+    {"left" : "Lavash", "right" : 1},
+    {"left" : "Spice", "right" : 1},
+    {"left" : "Tomato", "right" : 1}
+  ],
+  "optimal" : [
+    {"left" : "Butter", "right" : 4},
+    {"left" : "DicedMeat", "right" : 5},
+    {"left" : "Pepper", "right" : 10},
+    {"left" : "Lavash", "right" : 2},
+    {"left" : "Spice", "right" : 5},
+    {"left" : "Tomato", "right" : 1}
+  ],
+  "reduce" : {
+    "left" : [-0.05, -0.02, -0.05, -0.0, -0.1, -0.01],
+    "right" : [-0.02, -0.1, -0.01, -0.1, -0.03, -0.02]
+  },
   "texture" : "recipe_sisKebap"
 
 },
-{
-  "name" : "    Köfte",
-  "price" : 15,
-  "minLevel" : 2,
-  "available" : true,
-  "process" : ["Cooker"],
-  "ingredients" : [
-                    {"left" : "DonerMeat", "right" : 5},
-                    {"left" : "MincedMeat", "right" : 5},
-                    {"left" : "DicedMeat", "right" : 5},
-                    {"left" : "Garlic", "right" : 5}
-                  ],
-  "texture" : "recipe_kofte"
-},
-{
-  "name" : "   Döner",
-  "price" : 12,
-  "minLevel" : 2,
-  "available" : true,
-  "process" : ["Cooker"],
-  "ingredients" : [{"left" : "DonerMeat", "right" : 5}],
-  "texture" : "recipe_donerEkmek"
-},
+  {
+    "name" : "    Köfte",
+    "price" : 15,
+    "minLevel" : 1,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [
+      {"left" : "MincedMeat", "right" : 1},
+      {"left" : "Bread", "right" : 1},
+      {"left" : "Egg", "right" : 1},
+      {"left" : "Parsley", "right" : 1},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Spice", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "MincedMeat", "right" : 5},
+      {"left" : "Bread", "right" : 3},
+      {"left" : "Egg", "right" : 2},
+      {"left" : "Parsley", "right" : 3},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Spice", "right" : 5}
+    ],
+    "reduce" : {
+      "left" : [-0.02, -0.01, -0.02, -0.03, -0.02, -0.1],
+      "right" : [-0.1, -0.03, -0.01, -0.02, -0.01, -0.02]
+    },
+    "texture" : "recipe_kofte"
+  },
+  {
+    "name" : "   Döner",
+    "price" : 12,
+    "minLevel" : 2,
+    "available" : true,
+    "process" : ["Cooker"],
+    "ingredients" : [
+      {"left" : "DonerMeat", "right" : 1},
+      {"left" : "Bread", "right" : 2},
+      {"left" : "Butter", "right" : 1},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Pepper", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "DonerMeat", "right" : 7},
+      {"left" : "Bread", "right" : 2},
+      {"left" : "Butter", "right" : 3},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Pepper", "right" : 5}
+    ],
+    "reduce" : {
+      "left" : [-0.02, -0.01, -0.03, -0.04, -0.02, -0.02],
+      "right" : [-0.1, -0.07, -0.02, -0.02, -0.01, -0.03]
+    },
+    "texture" : "recipe_donerEkmek"
+  },
   {
     "name" : "Lahmacun",
     "price" : 15,
     "minLevel" : 3,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "Garlic", "right" : 5}],
+    "ingredients" : [
+      {"left" : "Lemon", "right" : 1},
+      {"left" : "Parsley", "right" : 1},
+      {"left" : "MincedMeat", "right" : 1},
+      {"left" : "Spice", "right" : 1},
+      {"left" : "Lavash", "right" : 1},
+      {"left" : "Garlic", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "Lemon", "right" : 1},
+      {"left" : "Parsley", "right" : 2},
+      {"left" : "MincedMeat", "right" : 5},
+      {"left" : "Spice", "right" : 9},
+      {"left" : "Lavash", "right" : 1},
+      {"left" : "Garlic", "right" : 1}
+    ],
+    "reduce" : {
+      "left" : [-0.08, -0.01, -0.00, -0.05, -0.01, -0.06],
+      "right" : [-0.01, -0.01, -0.10, -0.01, -0.03, -0.01]
+    },
     "texture" : "recipe_lahmacun"
 
   },
@@ -47,7 +118,24 @@
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "DicedMeat", "right" : 5}],
+    "ingredients" : [
+      {"left" : "PomegranateSyrup", "right" : 1},
+      {"left" : "DicedMeat", "right" : 1},
+      {"left" : "Lettuce", "right" : 1},
+      {"left" : "Parsley", "right" : 1},
+      {"left" : "Spice", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "PomegranateSyrup", "right" : 2},
+      {"left" : "DicedMeat", "right" : 5},
+      {"left" : "Lettuce", "right" : 7},
+      {"left" : "Parsley", "right" : 4},
+      {"left" : "Spice", "right" : 15}
+    ],
+    "reduce" : {
+      "left" : [-0.04, -0.01, -0.00, -0.00, -0.05],
+      "right" : [-0.04, -0.07, -0.02, -0.02, -0.005]
+    },
     "texture" : "recipe_cigKofte"
   },
   {
@@ -56,7 +144,26 @@
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
+    "ingredients" : [
+      {"left" : "Spice", "right" : 1},
+      {"left" : "DicedMeat", "right" : 1},
+      {"left" : "Bread", "right" : 1},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Pepper", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "Spice", "right" : 10},
+      {"left" : "DicedMeat", "right" : 6},
+      {"left" : "Bread", "right" : 2},
+      {"left" : "Tomato", "right" : 3},
+      {"left" : "Onion", "right" : 3},
+      {"left" : "Pepper", "right" : 1}
+    ],
+    "reduce" : {
+      "left" : [-0.07, -0.01, -0.01, -0.02, -0.05, -0.06],
+      "right" : [-0.02, -0.1, -0.02, -0.01, -0.02, -0.02]
+    },
     "texture" : "recipe_kokorec"
   },
   {
@@ -65,7 +172,24 @@
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
+    "ingredients" : [
+      {"left" : "DonerMeat", "right" : 1},
+      {"left" : "TomatoSauce", "right" : 1},
+      {"left" : "Butter", "right" : 1},
+      {"left" : "Yoghurt", "right" : 1},
+      {"left" : "Bread", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "DonerMeat", "right" : 6},
+      {"left" : "TomatoSauce", "right" : 1},
+      {"left" : "Butter", "right" : 1},
+      {"left" : "Yoghurt", "right" : 2},
+      {"left" : "Bread", "right" : 1}
+    ],
+    "reduce" : {
+      "left" : [-0.01, -0.01, -0.03, -0.08, -0.06],
+      "right" : [-0.1, -0.01, -0.01, -0.02, -0.03]
+    },
     "texture" : "recipe_iskender"
   },
   {
@@ -74,7 +198,26 @@
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "MincedMeat", "right" : 5}],
+    "ingredients" : [
+      {"left" : "MincedMeat", "right" : 1},
+      {"left" : "Spice", "right" : 1},
+      {"left" : "Garlic", "right" : 1},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Lavash", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "MincedMeat", "right" : 5},
+      {"left" : "Spice", "right" : 4},
+      {"left" : "Garlic", "right" : 2},
+      {"left" : "Tomato", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Lavash", "right" : 1}
+    ],
+    "reduce" : {
+      "left" : [-0.01, -0.06, -0.02, -0.01, -0.04, -0.00],
+      "right" : [-0.06, -0.01, -0.01, -0.01, -0.01, -0.08]
+    },
     "texture" : "recipe_adana"
   },
   {
@@ -83,7 +226,22 @@
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "DonerMeat", "right" : 5}],
+    "ingredients" : [
+      {"left" : "Potato", "right" : 1},
+      {"left" : "Spice", "right" : 1},
+      {"left" : "Butter", "right" : 1},
+      {"left" : "TomatoSauce", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "Potato", "right" : 2},
+      {"left" : "Spice", "right" : 1},
+      {"left" : "Butter", "right" : 2},
+      {"left" : "TomatoSauce", "right" : 1}
+    ],
+    "reduce" : {
+      "left" : [-0.00, -0.01, -0.01, -0.01],
+      "right" : [-0.04, -0.01, -0.01, -0.02]
+    },
     "texture" : "recipe_patates"
   },
   {
@@ -92,7 +250,26 @@
     "minLevel" : 2,
     "available" : true,
     "process" : ["Cooker"],
-    "ingredients" : [{"left" : "DonerMeat", "right" : 5}],
+    "ingredients" : [
+      {"left" : "Cucumber", "right" : 1},
+      {"left" : "Lemon", "right" : 1},
+      {"left" : "OliveOil", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Scallion", "right" : 1},
+      {"left" : "Tomato", "right" : 1}
+    ],
+    "optimal" : [
+      {"left" : "Cucumber", "right" : 2},
+      {"left" : "Lemon", "right" : 1},
+      {"left" : "OliveOil", "right" : 1},
+      {"left" : "Onion", "right" : 1},
+      {"left" : "Scallion", "right" : 1},
+      {"left" : "Tomato", "right" : 3}
+    ],
+    "reduce" : {
+      "left" : [-0.01, -0.01, -0.03, -0.01, -0.01, -0.01],
+      "right" : [-0.02, -0.02, -0.02, -0.02, -0.02, -0.02]
+    },
     "texture" : "recipe_salata"
   }
 ]

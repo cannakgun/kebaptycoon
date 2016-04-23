@@ -2,19 +2,34 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
-/**
- * Created by sophy on 22/04/2016.
- */
 public class CustomerType {
 
+    String              displayName;
+    String              textureName;
     String              spriteName;
     int 				waitingTime;
     int 				budget;
-    ArrayList<String> likes;
+    ArrayList<String>   likes;
     ArrayList<String> 	dislikes;
 
     public CustomerType() {
 
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getTextureName() {
+        return textureName;
+    }
+
+    public void setTextureName(String textureName) {
+        this.textureName = textureName;
     }
 
     public String getSpriteName() {
