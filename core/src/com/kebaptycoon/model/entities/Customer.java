@@ -1,6 +1,7 @@
 package com.kebaptycoon.model.entities;
 
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.managers.SoundManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -264,7 +265,7 @@ public class Customer extends Person{
     private void onPay(Venue venue) {
         venue.getPaid(dish.getRecipe().getPrice());
         stopUsing(usedFurniture);
-
+        SoundManager.play("effect3");
         state = State.Leave;
     }
 

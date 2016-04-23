@@ -23,6 +23,7 @@ import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
+import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
 import com.kebaptycoon.utils.Pair;
@@ -57,13 +58,14 @@ public class GameScreen implements Screen{
     private float                               maxZoom, minZoom = 0.5f;
     private float                               menuHeight;
     private Entity                              testEntity;
-
+    private SoundManager                        soundManager;
     private ArrayList<Pair<String, Integer>>    menuBarItems;
 
 	public GameScreen(ResourceManager resourceManager) {
 
         this.resourceManager = resourceManager;
         gameLogic = new GameLogic(resourceManager);
+        soundManager = new SoundManager(resourceManager);
 
         //Create menu bar items from JSON config file
         ObjectMapper mapper = new ObjectMapper();
