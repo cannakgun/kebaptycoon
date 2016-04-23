@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.FriendsMenuController;
@@ -19,7 +20,6 @@ public class FriendsMenu extends Menu{
 
     FacebookFriendManager facebookFriendManager;
     ArrayList<FacebookFriendManager.FacebookFriend> facebookFriends;
-    int frame = 0;
 
     public FriendsMenu(GameScreen gameScreen) {
 
@@ -38,31 +38,51 @@ public class FriendsMenu extends Menu{
 
     @Override
     public void render(SpriteBatch batch, Viewport viewPort) {
+
+
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_backgrounds_friendsBackground"), 300, 300);
-
-        if (frame == 0){
-            heading2Font.draw(batch, "Yükleniyor...", 700 , 750);
-        }else{
-            if(!facebookFriendManager.isLoaded()){
-                try {
-                    facebookFriends = facebookFriendManager.getFriendsFromFacebook();
-                    facebookFriendManager.setLoaded(true);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            else {
-                for(int i = 0; i < facebookFriends.size(); i++){
-                    if(facebookFriends.get(i).getProfilePicture() != null) {
-                        batch.draw(facebookFriends.get(i).getProfilePicture(), 550, 550 + i * 140, 100, 100);
-                    }
-                    heading3Font.draw(batch, facebookFriends.get(i).getName(), 700, 600 + i * 140);
-                }
+        int min = 0;
+        if(facebookFriends == null){
+            try {
+                heading2Font.draw(batch, "Yükleniyor...", 820 , 670);
+                facebookFriends = facebookFriendManager.getFacebookFriends();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+
+        else {
+            min = Math.min((currentPage + 1) * 3, facebookFriends.size());
+
+            for(int i = currentPage * 3; i < min; i++){
+                if(facebookFriends.get(i).getProfilePicture() != null) {
+                    batch.draw(facebookFriends.get(i).getProfilePicture(), 550 + ((i%3) * 350), 650, 100, 100);
+
+                    String name = facebookFriends.get(i).getName();
+
+                    if(facebookFriends.get(i).getName().contains(" "))
+                            name = name.
+                                    substring(0, facebookFriends.get(i).getName().indexOf(" "));
+
+                    heading3Font.draw(batch, name, 540 + ((i%3) * 350), 630);
+                }
+            }
+            if (facebookFriends.size() - currentPage * 3 >= 3){
+                for(int i = 0; i < 2; i++){
+                    batch.draw(resourceManager.textures.get("menu_lineShort"), 550 + ((i%3) * 350) + 200, 450);
+                }
+            }else if(facebookFriends.size() - currentPage * 3 >= 2){
+                batch.draw(resourceManager.textures.get("menu_lineShort"), 550 + 200, 450);
+            }
+
+        }
+
         batch.end();
-        frame++;
+    }
+
+    public void changeCurrentPage(int delta) {
+        int pages = ((facebookFriends.size() - 1) / 3) + 1;
+        this.currentPage = (currentPage + pages + delta) % pages;
     }
 }
