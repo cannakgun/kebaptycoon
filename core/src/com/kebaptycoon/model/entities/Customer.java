@@ -138,11 +138,7 @@ public class Customer extends Person{
     private void onWaitForTable(Venue venue) {
         Furniture table = venue.getTableManager().getTableFor(pack);
 
-        if (table == null) {
-            wander(venue);
-            followPath();
-        }
-        else {
+        if (table != null) {
             state = State.GoToTable;
         }
     }
@@ -158,6 +154,7 @@ public class Customer extends Person{
         }
 
         if(table.getPosition().dst(getPosition()) <= 1) {
+            resetCurrentPath();
             use(table);
             animationState = AnimationState.Sitting;
             state = State.Order;
@@ -276,10 +273,8 @@ public class Customer extends Person{
 
         if(currentPath == null) return;
 
-        Vector3 exit = venue.spawnPosition;
-
         if(currentPath.size() <= 0) {
-            currentPath = venue.findPath(getPosition(), exit);
+            currentPath = venue.findPath(getPosition().cpy(), venue.spawnPosition.cpy(), 1);
         }
 
         followPath();

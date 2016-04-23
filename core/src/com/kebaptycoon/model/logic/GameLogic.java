@@ -46,81 +46,7 @@ public class GameLogic {
         afterHours = false;
         resetDayTime();
 
-        Venue inonu = new Venue(30, 30, 5, 5, false,
-                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(-3, 0, 0));
-
-        Furniture newTable = new Furniture();
-        newTable.setName("table");
-        newTable.setPosition(new Vector3(14, -1, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
-
-        inonu.getFurnitures().add(newTable);
-
-        newTable = new Furniture();
-        newTable.setName("table");
-        newTable.setPosition(new Vector3(14, 2, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
-
-        inonu.getFurnitures().add(newTable);
-
-        newTable = new Furniture();
-        newTable.setName("table");
-        newTable.setPosition(new Vector3(14, -4, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
-
-        inonu.getFurnitures().add(newTable);
-
-        newTable = new Furniture();
-        newTable.setName("table");
-        newTable.setPosition(new Vector3(17, 0, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
-
-        //inonu.getFurnitures().add(newTable);
-
-        Furniture cart = new Furniture();
-        cart.setName("meatballCart");
-        cart.setPosition(new Vector3(20, 0, 0));
-        cart.setRender2DDelta(new Vector2(-126, -73));
-        cart.setWidth(3);
-        cart.setHeight(1);
-        cart.setMaximumUsers(1);
-        cart.setOrientation(Orientation.West);
-        cart.setType(Furniture.Type.FoodCart);
-
-        inonu.getFurnitures().add(cart);
-
-        inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
-
-        Hawker reis = new Hawker(7, "defaultPerson");
-        reis.setPosition(new Vector3(22, 0, 0));
-
-        inonu.getEmployees().add(reis);
-
-        venueManager.getVenueList().add(inonu);
+        venueManager.getVenueList().add(createTutorialVenue());
     }
 
     public void update() {
@@ -206,6 +132,84 @@ public class GameLogic {
 
     public FacebookFriendManager getFacebookFriendManager() {
         return facebookFriendManager;
+    }
+
+    public Venue createTutorialVenue() {
+        Venue inonu = new Venue(30, 30, 5, 5, false,
+                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(-3, 0, 0));
+
+        Furniture newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(14, -1, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+
+        inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(14, 2, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+
+        inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(14, -4, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+
+        inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture();
+        newTable.setName("table");
+        newTable.setPosition(new Vector3(17, 0, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
+        newTable.setWidth(1);
+        newTable.setHeight(1);
+        newTable.setMaximumUsers(4);
+        newTable.setOrientation(Orientation.East);
+        newTable.setType(Furniture.Type.Table);
+
+        inonu.getFurnitures().add(newTable);
+
+        Furniture cart = new Furniture();
+        cart.setName("meatballCart");
+        cart.setPosition(new Vector3(20, 0, 0));
+        cart.setRender2DDelta(new Vector2(-126, -73));
+        cart.setWidth(3);
+        cart.setHeight(1);
+        cart.setMaximumUsers(1);
+        cart.setOrientation(Orientation.West);
+        cart.setType(Furniture.Type.FoodCart);
+
+        inonu.getFurnitures().add(cart);
+
+        inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
+
+        Hawker reis = new Hawker(7, "defaultPerson");
+        reis.setPosition(new Vector3(22, 0, 0));
+
+        inonu.getEmployees().add(reis);
+
+        return inonu;
     }
 
     public int getMoney() {
