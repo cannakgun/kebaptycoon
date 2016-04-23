@@ -1,7 +1,7 @@
 package com.kebaptycoon.model.entities;
 
-import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.managers.SoundManager;
+import com.kebaptycoon.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -278,5 +278,54 @@ public class Customer extends Person{
         }
 
         followPath();
+    }
+
+    public float rateDish(Dish d)
+    {
+        // 3 customer type -> Teenage, Businessman, Woman
+        if (getType().getTexureName().equals("gencAdam")) {
+            return ratePrice(d.getRecipe().getPrice()) * (0.6f) + rateIngredients(d.getRecipe()) * (0.3f) + (float) (Math.random() * (0.1f));
+        } else if (getType().getTexureName().equals("kadin")) {
+            return ratePrice(d.getRecipe().getPrice()) * (0.45f) + rateIngredients(d.getRecipe()) * (0.45f) + (float) (Math.random() * (0.1f));
+        } else if (getType().getTexureName().equals("isAdami")) {
+            return ratePrice(d.getRecipe().getPrice()) * (0.3f) + rateIngredients(d.getRecipe()) * (0.6f) + (float) (Math.random() * (0.1f));
+        } else {
+            return (float) Math.random();
+        }
+    }
+
+    private float ratePrice(int price)
+    {
+
+        int half = budget / 2;
+        if(half >= price)
+            return 1.0f;
+
+        return 1.0f - ((float) (price - half) / half);
+    }
+
+    private float rateIngredients(Recipe r)
+    {
+        float rate = 1.0f;
+
+        ArrayList<Pair<Ingredient,Integer>> optimalIngredients = r.getOptimal();
+        ArrayList<Pair<Ingredient,Integer>> actualIngredients = r.getIngredients();
+        ArrayList<Float> plusReduces = r.getReduce().getLeft();
+        ArrayList<Float> minusReduces = r.getReduce().getRight();
+
+        for(int i = 0; i < optimalIngredients.size(); i++)
+        {
+            int optimalAmount = optimalIngredients.get(i).getRight();
+            int actualAmount = actualIngredients.get(i).getRight();
+            float plusReduce = plusReduces.get(i);
+            float minusReduce = minusReduces.get(i);
+
+            if(optimalAmount < actualAmount)
+                rate += (actualAmount - optimalAmount) * plusReduce;
+            if(optimalAmount > actualAmount)
+                rate += (optimalAmount - actualAmount) * minusReduce;
+        }
+
+        return Math.max(0f, rate);
     }
 }
