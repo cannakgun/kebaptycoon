@@ -205,6 +205,11 @@ public class GameLogic {
         inonu.getFurnitures().add(cart);
 
         inonu.incrementIngredient(Ingredient.MincedMeat, 500);
+        inonu.incrementIngredient(Ingredient.Bread, 500);
+        inonu.incrementIngredient(Ingredient.Egg, 500);
+        inonu.incrementIngredient(Ingredient.Parsley, 500);
+        inonu.incrementIngredient(Ingredient.Tomato, 500);
+        inonu.incrementIngredient(Ingredient.Spice, 500);
 
         Hawker reis = new Hawker(7, "defaultPerson");
         reis.setPosition(new Vector3(22, 0, 0));
