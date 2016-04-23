@@ -18,7 +18,8 @@ public class SoundManager {
 
     public static void play(String categoryName){
 
-        if(resourceManager.sounds.get(categoryName).size() == 0)
+        if(resourceManager.sounds.get(categoryName) == null ||
+                resourceManager.sounds.get(categoryName).size() == 0)
             return;
 
         random = new Random();
