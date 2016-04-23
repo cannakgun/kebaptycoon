@@ -2,14 +2,12 @@ package com.kebaptycoon.model.entities;
 
 public enum Ingredient {
 	Bread,
-	Bulgur,
 	Butter,
 	Cucumber,
 	DicedMeat, //kusbasi
 	DonerMeat,
-	Egg,
+    Egg,
 	Garlic,
-	Lard,
 	Lavash,
 	Lemon,
 	Lettuce,
@@ -17,15 +15,12 @@ public enum Ingredient {
 	OliveOil,
 	Onion,
 	Parsley,
-	Pepper,
+	Pepper,  // yeşil biber
 	PomegranateSyrup,
 	Potato,
-	Salt,
-	SeedOil,
-	Scallion,
+	Scallion, // yeşil soğan
 	Spice,
 	Tomato,
 	TomatoSauce,
-	Yoghurt,
-	Water
+	Yoghurt
 }
