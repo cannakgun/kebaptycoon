@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Array;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -19,7 +20,7 @@ public class ResourceManager {
     public HashMap<String, Texture> textures;
     public HashMap<String, Animation> animations;
     public HashMap<String, FreeTypeFontGenerator> fonts;
-    public HashMap<String, Sound> sounds;
+    public HashMap<String, ArrayList<Music>> sounds;
 
     private boolean isLoaded = false;
 
@@ -30,7 +31,7 @@ public class ResourceManager {
         textures = new HashMap<String, Texture>();
         animations = new HashMap<String, Animation>();
         fonts = new HashMap<String, FreeTypeFontGenerator>();
-        sounds = new HashMap<String, Sound>();
+        sounds = new HashMap<String, ArrayList<Music>>();
 
         /*FileHandle[] textureFiles = Gdx.files.internal("textures/").list();
         for(FileHandle topFile: textureFiles) {
@@ -144,10 +145,22 @@ public class ResourceManager {
             }
         });
 
-        for (FileHandle child:children) {
-            System.out.println("sounds/" + child.name());
-            sounds.put(child.nameWithoutExtension(),
-                    Gdx.audio.newSound(Gdx.files.internal("sounds/" + child.name())));
+        for (FileHandle child : children) {
+
+            FileHandle[] childFolders = child.list(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return !name.startsWith(".") && !name.endsWith("raw");
+                }
+            });
+
+            ArrayList<Music> effects = new ArrayList<Music>();
+
+            for(FileHandle effect: childFolders){
+                effects.add(Gdx.audio.newMusic(effect));
+            }
+            sounds.put(child.nameWithoutExtension(), effects);
         }
+
     }
 }

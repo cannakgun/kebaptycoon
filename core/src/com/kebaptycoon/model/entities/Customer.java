@@ -1,5 +1,6 @@
 package com.kebaptycoon.model.entities;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.managers.SoundManager;
 
@@ -31,7 +32,9 @@ public class Customer extends Person{
 	private State state;
 	private boolean markedForDeletion;
     private CustomerPack pack;
-	
+	private boolean isEatSoundPlayed = false, isEvaluateSoundPlayed  = false,
+            isOrderPlayed  = false, isPayPlayed  = false, isTableGoPlayed  = false;
+
 	public Customer(int speed, String spriteName, CustomerType type, int waitingTime, int budget) {
 		super(speed,spriteName);
 		this.type = type;
@@ -166,6 +169,10 @@ public class Customer extends Person{
         }
 
         followPath();
+        if(!isTableGoPlayed){
+            SoundManager.play("tableGo");
+            isTableGoPlayed = true;
+        }
     }
 
     private void onOrder(Venue venue) {
@@ -206,6 +213,11 @@ public class Customer extends Person{
         for (Customer friend: pack.getCustomers()){
             friend.waitDuration = 0;
         }
+
+        if(!isOrderPlayed){
+            SoundManager.play("order");
+            isOrderPlayed = true;
+        }
     }
 
     private void onWaitForFood(Venue venue) {
@@ -229,12 +241,17 @@ public class Customer extends Person{
             state = State.Leave;
             venue.getOrderManager().abortOrder(this);
         }
-
+        //SoundManager.play("wait");
     }
 
     private void onEatFood(Venue venue) {
-        if(dish.getRemaining() > 0)
+        if(dish.getRemaining() > 0){
             dish.setRemaining(dish.getRemaining() - 1);
+            if(!isEatSoundPlayed){
+                SoundManager.play("foodEat");
+                isEatSoundPlayed = true;
+            }
+        }
         else
             state = State.EvaluateFood;
 
@@ -262,8 +279,12 @@ public class Customer extends Person{
     private void onPay(Venue venue) {
         venue.getPaid(dish.getRecipe().getPrice());
         stopUsing(usedFurniture);
-        SoundManager.play("effect3");
         state = State.Leave;
+
+        if(!isPayPlayed){
+            SoundManager.play("pay");
+            isPayPlayed = true;
+        }
     }
 
     private void onLeave(Venue venue) {
