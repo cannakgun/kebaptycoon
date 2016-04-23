@@ -191,8 +191,7 @@ public class Venue {
     }
 
     public ArrayList<Vector3> findPath(Vector3 source, Furniture target) {
-        float margin = Math.min(target.getHeight(), target.getWidth());
-        return findPath(source, target.getRender3DDelta().add(target.getPosition()), margin);
+        return findPath(source, target.findUsablePosition(), 1);
     }
 
     public ArrayList<Vector3> findPath(Vector3 source, Vector3 target)

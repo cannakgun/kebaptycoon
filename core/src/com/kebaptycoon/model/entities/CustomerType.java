@@ -2,11 +2,10 @@ package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
 
-/**
- * Created by sophy on 22/04/2016.
- */
 public class CustomerType {
 
+    String              displayName;
+    String              texureName;
     String              spriteName;
     int 				waitingTime;
     int 				budget;
@@ -15,6 +14,22 @@ public class CustomerType {
 
     public CustomerType() {
 
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getTexureName() {
+        return texureName;
+    }
+
+    public void setTexureName(String texureName) {
+        this.texureName = texureName;
     }
 
     public String getSpriteName() {

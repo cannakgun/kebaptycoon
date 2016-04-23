@@ -33,6 +33,8 @@ public class GameLogic {
     private boolean afterHours;
 
     public GameLogic(ResourceManager resourceManager){
+        level = 15;
+
         this.resourceManager = resourceManager;
         recipeManager = new RecipeManager();
         advertisementManager = new AdvertisementManager();
@@ -255,7 +257,7 @@ public class GameLogic {
         ArrayList<Recipe> returnArr = new ArrayList<Recipe>();
 
         for (Recipe r: recipeManager.getRecipes()) {
-            if (r.isAvailable())
+            if (r.getMinLevel() <= level)
                 returnArr.add(r);
         }
 
