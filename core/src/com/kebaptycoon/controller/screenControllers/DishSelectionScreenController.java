@@ -3,23 +3,22 @@ package com.kebaptycoon.controller.screenControllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.kebaptycoon.KebapTycoonGame;
+import com.kebaptycoon.model.logic.StartingDish;
+import com.kebaptycoon.view.screens.GameScreen;
 
-/**
- * Created by dogancandemirtas on 27/02/16.
- */
 public class DishSelectionScreenController implements GestureDetector.GestureListener{
 
     private static DishSelectionScreenController instance = null;
 
     private int touchPositionX;
     private int touchPositionY;
-    private String dishType;
+    private StartingDish startingDish;
     private boolean dishTypeSelected;
 
     public DishSelectionScreenController(){
         touchPositionX = -1;
         touchPositionY = -1;
-        dishType = "";
         dishTypeSelected = false;
     }
     public static DishSelectionScreenController getInstance()
@@ -35,13 +34,18 @@ public class DishSelectionScreenController implements GestureDetector.GestureLis
     public boolean touchDown(float x, float y, int pointer, int button) {
         touchPositionX = Gdx.input.getX();
         touchPositionY =  Gdx.input.getY();
-        if(touchPositionX <= 200){
-            dishType = "kofteci";
+        if(touchPositionX <= 639){
+            startingDish = StartingDish.Kofteci;
             dishTypeSelected = true;
         }
-
-        //TODO: Set dishTypes (and dishTypeSeleceted boolean) here according to the touchPositions.
-
+        else if(touchPositionX <= 1279 && touchPositionX > 639){
+            startingDish = StartingDish.Donerci;
+            dishTypeSelected = true;
+        }
+        else if(touchPositionX > 1279){
+            startingDish = StartingDish.Kokorecci;
+            dishTypeSelected = true;
+        }
         return false;
     }
 
@@ -88,20 +92,12 @@ public class DishSelectionScreenController implements GestureDetector.GestureLis
         this.touchPositionX = touchPositionX;
     }
 
-    public int gettTouchPositionY() {
+    public int getTouchPositionY() {
         return touchPositionY;
     }
 
     public void setTouchPositionY(int getTouchPositionY) {
         this.touchPositionY = getTouchPositionY;
-    }
-
-    public String getDishType() {
-        return dishType;
-    }
-
-    public void setDishType(String dishType) {
-        this.dishType = dishType;
     }
 
     public boolean isDishTypeSelected() {
@@ -110,5 +106,9 @@ public class DishSelectionScreenController implements GestureDetector.GestureLis
 
     public void setDishTypeSelected(boolean dishTypeSelected) {
         this.dishTypeSelected = dishTypeSelected;
+    }
+
+    public StartingDish getStartingDish() {
+        return startingDish;
     }
 }
