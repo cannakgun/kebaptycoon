@@ -17,59 +17,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class FacebookFriendManager {
     ArrayList<FacebookFriend> facebookFriends;
-    boolean isLoaded = false;
-    public FacebookFriendManager(){
-        facebookFriends = new ArrayList<FacebookFriend>();
+    boolean isLoading = false;
 
+    public FacebookFriendManager(){
+        facebookFriends = null;
     }
 
-    public ArrayList<FacebookFriend> getFriendsFromFacebook() throws IOException {
+    private void getFriendsFromFacebook() throws IOException {
         if(!isLoaded()){
-            String url = "https://graph.facebook.com/v2.6/me?fields=id%2Cname%2Cfriends&access_token=" +
-                    KebapTycoonGame.getInstance().getPrefs().getString("facebook_access_token");
+            if(isLoading)
+                return;
 
-            URL obj = new URL(url);
-
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-
-            in.close();
-
-            JSONObject jsonObject = null;
-            JSONArray jsonArray = null;
-
-            try {
-
-                jsonObject = new JSONObject(response.toString()).getJSONObject("friends");
-                jsonArray = jsonObject.getJSONArray("data");
-
-                for(int i = 0; i < jsonArray.length(); i++){
-                    jsonObject = jsonArray.getJSONObject(i);
-                    String userId = jsonObject.getString("id");
-                    String name = jsonObject.getString("name");
-                    String profilePictureURL = "https://graph.facebook.com/v2.6/" +
-                            userId+"/picture?access_token="
-                            + KebapTycoonGame.getInstance().getPrefs().getString("facebook_access_token");
-                    facebookFriends.add(new FacebookFriend(name, userId, profilePictureURL, null));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            for(FacebookFriend f : facebookFriends)
-                System.out.println(f.name);
-
+            isLoading = true;
 
             new Thread(new Runnable() {
                 /** Downloads the content of the specified url to the array. The array has to be big enough. */
@@ -99,10 +64,71 @@ public class FacebookFriendManager {
 
                 @Override
                 public void run () {
+
+                    String url = "https://graph.facebook.com/v2.6/me?fields=name,friends{picture.type(large),name}&access_token=" +
+                            KebapTycoonGame.getInstance().getPrefs().getString("facebook_access_token");
+                    URL obj = null;
+                    try {
+                        obj = new URL(url);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+
+                    HttpURLConnection con = null;
+                    try {
+                        con = (HttpURLConnection) obj.openConnection();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    BufferedReader in = null;
+                    try {
+                        in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+                    try {
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    JSONObject jsonObject = null;
+                    JSONArray jsonArray = null;
+
+                    ArrayList<FacebookFriend> fList = new ArrayList<FacebookFriend>();
+
+                    try {
+
+                        jsonObject = new JSONObject(response.toString()).getJSONObject("friends");
+                        jsonArray = jsonObject.getJSONArray("data");
+
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            jsonObject = jsonArray.getJSONObject(i);
+                            String userId = jsonObject.getString("id");
+                            String name = jsonObject.getString("name");
+                            String profilePictureURL = jsonObject.getJSONObject("picture").
+                                                                getJSONObject("data").getString("url");
+                            fList.add(new FacebookFriend(name, userId, profilePictureURL, null));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     byte[] bytes = new byte[200 * 1024]; // assuming the content is not bigger than 200kb.
                     int numBytes;
 
-                    for(final FacebookFriend facebookFriend : facebookFriends) {
+                    for(final FacebookFriend facebookFriend : fList) {
                         numBytes = download(bytes, facebookFriend.profilePictureURL);
                         if (numBytes != 0) {
                             // load the pixmap, make it a power of two if necessary (not needed for GL ES 2.0!)
@@ -123,19 +149,24 @@ public class FacebookFriendManager {
                             });
                         }
                     }
+
+                    facebookFriends = fList;
+
                 }
             }).start();
-            isLoaded = true;
         }
-        return facebookFriends;
     }
 
     public boolean isLoaded() {
-        return isLoaded;
+        return facebookFriends != null;
     }
 
-    public void setLoaded(boolean loaded) {
-        isLoaded = loaded;
+    public ArrayList<FacebookFriend> getFacebookFriends() throws IOException {
+        if (isLoaded())
+            return facebookFriends;
+
+        getFriendsFromFacebook();
+        return facebookFriends;
     }
 
     public class FacebookFriend{

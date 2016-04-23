@@ -10,9 +10,6 @@ import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.view.menus.DishDetailsMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
-/**
- * Created by Can Akgün on 7.4.2016.
- */
 public class DishDetailsMenuController extends MenuController{
 
     private DishDetailsMenu dishDetailsMenu;
@@ -40,24 +37,28 @@ public class DishDetailsMenuController extends MenuController{
         return false;
     }
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
-        if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
-            int ingredientColumn = (touchPositionX - 770) / 240;
-            int ingredientRow = (800 - touchPositionY ) / 200;
-            int ingredient = ingredientRow * 3 + ingredientColumn;
-            int midPoint = ((830 + (ingredient % 3) * 240) + (950 + (ingredient % 3) * 240 + 20)) / 2;
+        //System.out.println("x: " + touchPositionX);
+        System.out.println("y: " + touchPositionY);
+        if(touchPositionX >= 300 && touchPositionX <= 1585 && touchPositionY >= 300 && touchPositionY <= 840){
+            if(touchPositionX >= 400 && touchPositionX <= 1485 && touchPositionY >= 300 && touchPositionY <= 840){
+                int ingredientColumn = (touchPositionX - 780) / 240;
+                int ingredientRow = (800 - touchPositionY ) / 200;
+                int ingredient = ingredientRow * 3 + ingredientColumn;
+                int midPoint = ((840 + (ingredient % 3) * 240) + (940 + (ingredient % 3) * 240 + 20)) / 2;
 
-            if(touchPositionX > 830){
-                if(ingredient < rec.getIngredients().size()){
-                    if (touchPositionX < midPoint)
-                        rec.getIngredients().get(ingredient).right--;
-                    else
-                        rec.getIngredients().get(ingredient).right++;
+                if(touchPositionX > 830){
+                    if(ingredient < rec.getIngredients().size()){
+                        if (touchPositionX < midPoint)
+                            rec.getIngredients().get(ingredient).right--;
+                        else if(touchPositionX > midPoint)
+                            rec.getIngredients().get(ingredient).right++;
+                    }
                 }
+                if(touchPositionX > 460 && touchPositionX < 490 && touchPositionY > 460 && touchPositionY < 490)
+                    rec.setPrice(rec.getPrice()-1);
+                else if(touchPositionX > 650 && touchPositionX < 680 && touchPositionY > 460 && touchPositionY < 490)
+                    rec.setPrice(rec.getPrice()+1);
             }
-            if(touchPositionX > 460 && touchPositionX < 490 && touchPositionY > 560 && touchPositionY < 590)
-                rec.setPrice(rec.getPrice()-1);
-            else if(touchPositionX > 650 && touchPositionX < 680 && touchPositionY > 560 && touchPositionY < 590)
-                rec.setPrice(rec.getPrice()+1);
         }
         else{
             dispose();
