@@ -1,6 +1,7 @@
 package com.kebaptycoon.model.entities;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
@@ -17,7 +18,8 @@ public class Furniture extends Entity{
 		ServingTable,
 		Table,
 		Decoration,
-		Grill
+		Grill,
+        Blocker
 	}
 
     String description;
@@ -114,17 +116,30 @@ public class Furniture extends Entity{
         return this.animations.get(orientation).getKeyFrame(animationTime);
     }
 
+    @Override
+    public void render(SpriteBatch batch, float delta)
+    {
+        if (type != Type.Blocker)
+            super.render(batch, delta);
+    }
+
     public boolean contains(Vector3 point)
     {
-        Vector3 delta = point.cpy().sub(getPosition());
-        if(orientation == Orientation.North)
-            delta = delta.scl(-1);
-        else if (orientation == Orientation.East)
-            delta = new Vector3(delta.y, -delta.x, delta.z);
-        else if(orientation == Orientation.West)
-            delta = new Vector3(-delta.y, delta.x, delta.z);
+        Vector3 bound = orientation.getReverse().getUnitVector().scl(height)
+                .add(orientation.rotateCounterClockwise().getUnitVector().scl(width));
 
-        return (delta.x >= 0 && delta.x < width) && (delta.y >= 0 && delta.y < height);
+        Vector3 delta = point.cpy().sub(getPosition());
+
+        return isBetween(0f, bound.x, delta.x) && isBetween(0f, bound.y, delta.y);
+    }
+
+    private boolean isBetween(float inclusive, float exclusive, float tested){
+        if (exclusive > inclusive) {
+            return tested < exclusive && tested >= inclusive;
+        }
+        else {
+            return tested > exclusive && tested <= inclusive;
+        }
     }
 
     public Vector3 findUsablePosition() {

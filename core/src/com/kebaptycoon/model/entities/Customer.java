@@ -137,11 +137,7 @@ public class Customer extends Person{
     private void onWaitForTable(Venue venue) {
         Furniture table = venue.getTableManager().getTableFor(pack);
 
-        if (table == null) {
-            wander(venue);
-            followPath();
-        }
-        else {
+        if (table != null) {
             state = State.GoToTable;
         }
     }

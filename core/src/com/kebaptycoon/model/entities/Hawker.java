@@ -138,13 +138,14 @@ public class Hawker extends Employee{
             if (target == null) return;
 
             if (target.getPosition().dst(getPosition()) <= 1) {
+                resetCurrentPath();
                 target.setDish(currentDish);
                 currentDish = null;
                 return;
             }
 
             if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), target.getPosition(), 2);
+                currentPath = venue.findPath(getPosition(), target.getPosition(), 1);
             }
 
             followPath();
