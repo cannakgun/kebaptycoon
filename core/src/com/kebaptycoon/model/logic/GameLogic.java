@@ -59,10 +59,6 @@ public class GameLogic {
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
 
@@ -76,10 +72,6 @@ public class GameLogic {
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
 
@@ -93,10 +85,6 @@ public class GameLogic {
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
 
@@ -110,29 +98,24 @@ public class GameLogic {
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         //inonu.getFurnitures().add(newTable);
 
         Furniture cart = new Furniture();
         cart.setName("meatballCart");
         cart.setPosition(new Vector3(20, 0, 0));
-        cart.setRender3DDelta(new Vector3(-2, 0, 0));
-        cart.setWidth(1);
+        cart.setRender2DDelta(new Vector2(-126, -73));
+        cart.setWidth(3);
         cart.setHeight(1);
         cart.setMaximumUsers(1);
-        cart.setOrientation(Orientation.East);
+        cart.setOrientation(Orientation.West);
         cart.setType(Furniture.Type.FoodCart);
-        cart.getUserPositions().add(new Vector3(.5f, 0, 0));
 
         inonu.getFurnitures().add(cart);
 
         inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
 
-        Hawker reis = new Hawker(15, "defaultPerson");
+        Hawker reis = new Hawker(7, "defaultPerson");
         reis.setPosition(new Vector3(22, 0, 0));
 
         inonu.getEmployees().add(reis);

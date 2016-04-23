@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.utils.IsometricHelper;
 
 public class Entity {
+    private static final Vector3 GLOBAL_RENDER_DELTA = new Vector3(0.5f, -0.5f, 0);
+
     private Vector3 position;
     private Vector3 render3DDelta;
     private Vector2 render2DDelta;
@@ -17,7 +19,7 @@ public class Entity {
 
     public Entity() {
         this.position = new Vector3(0f,0f,0f);
-        this.render3DDelta = new Vector3(.5f,.5f,0f);
+        this.render3DDelta = new Vector3(0f,0f,0f);
         this.render2DDelta = new Vector2(0f,0f);
         animation = null;
         animationTime = 0f;
@@ -115,8 +117,8 @@ public class Entity {
     public void render(SpriteBatch batch, float delta)
     {
         TextureRegion texture = cycleAnimation(delta);
-        Vector3 iso = position.cpy().add(render3DDelta);
-        Vector2 screen = IsometricHelper.project(iso).add(render2DDelta);
+        Vector3 iso = position.cpy().add(getRender3DDelta()).add(GLOBAL_RENDER_DELTA);
+        Vector2 screen = IsometricHelper.project(iso).add(getRender2DDelta());
         batch.draw(texture, screen.x, screen.y);
     }
     public String getName() {

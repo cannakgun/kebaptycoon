@@ -23,11 +23,11 @@ public class Furniture extends Entity{
     String description;
     Type type;
     Orientation orientation;
-    int width;
-    int height;
+    int width; //Left
+    int height; //Back
     int maximumUsers;
-    ArrayList<Person> users = new ArrayList<Person>();
-    ArrayList<Vector3> userPositions = new ArrayList<Vector3>();
+    HashMap<Orientation, Person> slots = new HashMap<Orientation, Person>();
+    HashMap<Person, Vector3> oldPositions = new HashMap<Person, Vector3>();
     HashMap<Orientation, Animation> animations = null;
 
     public Type getType() {
@@ -70,20 +70,34 @@ public class Furniture extends Entity{
         this.maximumUsers = maximumUsers;
     }
 
-    public ArrayList<Vector3> getUserPositions() {
-        return userPositions;
+    @Override
+    public Vector3 getRender3DDelta() {
+        float h = ((float)height - 1f) / 2;
+        float w = ((float)width - 1f) / 2;
+
+        Vector3 hDelta = orientation.getReverse().getUnitVector().scl(h);
+        Vector3 wDelta = orientation.rotateCounterClockwise().getUnitVector().scl(w);
+        return hDelta.add(wDelta);
     }
 
-    public void setUserPositions(ArrayList<Vector3> userPositions) {
-        this.userPositions = userPositions;
+    public int getUserCount() {
+        return slots.entrySet().size();
     }
 
-    public ArrayList<Person> getUsers() {
-        return users;
+    public boolean isUsedBy(Person person) {
+        return slots.containsValue(person);
     }
 
-    public void setUsers(ArrayList<Person> user) {
-        this.users = user;
+    public Orientation findSuitableOrientation() {
+        Orientation[] priority = {orientation.getReverse(), orientation,
+                orientation.rotateClockwise(), orientation.rotateCounterClockwise()};
+
+        for(Orientation or: priority) {
+            if (!slots.containsKey(or))
+                return or;
+        }
+
+        return null;
     }
 
     public HashMap<Orientation, Animation> getAnimations() {
@@ -103,19 +117,39 @@ public class Furniture extends Entity{
     public boolean contains(Vector3 point)
     {
         Vector3 delta = point.cpy().sub(getPosition());
-        return (delta.x >= 0 && delta.x <= width) && (delta.y >= 0 && delta.y <= height);
+        if(orientation == Orientation.North)
+            delta = delta.scl(-1);
+        else if (orientation == Orientation.East)
+            delta = new Vector3(delta.y, -delta.x, delta.z);
+        else if(orientation == Orientation.West)
+            delta = new Vector3(-delta.y, delta.x, delta.z);
+
+        return (delta.x >= 0 && delta.x < width) && (delta.y >= 0 && delta.y < height);
     }
 
     public void onUse(Person person) {
-        person.setPosition(getPosition().cpy().add(userPositions.get(users.size())));
-        person.orientation = Orientation.fromVector(getPosition().cpy().sub(person.getPosition()));
-        getUsers().add(person);
+        Orientation o = findSuitableOrientation();
+        float scale;
+        if(o == orientation || o == orientation.getReverse())
+            scale = height;
+        else
+            scale = width;
+
+        Vector3 center = getRender3DDelta().add(getPosition());
+
+        oldPositions.put(person, person.getPosition());
+
+        person.setPosition(center.cpy().add(o.getUnitVector().scl(scale/2)));
+
+        person.orientation = o.getReverse();
+        slots.put(o, person);
     }
 
     public void onStopUse(Person person) {
         person.orientation = person.orientation.getReverse();
-        float max = Math.max(width, height);
-        person.setPosition(getPosition().cpy().add(person.orientation.getUnitVector().scl(max)));
-        getUsers().remove(person);
+
+        person.setPosition(oldPositions.get(person));
+        oldPositions.remove(person);
+        slots.remove(person.orientation);
     }
 }

@@ -132,7 +132,7 @@ public class CustomerManager {
 
         for (int i = 0; i < size; i++) {
             CustomerType t = types.get(i);
-            Customer newCustomer = new Customer(10, t.getSpriteName(), t, waiting, budget);
+            Customer newCustomer = new Customer(5, t.getSpriteName(), t, waiting, budget);
             newPack.add(newCustomer);
         }
 

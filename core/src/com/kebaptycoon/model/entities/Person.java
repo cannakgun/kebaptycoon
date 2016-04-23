@@ -12,7 +12,7 @@ import java.util.Random;
 public class Person extends Entity{
 
     public static final Vector2 DEFAULT_2D_DELTA = new Vector2(-48f, -16f);
-    public static final Vector3 DEFAULT_3D_DELTA = new Vector3(0.5f, -0.5f, 0f);
+    public static final Vector3 DEFAULT_3D_DELTA = new Vector3(0f, 0f, 0f);
 
     public static final float SPEED_SCALE = 0.01f;
 
@@ -141,7 +141,7 @@ public class Person extends Entity{
     public boolean use(Furniture furniture) {
         if (usedFurniture != null) return false;
 
-        if(furniture.getUsers().size() < furniture.getMaximumUsers()) {
+        if(furniture.getUserCount() < furniture.getMaximumUsers()) {
             furniture.onUse(this);
             usedFurniture = furniture;
             resetCurrentPath();
@@ -155,7 +155,7 @@ public class Person extends Entity{
 
         if (usedFurniture == null) return false;
 
-        if(furniture.getUsers().contains(this)) {
+        if(furniture.isUsedBy(this)) {
             furniture.onStopUse(this);
             usedFurniture = null;
             return true;

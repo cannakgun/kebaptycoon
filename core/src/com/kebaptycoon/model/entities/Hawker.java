@@ -91,7 +91,7 @@ public class Hawker extends Employee{
             }
 
             if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), cart.getPosition(), 1);
+                currentPath = venue.findPath(getPosition(), cart);
             }
             return;
         }
