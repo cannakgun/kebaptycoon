@@ -272,13 +272,18 @@ public class Venue {
         return returnArr;
     }
 
-    private int getStock(final Ingredient ing) {
-
-        for (Pair<Ingredient, Integer> p: stock) {
-            if(p.getLeft() == ing)
-                return p.getRight();
+    private int getStockIndex(Ingredient ing) {
+        for (int i = 0; i < stock.size(); i++) {
+            if(stock.get(i).getLeft() == ing)
+                return i;
         }
+        return -1;
+    }
 
+    public int getStock(Ingredient ing) {
+        int index = getStockIndex(ing);
+        if (index != -1)
+            return stock.get(index).getRight();
         return 0;
     }
 

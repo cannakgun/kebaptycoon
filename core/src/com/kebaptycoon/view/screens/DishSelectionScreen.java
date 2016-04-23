@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.kebaptycoon.KebapTycoonGame;
 import com.kebaptycoon.controller.screenControllers.DishSelectionScreenController;
+import com.kebaptycoon.model.logic.StartingDish;
 import com.kebaptycoon.utils.ResourceManager;
 
 public class DishSelectionScreen implements Screen{
@@ -47,7 +48,8 @@ public class DishSelectionScreen implements Screen{
         batch.end();
 
         if(dishSelectionScreenController.isDishTypeSelected()){
-            KebapTycoonGame.getInstance().setScreen(new GameScreen(resourceManager));
+
+            KebapTycoonGame.getInstance().setScreen(new GameScreen(resourceManager, dishSelectionScreenController.getStartingDish()));
         }
     }
 

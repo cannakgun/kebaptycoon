@@ -23,6 +23,7 @@ import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
+import com.kebaptycoon.model.logic.StartingDish;
 import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
@@ -60,10 +61,12 @@ public class GameScreen implements Screen{
     private Entity                              testEntity;
     private SoundManager                        soundManager;
     private ArrayList<Pair<String, Integer>>    menuBarItems;
+    private StartingDish                        startingDish;
 
-	public GameScreen(ResourceManager resourceManager) {
+	public GameScreen(ResourceManager resourceManager, StartingDish startingDish) {
 
         this.resourceManager = resourceManager;
+        this.startingDish = startingDish;
         gameLogic = new GameLogic(resourceManager);
         soundManager = new SoundManager(resourceManager);
 
@@ -401,6 +404,9 @@ public class GameScreen implements Screen{
 
     public ArrayList<Pair<String, Integer>> getMenuBarItems(){
         return menuBarItems;
+    }
+    public Venue getCurrentVenue() {
+        return currentVenue;
     }
 
     public void resetController() {

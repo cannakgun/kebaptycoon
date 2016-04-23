@@ -6,9 +6,6 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.kebaptycoon.view.screens.GameScreen;
 
-/**
- * Created by Can Akgün on 7.4.2016.
- */
 public abstract class MenuController implements GestureDetector.GestureListener, InputProcessor {
 
     int touchPositionX;
@@ -19,17 +16,19 @@ public abstract class MenuController implements GestureDetector.GestureListener,
         this.gameScreen = gameScreen;
     }
     public void dispose(){
+        while(!(gameScreen.getGameScreenController().getMenuStack().isEmpty())){
+            gameScreen.getGameScreenController().getMenuStack().pop();
+        }
+        gameScreen.resetController();
+        gameScreen.getGameLogic().setPaused(false);
+        gameScreen.getGameScreenController()
+                .processTouch(new Vector2(touchPositionX, touchPositionY));
+
+    }
+    public void backPrevious(){
         gameScreen.getGameScreenController().getMenuStack().pop();
-        if(gameScreen.getGameScreenController().getMenuStack().isEmpty()) {
-            gameScreen.resetController();
-            gameScreen.getGameLogic().setPaused(false);
-            gameScreen.getGameScreenController()
-                    .processTouch(new Vector2(touchPositionX, touchPositionY));
-        }
-        else {
-            gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
-                    .peek().getMenuController());
-        }
+        gameScreen.setInputProcessor(gameScreen.getGameScreenController().getMenuStack()
+                .peek().getMenuController());
     }
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
