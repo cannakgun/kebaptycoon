@@ -1,5 +1,5 @@
 [{
-  "name" : "Sis Kebap",
+  "name" : "Şiş Kebap",
   "price" : 15,
   "minLevel" : 3,
   "available" : true,
@@ -42,7 +42,7 @@
 
   },
   {
-    "name" : " Çig Köfte",
+    "name" : " Çiğ Köfte",
     "price" : 15,
     "minLevel" : 2,
     "available" : true,
@@ -60,7 +60,7 @@
     "texture" : "recipe_kokorec"
   },
   {
-    "name" : " Iskender",
+    "name" : " İskender",
     "price" : 12,
     "minLevel" : 2,
     "available" : true,
