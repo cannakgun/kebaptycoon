@@ -2,15 +2,17 @@ package com.kebaptycoon.model.entities;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.function.Predicate;
 
 public class Person extends Entity{
+
+    public static final Vector2 DEFAULT_2D_DELTA = new Vector2(-48f, -16f);
+    public static final Vector3 DEFAULT_3D_DELTA = new Vector3(0f, 0f, 0f);
 
     public static final float SPEED_SCALE = 0.01f;
 
@@ -33,6 +35,9 @@ public class Person extends Entity{
 		this.speed = speed;
         orientation = Orientation.East;
         animationState = AnimationState.Standing;
+
+        setRender2DDelta(DEFAULT_2D_DELTA);
+        setRender3DDelta(DEFAULT_3D_DELTA);
 	}
 
 	public int getSpeed() {
@@ -116,17 +121,13 @@ public class Person extends Entity{
     public void wander(final Venue venue) {
         if(currentPath == null || currentPath.size() > 0) return;
 
-        ArrayList<Orientation> possibilities = new ArrayList<Orientation>(Arrays.asList(Orientation.values()));
-        final Vector3 cur = getPosition();
-        possibilities.removeIf(new Predicate<Orientation>() {
-            @Override
-            public boolean test(Orientation orientation) {
-                return !venue.isPathable(orientation.getUnitVector().add(cur));
-            }
-        });
+        ArrayList<Orientation> possibilities = new ArrayList<Orientation>();
+        for (Orientation o: Orientation.values()) {
+            if(venue.isPathable(o.getUnitVector().add(getPosition())))
+                possibilities.add(o);
+        }
 
-        Random tempRandom = new Random();
-        int randIndex = tempRandom.nextInt(possibilities.size());
+        int randIndex = new Random().nextInt(possibilities.size());
         Orientation selection = possibilities.get(randIndex);
 
         currentPath.add(selection.getUnitVector().add(getPosition()));
@@ -140,7 +141,7 @@ public class Person extends Entity{
     public boolean use(Furniture furniture) {
         if (usedFurniture != null) return false;
 
-        if(furniture.getUsers().size() < furniture.getMaximumUsers()) {
+        if(furniture.getUserCount() < furniture.getMaximumUsers()) {
             furniture.onUse(this);
             usedFurniture = furniture;
             resetCurrentPath();
@@ -154,7 +155,7 @@ public class Person extends Entity{
 
         if (usedFurniture == null) return false;
 
-        if(furniture.getUsers().contains(this)) {
+        if(furniture.isUsedBy(this)) {
             furniture.onStopUse(this);
             usedFurniture = null;
             return true;

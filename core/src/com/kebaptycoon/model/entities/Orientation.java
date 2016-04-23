@@ -38,6 +38,36 @@ public enum Orientation {
         }
     }
 
+    public Orientation rotateClockwise() {
+        switch (this) {
+            case East:
+                return South;
+            case North:
+                return East;
+            case West:
+                return North;
+            case South:
+                return West;
+            default:
+                return null;
+        }
+    }
+
+    public Orientation rotateCounterClockwise() {
+        switch (this) {
+            case East:
+                return North;
+            case North:
+                return West;
+            case West:
+                return South;
+            case South:
+                return East;
+            default:
+                return null;
+        }
+    }
+
     public static Orientation fromVector(Vector3 vector) {
         float absX = Math.abs(vector.x);
         float absY = Math.abs(vector.y);

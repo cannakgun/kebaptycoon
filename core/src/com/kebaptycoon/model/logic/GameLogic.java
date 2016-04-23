@@ -1,13 +1,12 @@
 package com.kebaptycoon.model.logic;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.ResourceManager;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class GameLogic {
 
@@ -48,85 +47,76 @@ public class GameLogic {
         resetDayTime();
 
         Venue inonu = new Venue(30, 30, 5, 5, false,
-                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(10, 0, 0));
+                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(-3, 0, 0));
 
         Furniture newTable = new Furniture();
         newTable.setName("table");
-        newTable.setPosition(new Vector3(30, 0, 0));
+        newTable.setPosition(new Vector3(14, -1, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
 
         newTable = new Furniture();
         newTable.setName("table");
-        newTable.setPosition(new Vector3(30, 5, 0));
+        newTable.setPosition(new Vector3(14, 2, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
 
         newTable = new Furniture();
         newTable.setName("table");
-        newTable.setPosition(new Vector3(30, -5, 0));
+        newTable.setPosition(new Vector3(14, -4, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
         inonu.getFurnitures().add(newTable);
 
         newTable = new Furniture();
         newTable.setName("table");
-        newTable.setPosition(new Vector3(25, 0, 0));
+        newTable.setPosition(new Vector3(17, 0, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
         newTable.setOrientation(Orientation.East);
         newTable.setType(Furniture.Type.Table);
-        newTable.getUserPositions().add(new Vector3(-.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, .7f, 0));
-        newTable.getUserPositions().add(new Vector3(.7f, 0, 0));
-        newTable.getUserPositions().add(new Vector3(0, -.7f, 0));
 
-        inonu.getFurnitures().add(newTable);
+        //inonu.getFurnitures().add(newTable);
 
         Furniture cart = new Furniture();
-        cart.setName("foodCart");
-        cart.setPosition(new Vector3(35, 0, 0));
-        cart.setRender3DDelta(new Vector3(-2, 0, 0));
-        cart.setWidth(1);
+        cart.setName("meatballCart");
+        cart.setPosition(new Vector3(20, 0, 0));
+        cart.setRender2DDelta(new Vector2(-126, -73));
+        cart.setWidth(3);
         cart.setHeight(1);
         cart.setMaximumUsers(1);
-        cart.setOrientation(Orientation.East);
+        cart.setOrientation(Orientation.West);
         cart.setType(Furniture.Type.FoodCart);
-        cart.getUserPositions().add(new Vector3(.7f, 0, 0));
 
         inonu.getFurnitures().add(cart);
 
         inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
 
-        Hawker reis = new Hawker(15, "defaultPerson");
-        reis.setPosition(new Vector3(40, 0, 0));
+        Hawker reis = new Hawker(7, "defaultPerson");
+        reis.setPosition(new Vector3(22, 0, 0));
 
         inonu.getEmployees().add(reis);
 
@@ -246,26 +236,26 @@ public class GameLogic {
 
     public ArrayList<Recipe> getAvailableRecipes()
     {
-        ArrayList<Recipe> r = new ArrayList<Recipe>(recipeManager.getRecipes());
-        r.removeIf(new Predicate<Recipe>() {
-            @Override
-            public boolean test(Recipe recipe) {
-                return !(recipe.isAvailable() || level > recipe.getMinLevel());
-            }
-        });
-        return r;
+        ArrayList<Recipe> returnArr = new ArrayList<Recipe>();
+
+        for (Recipe r: getUnlockedRecipes()) {
+            if (r.isAvailable())
+                returnArr.add(r);
+        }
+
+        return returnArr;
     }
 
     public ArrayList<Recipe> getUnlockedRecipes()
     {
-        ArrayList<Recipe> r = new ArrayList<Recipe>(recipeManager.getRecipes());
-        r.removeIf(new Predicate<Recipe>() {
-            @Override
-            public boolean test(Recipe recipe) {
-                return level <= recipe.getMinLevel();
-            }
-        });
-        return r;
+        ArrayList<Recipe> returnArr = new ArrayList<Recipe>();
+
+        for (Recipe r: recipeManager.getRecipes()) {
+            if (r.isAvailable())
+                returnArr.add(r);
+        }
+
+        return returnArr;
     }
 
     public void setMoney(int money) {

@@ -1,6 +1,7 @@
 package com.kebaptycoon.model.managers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -9,6 +10,7 @@ import com.kebaptycoon.model.entities.Advertisement;
 import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.CustomerType;
+import com.kebaptycoon.model.entities.Orientation;
 import com.kebaptycoon.model.entities.Venue;
 
 import java.io.IOException;
@@ -93,8 +95,10 @@ public class CustomerManager {
 
             CustomerPack newCustomer = generateRandomCustomerPack();
 
+            int i = 0;
+
             for(Customer customer: newCustomer.getCustomers()){
-                customer.setPosition(venue.spawnPosition);
+                customer.setPosition(Orientation.values()[i++].getUnitVector().add(venue.spawnPosition));
             }
 
             if (newCustomer != null)
@@ -128,7 +132,7 @@ public class CustomerManager {
 
         for (int i = 0; i < size; i++) {
             CustomerType t = types.get(i);
-            Customer newCustomer = new Customer(10, t.getSpriteName(), t, waiting, budget);
+            Customer newCustomer = new Customer(5, t.getSpriteName(), t, waiting, budget);
             newPack.add(newCustomer);
         }
 
