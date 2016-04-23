@@ -202,7 +202,7 @@ public class GameLogic {
 
         inonu.getFurnitures().add(cart);
 
-        inonu.incrementIngredient(Ingredient.MincedMeat, 9999);
+        inonu.incrementIngredient(Ingredient.MincedMeat, 500);
 
         Hawker reis = new Hawker(7, "defaultPerson");
         reis.setPosition(new Vector3(22, 0, 0));
