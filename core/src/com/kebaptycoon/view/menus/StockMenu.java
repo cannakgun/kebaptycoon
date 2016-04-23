@@ -39,9 +39,9 @@ public class StockMenu extends Menu {
     public void render(SpriteBatch batch, Viewport viewPort) {
 
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_stockBackground"), 300, 300);
 
-        heading1Font.draw(batch, Globals.STOCK_MENU_TITLE, 865, 920);
+        //heading1Font.draw(batch, Globals.STOCK_MENU_TITLE, 865, 920);
 
         int y = 920;
 
@@ -53,11 +53,11 @@ public class StockMenu extends Menu {
             if(i%4 == 0)
                 y -= 240;
             batch.draw(resourceManager.textures.get("ingredients_" + ingredient.getLeft()),
-                    500 + (i%4) * 240, y, 100, 100);
-            heading3Font.draw(batch, ingredient.getRight() + " TL ", 500 + (i%4) * 240 + 30, y - 30);
-            heading3Font.draw(batch, "0", 540 + (i%4) * 240, y - 60);
-            batch.draw(resourceManager.textures.get("menu_minus"), 480 + (i%4) * 240, y - 80);
-            batch.draw(resourceManager.textures.get("menu_plus"),  580 +  (i%4) * 240, y - 80);
+                    530 + (i%4) * 240, y, 100, 100);
+            heading3Font.draw(batch, ingredient.getRight() + " TL ", 530 + (i%4) * 240 + 30, y - 30);
+            heading3Font.draw(batch, "0", 570 + (i%4) * 240, y - 60);
+            batch.draw(resourceManager.textures.get("menu_minus"), 510 + (i%4) * 240, y - 80);
+            batch.draw(resourceManager.textures.get("menu_plus"),  620 +  (i%4) * 240, y - 80);
         }
 
         batch.end();

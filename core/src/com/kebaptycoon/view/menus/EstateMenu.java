@@ -30,9 +30,9 @@ public class EstateMenu extends Menu {
     @Override
     public void render(SpriteBatch batch, Viewport viewPort) {
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_estateBackground"), 300, 300);
 
-        heading1Font.draw(batch, Globals.ESTATE_MENU_TITLE, 845, 920);
+        //heading1Font.draw(batch, Globals.ESTATE_MENU_TITLE, 845, 920);
         batch.end();
     }
 

@@ -35,7 +35,7 @@ public class DishDetailsMenu extends Menu {
     public void render(SpriteBatch batch, Viewport viewPort){
 
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_menuBackground"), 300, 300);
 
         heading1Font.draw(batch, rec.getName()
                 , 805, 920);

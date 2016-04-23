@@ -40,8 +40,6 @@ public class DishDetailsMenuController extends MenuController{
         return false;
     }
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
-        System.out.println("x: " + touchPositionX);
-        System.out.println("y: " + touchPositionY);
         if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
             int ingredientColumn = (touchPositionX - 770) / 240;
             int ingredientRow = (800 - touchPositionY ) / 200;
