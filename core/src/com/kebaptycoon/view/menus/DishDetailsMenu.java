@@ -40,12 +40,12 @@ public class DishDetailsMenu extends Menu {
         heading1Font.draw(batch, rec.getName()
                 , 805, 920);
 
-        batch.draw(resourceManager.textures.get(rec.getTexture()), 460, 620);
+        batch.draw(resourceManager.textures.get(rec.getTexture()), 460, 520);
         batch.draw(resourceManager.textures.get("menu_check"), 1390 , 350, 70, 70);
 
-        heading2Font.draw(batch, "" + rec.getPrice() + " TL", 510, 590);
-        batch.draw(resourceManager.textures.get("menu_minus"), 460  , 560);
-        batch.draw(resourceManager.textures.get("menu_plus"),  650 , 560);
+        heading2Font.draw(batch, "" + rec.getPrice() + " TL", 510, 490);
+        batch.draw(resourceManager.textures.get("menu_minus"), 460  , 460);
+        batch.draw(resourceManager.textures.get("menu_plus"),  650 , 460);
 
         int y = 900;
 
@@ -53,7 +53,7 @@ public class DishDetailsMenu extends Menu {
             if(i%3 == 0)
                 y -= 200;
 
-            batch.draw(resourceManager.textures.get("ingredients_"+rec.getIngredients().get(i).getLeft()),
+            batch.draw(resourceManager.textures.get("ingredients_" + rec.getIngredients().get(i).getLeft()),
                     850 + (i%3) * 240, y, 100, 100);
             batch.draw(resourceManager.textures.get("menu_minus"), 840 + (i%3) * 240, y - 45);
             batch.draw(resourceManager.textures.get("menu_plus"), 940 + (i%3) * 240, y - 45);
