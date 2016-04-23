@@ -250,6 +250,8 @@ public class GameScreen implements Screen{
 	
 	private void renderEntities(float delta)
 	{
+        delta = gameLogic.isPaused() ? 0f : delta;
+
 		ArrayList<Entity> renderables = new ArrayList<Entity>();
 
 

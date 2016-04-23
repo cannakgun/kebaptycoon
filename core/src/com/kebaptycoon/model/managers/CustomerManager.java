@@ -10,6 +10,7 @@ import com.kebaptycoon.model.entities.Advertisement;
 import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.CustomerType;
+import com.kebaptycoon.model.entities.Furniture;
 import com.kebaptycoon.model.entities.Orientation;
 import com.kebaptycoon.model.entities.Venue;
 
@@ -29,6 +30,8 @@ public class CustomerManager {
     private final static float SPAWN_CHANCE_FLAT = 0.002f;
     private final static float SIZE_CHANCE = 0.3f;
     private final static float DECAY_RATE = -0.01f;
+
+    private final static int MAXIMUM_EXCEED = 2;
 
     HashMap<CustomerType, Float> popularities;
     private Random random;
@@ -91,6 +94,9 @@ public class CustomerManager {
     public void generateCustomers(ArrayList<Venue> venueList) {
         float avg = popularitySum() / getCustomerTypes().size();
         for (Venue venue:venueList) {
+            if(venue.getCustomers().size() - venue.getFurnitures(Furniture.Type.Table).size()
+                    >= MAXIMUM_EXCEED)
+                continue;
             if (random.nextFloat() > SPAWN_CHANCE_FLAT + (SPAWN_CHANCE_SCALE * avg)) continue;
 
             CustomerPack newCustomer = generateRandomCustomerPack();

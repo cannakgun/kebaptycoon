@@ -202,8 +202,6 @@ public class Venue {
 
     public ArrayList<Vector3> findPath(Vector3 source, Vector3 target, float margin)
     {
-        source = new Vector3(Math.round(source.x), Math.round(source.y), Math.round(source.z));
-        target = new Vector3(Math.round(target.x), Math.round(target.y), Math.round(target.z));
 
         Comparator<Pair<Vector3, Float>> comparator = new QueueComparator();
 

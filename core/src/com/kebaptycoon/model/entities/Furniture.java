@@ -127,8 +127,11 @@ public class Furniture extends Entity{
         return (delta.x >= 0 && delta.x < width) && (delta.y >= 0 && delta.y < height);
     }
 
-    public void onUse(Person person) {
-        Orientation o = findSuitableOrientation();
+    public Vector3 findUsablePosition() {
+        return getUsePosition(findSuitableOrientation());
+    }
+
+    public Vector3 getUsePosition(Orientation o) {
         float scale;
         if(o == orientation || o == orientation.getReverse())
             scale = height;
@@ -137,9 +140,15 @@ public class Furniture extends Entity{
 
         Vector3 center = getRender3DDelta().add(getPosition());
 
+        return center.cpy().add(o.getUnitVector().scl(scale/2));
+    }
+
+    public void onUse(Person person) {
+        Orientation o = findSuitableOrientation();
+
         oldPositions.put(person, person.getPosition());
 
-        person.setPosition(center.cpy().add(o.getUnitVector().scl(scale/2)));
+        person.setPosition(getUsePosition(o));
 
         person.orientation = o.getReverse();
         slots.put(o, person);
