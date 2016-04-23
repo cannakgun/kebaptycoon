@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class CustomerType {
 
     String              displayName;
-    String              texureName;
+    String              textureName;
     String              spriteName;
     int 				waitingTime;
     int 				budget;
-    ArrayList<String> likes;
+    ArrayList<String>   likes;
     ArrayList<String> 	dislikes;
 
     public CustomerType() {
@@ -24,12 +24,12 @@ public class CustomerType {
         this.displayName = displayName;
     }
 
-    public String getTexureName() {
-        return texureName;
+    public String getTextureName() {
+        return textureName;
     }
 
-    public void setTexureName(String texureName) {
-        this.texureName = texureName;
+    public void setTextureName(String textureName) {
+        this.textureName = textureName;
     }
 
     public String getSpriteName() {

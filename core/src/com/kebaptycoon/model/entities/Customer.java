@@ -283,11 +283,11 @@ public class Customer extends Person{
     public float rateDish(Dish d)
     {
         // 3 customer type -> Teenage, Businessman, Woman
-        if (getType().getTexureName().equals("gencAdam")) {
+        if (getType().getTextureName().equals("gencAdam")) {
             return ratePrice(d.getRecipe().getPrice()) * (0.6f) + rateIngredients(d.getRecipe()) * (0.3f) + (float) (Math.random() * (0.1f));
-        } else if (getType().getTexureName().equals("kadin")) {
+        } else if (getType().getTextureName().equals("kadin")) {
             return ratePrice(d.getRecipe().getPrice()) * (0.45f) + rateIngredients(d.getRecipe()) * (0.45f) + (float) (Math.random() * (0.1f));
-        } else if (getType().getTexureName().equals("isAdami")) {
+        } else if (getType().getTextureName().equals("isAdami")) {
             return ratePrice(d.getRecipe().getPrice()) * (0.3f) + rateIngredients(d.getRecipe()) * (0.6f) + (float) (Math.random() * (0.1f));
         } else {
             return (float) Math.random();
