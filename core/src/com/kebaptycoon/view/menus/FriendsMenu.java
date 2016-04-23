@@ -39,9 +39,8 @@ public class FriendsMenu extends Menu{
     @Override
     public void render(SpriteBatch batch, Viewport viewPort) {
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_friendsBackground"), 300, 300);
 
-        heading1Font.draw(batch, Globals.FRIENDS_MENU_TITLE, 835, 920);
         if (frame == 0){
             heading2Font.draw(batch, "Yükleniyor...", 700 , 750);
         }else{
