@@ -44,9 +44,9 @@ public class MarketMenu extends Menu {
     public void render(SpriteBatch batch, Viewport viewPort) {
 
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_marketBackground"), 300, 300);
 
-        heading1Font.draw(batch, Globals.MARKET_MENU_TITLE, 835, 920);
+        //heading1Font.draw(batch, Globals.MARKET_MENU_TITLE, 835, 920);
 
         int y = 920;
 
@@ -59,8 +59,8 @@ public class MarketMenu extends Menu {
             if(i%4 == 0)
                 y -= 240;
             batch.draw(resourceManager.textures.get("furnitures_" + pro.name),
-                    520 + (i%4) * 240, y, 100, 100);
-            heading3Font.draw(batch, furniture.getRight() + " TL ", 500 + (i%4) * 240 + 30, y - 30);
+                    530 + (i%4) * 240, y, 100, 100);
+            heading3Font.draw(batch, furniture.getRight() + " TL ", 510 + (i%4) * 240 + 30, y - 30);
 
         }
         batch.end();

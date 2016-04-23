@@ -42,9 +42,9 @@ public class StaffMenu extends Menu{
     public void render(SpriteBatch batch, Viewport viewPort) {
 
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_staffBackground"), 300, 300);
 
-        heading1Font.draw(batch, Globals.STAFF_MENU_TITLE, 805, 920);
+        //heading1Font.draw(batch, Globals.STAFF_MENU_TITLE, 805, 920);
 
         int y = 920;
 

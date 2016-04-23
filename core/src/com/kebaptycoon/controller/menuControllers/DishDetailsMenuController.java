@@ -40,8 +40,6 @@ public class DishDetailsMenuController extends MenuController{
         return false;
     }
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
-        System.out.println("x: " + touchPositionX);
-        System.out.println("y: " + touchPositionY);
         if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
             int ingredientColumn = (touchPositionX - 770) / 240;
             int ingredientRow = (800 - touchPositionY ) / 200;
@@ -56,10 +54,10 @@ public class DishDetailsMenuController extends MenuController{
                         rec.getIngredients().get(ingredient).right++;
                 }
             }
-            if(touchPositionX > 310 && touchPositionX < 400 && touchPositionY > 425 && touchPositionY < 700)
-                dishDetailsMenu.changeCurrentPage(-1);
-            else if(touchPositionX > 1500 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700)
-                dishDetailsMenu.changeCurrentPage(1);
+            if(touchPositionX > 460 && touchPositionX < 490 && touchPositionY > 560 && touchPositionY < 590)
+                rec.setPrice(rec.getPrice()-1);
+            else if(touchPositionX > 650 && touchPositionX < 680 && touchPositionY > 560 && touchPositionY < 590)
+                rec.setPrice(rec.getPrice()+1);
         }
         else{
             dispose();

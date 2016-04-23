@@ -37,7 +37,7 @@ public class AdvertisementMenu extends Menu {
     @Override
     public void render(SpriteBatch batch, Viewport viewPort) {
         batch.begin();
-        batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
+        batch.draw(resourceManager.textures.get("menu_backgrounds_advertisementBackground"), 300, 300);
 
         int y = 920;
 
@@ -60,7 +60,7 @@ public class AdvertisementMenu extends Menu {
             }
 
 
-            heading1Font.draw(batch, Globals.ADVERTISEMENT_MENU_TITLE, 815, 920);
+            //heading1Font.draw(batch, Globals.ADVERTISEMENT_MENU_TITLE, 815, 920);
 
         }
         batch.end();

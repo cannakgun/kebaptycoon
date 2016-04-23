@@ -21,7 +21,7 @@ public class GameLogic {
     private MarketManager marketManager;
     private VenueManager venueManager;
     private AnimationManager animationManager;
-
+    private FacebookFriendManager facebookFriendManager;
     //Global game data
     private int time;
     private int money;
@@ -39,6 +39,8 @@ public class GameLogic {
         marketManager = new MarketManager();
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
+        facebookFriendManager = new FacebookFriendManager();
+
         paused = false;
         afterHours = false;
         resetDayTime();
@@ -208,6 +210,10 @@ public class GameLogic {
 
     public VenueManager getVenueManager() {
         return venueManager;
+    }
+
+    public FacebookFriendManager getFacebookFriendManager() {
+        return facebookFriendManager;
     }
 
     public int getMoney() {

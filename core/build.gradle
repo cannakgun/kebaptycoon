@@ -11,4 +11,5 @@ eclipse.project {
 }
 dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+    compile 'org.json:json:20090211'
 }
