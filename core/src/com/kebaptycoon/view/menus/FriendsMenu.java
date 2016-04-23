@@ -8,10 +8,18 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.FriendsMenuController;
 import com.kebaptycoon.controller.menuControllers.MenuController;
+import com.kebaptycoon.model.managers.FacebookFriendManager;
 import com.kebaptycoon.utils.Globals;
 import com.kebaptycoon.view.screens.GameScreen;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class FriendsMenu extends Menu{
+
+    FacebookFriendManager facebookFriendManager;
+    ArrayList<FacebookFriendManager.FacebookFriend> facebookFriends;
+    int frame = 0;
 
     public FriendsMenu(GameScreen gameScreen) {
 
@@ -23,6 +31,7 @@ public class FriendsMenu extends Menu{
 
         super.menuController = mul;
         Gdx.input.setInputProcessor(menuController);
+        facebookFriendManager = gameScreen.getGameLogic().getFacebookFriendManager();
 
         currentPage = 0;
     }
@@ -31,19 +40,30 @@ public class FriendsMenu extends Menu{
     public void render(SpriteBatch batch, Viewport viewPort) {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_background"), 300, 300);
-        heading1Font.draw(batch, Globals.FRIENDS_MENU_TITLE, 815, 920);
 
-        batch.draw(resourceManager.textures.get("friends_can"), 500, 700, 100, 100);
-        heading3Font.draw(batch, "Seviye : 3    Günlük gelir : 5000 TL    Acilan yemek sayisi : 4", 650, 750);
+        heading1Font.draw(batch, Globals.FRIENDS_MENU_TITLE, 835, 920);
+        if (frame == 0){
+            heading2Font.draw(batch, "Yükleniyor...", 700 , 750);
+        }else{
+            if(!facebookFriendManager.isLoaded()){
+                try {
+                    facebookFriends = facebookFriendManager.getFriendsFromFacebook();
+                    facebookFriendManager.setLoaded(true);
 
-        batch.draw(resourceManager.textures.get("friends_sinem"), 500, 590, 100, 100);
-        heading3Font.draw(batch, "Seviye : 3    Günlük gelir : 1200 TL    Acilan yemek sayisi : 5", 650, 650);
-
-        batch.draw(resourceManager.textures.get("friends_kivanc"), 500, 480, 100, 100);
-        heading3Font.draw(batch, "Seviye : 3    Günlük gelir : 300 TL    Acilan yemek sayisi :14", 650, 550);
-
-        batch.draw(resourceManager.textures.get("friends_ulas"), 500, 370, 100, 100);
-        heading3Font.draw(batch, "Seviye : 3    Günlük gelir : 800 TL    Acilan yemek sayisi : 2", 650, 450);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                for(int i = 0; i < facebookFriends.size(); i++){
+                    if(facebookFriends.get(i).getProfilePicture() != null) {
+                        batch.draw(facebookFriends.get(i).getProfilePicture(), 550, 550 + i * 140, 100, 100);
+                    }
+                    heading3Font.draw(batch, facebookFriends.get(i).getName(), 700, 600 + i * 140);
+                }
+            }
+        }
         batch.end();
+        frame++;
     }
 }

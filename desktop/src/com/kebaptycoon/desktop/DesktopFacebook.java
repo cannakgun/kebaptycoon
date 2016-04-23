@@ -38,7 +38,9 @@ public class DesktopFacebook extends FacebookLoginHelper{
                 try {
                     Desktop.getDesktop().browse
                             (new URI("https://www.facebook.com/dialog/oauth?client_id="+ Globals.FACEBOOK_APP_ID
-                                    + "&redirect_uri="+ Globals.FACEBOOK_REDIRECT_URL + "&state=" + desktopLoginId ));
+                                    + "&redirect_uri="+ Globals.FACEBOOK_REDIRECT_URL
+                                    + "&scope=public_profile,user_friends"
+                                    + "&state=" + desktopLoginId ));
 
                 } catch (IOException e) {
                     e.printStackTrace();
