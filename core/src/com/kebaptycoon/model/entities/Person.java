@@ -2,6 +2,7 @@ package com.kebaptycoon.model.entities;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Person extends Entity{
+
+    public static final Vector2 DEFAULT_2D_DELTA = new Vector2(-48f, -16f);
+    public static final Vector3 DEFAULT_3D_DELTA = new Vector3(0.5f, -0.5f, 0f);
 
     public static final float SPEED_SCALE = 0.01f;
 
@@ -31,6 +35,9 @@ public class Person extends Entity{
 		this.speed = speed;
         orientation = Orientation.East;
         animationState = AnimationState.Standing;
+
+        setRender2DDelta(DEFAULT_2D_DELTA);
+        setRender3DDelta(DEFAULT_3D_DELTA);
 	}
 
 	public int getSpeed() {

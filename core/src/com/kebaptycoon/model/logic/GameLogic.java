@@ -1,5 +1,6 @@
 package com.kebaptycoon.model.logic;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
@@ -51,6 +52,8 @@ public class GameLogic {
         Furniture newTable = new Furniture();
         newTable.setName("table");
         newTable.setPosition(new Vector3(14, -1, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
@@ -66,6 +69,8 @@ public class GameLogic {
         newTable = new Furniture();
         newTable.setName("table");
         newTable.setPosition(new Vector3(14, 2, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
@@ -81,6 +86,8 @@ public class GameLogic {
         newTable = new Furniture();
         newTable.setName("table");
         newTable.setPosition(new Vector3(14, -4, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
@@ -96,6 +103,8 @@ public class GameLogic {
         newTable = new Furniture();
         newTable.setName("table");
         newTable.setPosition(new Vector3(17, 0, 0));
+        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
+        newTable.setRender2DDelta(new Vector2(-63f, -22f));
         newTable.setWidth(1);
         newTable.setHeight(1);
         newTable.setMaximumUsers(4);
@@ -109,7 +118,7 @@ public class GameLogic {
         //inonu.getFurnitures().add(newTable);
 
         Furniture cart = new Furniture();
-        cart.setName("foodCart");
+        cart.setName("meatballCart");
         cart.setPosition(new Vector3(20, 0, 0));
         cart.setRender3DDelta(new Vector3(-2, 0, 0));
         cart.setWidth(1);
