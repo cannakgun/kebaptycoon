@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 public class IsometricHelper {
 	
 	//Scale of the isometric grid.
-	public static final float Scale = 50;
+	public static final float Scale = 70;
 	
 	//Angle of the isometric grid
 	public static final float Angle = (float) (Math.PI / 6);

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 public class Customer extends Person{
 	
@@ -43,6 +42,7 @@ public class Customer extends Person{
 		this.state = State.WaitForTable;
         this.markedForDeletion = false;
         pack = null;
+        resetCurrentPath();
 	}
 
 	public Dish getDish() {
@@ -92,16 +92,12 @@ public class Customer extends Person{
     @Override
     public void think(Venue venue) {
         if (pack == null) {
-            final Customer t = this;
-
-            //Find the pack this guy belongs to
-            pack = venue.customers.stream()
-                    .filter(new Predicate<CustomerPack>() {
-                        @Override
-                        public boolean test(CustomerPack customerPack) {
-                            return customerPack.getCustomers().contains(t);
-                        }
-                    }).findFirst().get();
+            for (CustomerPack p: venue.getCustomers()) {
+                if(p.getCustomers().contains(this)) {
+                    pack = p;
+                    break;
+                }
+            }
         }
 
         //If no pack think fails
@@ -176,13 +172,14 @@ public class Customer extends Person{
 
     private void onOrder(Venue venue) {
         ArrayList<Recipe> available = venue.getAvailableRecipes();
-        available.removeIf(new Predicate<Recipe>() {
-            @Override
-            public boolean test(Recipe recipe) {
-                return recipe.price > budget;
-            }
-        });
-        if (available.size() <= 0) {
+        ArrayList<Recipe> budget = new ArrayList<Recipe>();
+
+        for (Recipe r: available) {
+            if (r.price <= getBudget())
+                budget.add(r);
+        }
+
+        if (budget.size() <= 0) {
             state = State.Leave;
 
             for (Customer friend: pack.getCustomers()){
@@ -192,13 +189,13 @@ public class Customer extends Person{
             return;
         }
 
-        ArrayList<Recipe> likes = new ArrayList<Recipe>(available);
-        likes.removeIf(new Predicate<Recipe>() {
-            @Override
-            public boolean test(Recipe recipe) {
-                return type.likes.contains(recipe.getName());
-            }
-        });
+        ArrayList<Recipe> likes = new ArrayList<Recipe>();
+
+        for (Recipe r: budget) {
+            if (type.getLikes().contains(r.getName()))
+                likes.add(r);
+        }
+
 
         if(likes.size() <= 0) likes = available;
 

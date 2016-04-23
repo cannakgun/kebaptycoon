@@ -1,13 +1,10 @@
 package com.kebaptycoon.model.entities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
@@ -185,14 +182,12 @@ public class Venue {
 
     public ArrayList<Furniture> getFurnitures(final Furniture.Type type) {
 
-        ArrayList<Furniture> r = new ArrayList<Furniture>(getFurnitures());
-        r.removeIf(new Predicate<Furniture>() {
-            @Override
-            public boolean test(Furniture f) {
-                return f.getType() != type;
-            }
-        });
-        return r;
+        ArrayList<Furniture> returnArr = new ArrayList<Furniture>();
+        for (Furniture f: getFurnitures()) {
+            if (f.type == type)
+                returnArr.add(f);
+        }
+        return returnArr;
     }
 
     public ArrayList<Vector3> findPath(Vector3 source, Vector3 target)
@@ -217,8 +212,6 @@ public class Venue {
         costSoFar.put(source, 0f);
 
         Vector3 last = target;
-
-        int i = 0;
 
         while(!frontier.isEmpty())
         {
@@ -262,48 +255,28 @@ public class Venue {
     }
 
     public ArrayList<Recipe> getAvailableRecipes() {
-        ArrayList<Recipe> all = gameLogic.getAvailableRecipes();
-        all.removeIf(new Predicate<Recipe>() {
-            @Override
-            public boolean test(Recipe recipe) {
-                for (Pair<Ingredient, Integer> p : recipe.ingredients) {
-                    if (p.right > getStock(p.left))
-                        return true;
-                }
-                return false;
+        ArrayList<Recipe> returnArr = new ArrayList<Recipe>();
+
+        upper:
+        for (Recipe r: gameLogic.getAvailableRecipes()) {
+            for(Pair<Ingredient, Integer> p: r.getIngredients()) {
+                if(getStock(p.getLeft()) < p.getRight())
+                    continue upper;
             }
-        });
-        return all;
+            returnArr.add(r);
+        }
+
+        return returnArr;
     }
 
     private int getStock(final Ingredient ing) {
 
-        Stream<Pair<Ingredient, Integer>> str = stock.stream()
-                .filter(new Predicate<Pair<Ingredient, Integer>>() {
-                    @Override
-                    public boolean test(Pair<Ingredient, Integer> pair) {
-                        return pair.left == ing;
-                    }
-                });
+        for (Pair<Ingredient, Integer> p: stock) {
+            if(p.getLeft() == ing)
+                return p.getRight();
+        }
 
-        if (str.count() <= 0) return 0;
-
-        str.close();
-
-        str = stock.stream()
-                .filter(new Predicate<Pair<Ingredient, Integer>>() {
-                    @Override
-                    public boolean test(Pair<Ingredient, Integer> pair) {
-                        return pair.left == ing;
-                    }
-                });
-
-        Pair<Ingredient, Integer> pair = str.findFirst().get();
-
-        if(pair == null)
-            return 0;
-        else
-            return pair.right;
+        return 0;
     }
 
     public void getPaid(int money) {
@@ -312,22 +285,14 @@ public class Venue {
 
     private ArrayList<Vector3> getNeighbors(final Vector3 current)
     {
-        ArrayList<Orientation> possibilities = new ArrayList<Orientation>(Arrays.asList(Orientation.values()));
-        possibilities.removeIf(new Predicate<Orientation>() {
-            @Override
-            public boolean test(Orientation orientation) {
-                return !isPathable(orientation.getUnitVector().add(current));
-            }
-        });
-
-        ArrayList<Vector3> neighbors = new ArrayList<Vector3>();
-
-        for(Orientation o : possibilities)
-        {
-            neighbors.add(o.getUnitVector().add(current));
+        ArrayList<Vector3> returnArr = new ArrayList<Vector3>();
+        for (Orientation o: Orientation.values()) {
+            Vector3 pos = o.getUnitVector().add(current);
+            if(isPathable(pos))
+                returnArr.add(pos);
         }
 
-        return neighbors;
+        return returnArr;
     }
 
     private class QueueComparator implements Comparator<Pair<Vector3, Float>>

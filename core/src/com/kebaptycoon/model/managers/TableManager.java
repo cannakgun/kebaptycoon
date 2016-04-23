@@ -42,11 +42,10 @@ public class TableManager {
             if(availableTable != null)
             {
                 assignments.put(pack, availableTable);
-                return availableTable;
             }
-        }
 
-        return null;
+            return availableTable;
+        }
     }
 
     private Furniture getTable(int packSize)

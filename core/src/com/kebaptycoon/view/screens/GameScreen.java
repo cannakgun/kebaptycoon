@@ -31,6 +31,7 @@ import com.kebaptycoon.view.menus.Menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class GameScreen implements Screen{
@@ -260,7 +261,7 @@ public class GameScreen implements Screen{
 
         renderables.addAll(currentVenue.getFurnitures());
 
-        renderables.sort(new Comparator<Entity>() {
+        Collections.sort(renderables, new Comparator<Entity>() {
             @Override
             public int compare(Entity o1, Entity o2) {
                 float s1 = o1.getPosition().x + o1.getPosition().y;
