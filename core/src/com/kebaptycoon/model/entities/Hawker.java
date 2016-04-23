@@ -115,7 +115,8 @@ public class Hawker extends Employee{
             }
 
             if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), cart.getPosition(), 1);
+                currentPath = venue.findPath(getPosition(),
+                        cart.getPosition().cpy().add(cart.getOrientation().getReverse().getUnitVector()), 1);
             }
 
             followPath();
@@ -138,7 +139,6 @@ public class Hawker extends Employee{
             if (target == null) return;
 
             if (target.getPosition().dst(getPosition()) <= 1) {
-                resetCurrentPath();
                 target.setDish(currentDish);
                 currentDish = null;
                 return;
@@ -146,6 +146,7 @@ public class Hawker extends Employee{
 
             if(currentPath.size() <= 0) {
                 currentPath = venue.findPath(getPosition(), target.getPosition(), 1);
+                currentPath.remove(currentPath.size()-1);
             }
 
             followPath();
@@ -156,6 +157,7 @@ public class Hawker extends Employee{
             if(cart == null) return;
 
             if(cart.getPosition().dst(getPosition()) <= 1) {
+                resetCurrentPath();
                 animationState = AnimationState.Standing;
                 state = State.Wait;
                 return;
