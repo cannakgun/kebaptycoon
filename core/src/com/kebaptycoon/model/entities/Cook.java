@@ -90,6 +90,7 @@ public class Cook extends Employee{
                 table.buffer.offer(currentOrder);
                 currentOrder.getOrderer().setWaitOverride(true);
                 currentOrder = null;
+                state = State.Wait;
                 return;
             }
 
@@ -103,8 +104,9 @@ public class Cook extends Employee{
 
         Furniture.Type process = currentOrder.getRecipe().getProcess().get(ind);
 
-        if(usedFurniture.type != process) {
-            Furniture appliance = venue.getUnusedFurnitures(Furniture.Type.ServingTable).get(0);
+        if(usedFurniture == null || usedFurniture.type != process) {
+            if(usedFurniture != null) stopUsing(usedFurniture);
+            Furniture appliance = venue.getUnusedFurnitures(process).get(0);
 
             if(appliance == null) {
                 resetCurrentPath();

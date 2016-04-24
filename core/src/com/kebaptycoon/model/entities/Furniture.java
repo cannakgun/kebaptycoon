@@ -9,6 +9,7 @@ import com.kebaptycoon.model.entities.prototypes.FurniturePrototype;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class Furniture extends Entity{
@@ -35,7 +36,7 @@ public class Furniture extends Entity{
     HashMap<Orientation, Person> slots = new HashMap<Orientation, Person>();
     HashMap<Person, Vector3> oldPositions = new HashMap<Person, Vector3>();
     HashMap<Orientation, Animation> animations = null;
-    public Queue<Order> buffer;
+    public Queue<Order> buffer = new LinkedList<Order>();
 
     public Furniture() {}
 

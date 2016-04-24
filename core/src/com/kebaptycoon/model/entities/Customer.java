@@ -241,6 +241,7 @@ public class Customer extends Person{
         if(waitDuration > waitingTime && !waitOverride) {
             state = State.Leave;
             venue.getOrderManager().abortOrder(this);
+            createEmotion(Emotion.Type.Time);
         }
         //SoundManager.play("wait");
     }

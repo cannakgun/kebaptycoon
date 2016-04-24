@@ -5,7 +5,8 @@ public class Emotion {
         Happy,
         Sad,
         Excited,
-        Expensive
+        Expensive,
+        Time
     }
 
     private Person owner;
