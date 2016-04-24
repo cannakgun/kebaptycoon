@@ -68,7 +68,7 @@ public class GameLogic {
         afterHours = false;
         resetDayTime();
 
-        venueManager.getVenueList().add(createNisantasiVenue());
+        venueManager.getVenueList().add(createTutorialVenue());
 
         ArrayList<Pair<Ingredient,Integer>> startStocks = new ArrayList<Pair<Ingredient, Integer>>();
         for(Venue v : venueManager.getVenueList())
@@ -181,7 +181,7 @@ public class GameLogic {
 
     public Venue createTutorialVenue() {
         Venue inonu = new Venue(30, 30, 5, 5, false,
-                resourceManager.textures.get("restaurant_inonu"), this, new Vector3(-3, 0, 0));
+                resourceManager.textures.get("restaurants_inonu"), this, new Vector3(-3, 0, 0));
 
         Furniture newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
         newTable.setPosition(new Vector3(14, -1, 0));
