@@ -67,7 +67,7 @@ public class DishDetailsMenuController extends MenuController{
                 if(touchPositionX > 450 && touchPositionX < 544){
                     backPrevious();
                 }
-                else if(touchPositionX > 760 && touchPositionX < 1030){
+                else if(touchPositionX > 810 && touchPositionX < 1080){
                     dishDetailsMenu.setOriginalRecipe();
                     backPrevious();
                 }
