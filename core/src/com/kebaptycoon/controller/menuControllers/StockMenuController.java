@@ -50,8 +50,11 @@ public class StockMenuController extends MenuController {
             Ingredient ing = gameScreen.getGameLogic().getMarketManager().getIngredients().get(ingredient).getLeft();
             if(touchPositionX > 510){
                 if(ingredient < gameScreen.getGameLogic().getMarketManager().getIngredients().size()){
-                   if(touchPositionX > midPoint)
-                       gameScreen.getCurrentVenue().incrementIngredient(ing, 1);
+                   if(touchPositionX > midPoint){
+                       if(gameScreen.getCurrentVenue().getStock(ing) < 999)
+                           gameScreen.getCurrentVenue().incrementIngredient(ing, 1);
+                   }
+
                 }
             }
 
