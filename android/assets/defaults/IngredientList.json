@@ -16,63 +16,75 @@
     "right" : 4
   },
   {
-    "left" : "DonerMeat",
+    "left" : "Bread",
     "right" : 5
   },
   {
-    "left" : "MincedMeat",
+    "left" : "Butter",
     "right" : 6
   },
   {
-    "left" : "DicedMeat",
+    "left" : "Cucumber",
     "right" : 7
   },
   {
-    "left" : "Garlic",
+    "left" : "Egg",
     "right" : 8
   },
   {
-    "left" : "DonerMeat",
+    "left" : "Lavash",
     "right" : 9
   },
   {
-    "left" : "MincedMeat",
+    "left" : "Lemon",
     "right" : 10
   },
   {
-    "left" : "DicedMeat",
+    "left" : "Lettuce",
     "right" : 11
   },
   {
-    "left" : "Garlic",
+    "left" : "OliveOil",
     "right" : 12
   },
   {
-    "left" : "DonerMeat",
+    "left" : "Onion",
     "right" : 13
   },
   {
-    "left" : "MincedMeat",
+    "left" : "Parsley",
     "right" : 14
   },
   {
-    "left" : "DicedMeat",
+    "left" : "Pepper",
     "right" : 15
   },
   {
-    "left" : "Garlic",
+    "left" : "PomegranateSyrup",
     "right" : 16
   },
   {
-    "left" : "DonerMeat",
+    "left" : "Potato",
     "right" : 17
   },
   {
-    "left" : "MincedMeat",
+    "left" : "Scallion",
     "right" : 18
   },
   {
-    "left" : "DicedMeat",
+    "left" : "Spice",
+    "right" : 19
+  },
+  {
+    "left" : "Tomato",
+    "right" : 19
+  },
+  {
+    "left" : "TomatoSauce",
+    "right" : 19
+  },
+  {
+    "left" : "Yoghurt",
     "right" : 19
   }
 

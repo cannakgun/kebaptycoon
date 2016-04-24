@@ -48,10 +48,11 @@ public class StockMenuController extends MenuController {
 
             int midPoint = ((510 + (ingredient % 4) * 240) + (645 + (ingredient % 4) * 240 + 20)) / 2;
             Ingredient ing = gameScreen.getGameLogic().getMarketManager().getIngredients().get(ingredient).getLeft();
+            Integer price = gameScreen.getGameLogic().getMarketManager().getIngredients().get(ingredient).getRight();
             if(touchPositionX > 510){
                 if(ingredient < gameScreen.getGameLogic().getMarketManager().getIngredients().size()){
                    if(touchPositionX > midPoint){
-                       if(gameScreen.getCurrentVenue().getStock(ing) < 999)
+                       if(gameScreen.getCurrentVenue().getStock(ing) < 999 && gameScreen.getCurrentVenue().pay(price))
                            gameScreen.getCurrentVenue().incrementIngredient(ing, 1);
                    }
 
