@@ -117,6 +117,8 @@ public class GameLogic {
                 animationManager.autoSetUp(venue.getFurnitures());
 
                 venue.purgeCustomers();
+
+                EmotionManager.decayEmotions();
             }
         }
     }
@@ -247,6 +249,7 @@ public class GameLogic {
 
     private void OnDayEnd()
     {
+        EmotionManager.flushEmotions();
         customerManager.decayPopularity();
         processAdvertisements();
     }

@@ -22,11 +22,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
 import com.kebaptycoon.model.entities.CustomerPack;
+import com.kebaptycoon.model.entities.Emotion;
 import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
 import com.kebaptycoon.model.logic.StartingDish;
+import com.kebaptycoon.model.managers.EmotionManager;
 import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
@@ -35,6 +37,7 @@ import com.kebaptycoon.utils.ResourceManager;
 import com.kebaptycoon.view.menus.Menu;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -310,6 +313,22 @@ public class GameScreen implements Screen{
 
         for (Entity ent: renderables) {
             ent.render(spriteBatch, delta);
+        }
+
+        ArrayList<Emotion> emotions = EmotionManager.getEmotionArrayList();
+
+        Texture bg = resourceManager.textures.get("emoticons_bubble");
+
+        for (Emotion e: emotions) {
+            Vector3 iso = e.getOwner().getPosition().cpy().add(e.getOwner().getRender3DDelta())
+                    .add(0, 0, 2);
+            Vector2 view = IsometricHelper.project(iso);
+            view.add(bg.getWidth()/2,0);
+
+            spriteBatch.draw(bg, view.x, view.y);
+            spriteBatch.draw(resourceManager.textures
+                    .get("emoticons_" + e.getType().toString().toLowerCase()),
+                    view.x, view.y);
         }
     }
 

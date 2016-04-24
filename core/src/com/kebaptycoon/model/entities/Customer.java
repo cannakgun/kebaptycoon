@@ -258,6 +258,7 @@ public class Customer extends Person{
 
     private void onEvaluateFood(Venue venue) {
         state = State.WaitPack;
+        createEmotion(Emotion.Type.Happy);
     }
 
     private void onWaitPack(Venue venue) {
