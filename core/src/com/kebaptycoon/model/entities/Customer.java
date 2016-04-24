@@ -257,8 +257,19 @@ public class Customer extends Person{
     }
 
     private void onEvaluateFood(Venue venue) {
-        state = State.WaitPack;
+        state = State.Pay;
         createEmotion(Emotion.Type.Happy);
+    }
+
+    private void onPay(Venue venue) {
+        venue.getPaid(dish.getRecipe().getPrice());
+        stopUsing(usedFurniture);
+        state = State.WaitPack;
+
+        if(!isPayPlayed){
+            SoundManager.play("pay");
+            isPayPlayed = true;
+        }
     }
 
     private void onWaitPack(Venue venue) {
@@ -273,18 +284,7 @@ public class Customer extends Person{
                 return;
         }
 
-        state = State.Pay;
-    }
-
-    private void onPay(Venue venue) {
-        venue.getPaid(dish.getRecipe().getPrice());
-        stopUsing(usedFurniture);
         state = State.Leave;
-
-        if(!isPayPlayed){
-            SoundManager.play("pay");
-            isPayPlayed = true;
-        }
     }
 
     private void onLeave(Venue venue) {
