@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
+import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.Emotion;
 import com.kebaptycoon.model.entities.Entity;
@@ -273,6 +274,10 @@ public class GameScreen implements Screen{
         if(!gameLogic.isAfterHours()) {
             for (CustomerPack customerPack : currentVenue.getCustomers()) {
                 renderables.addAll(customerPack.getCustomers());
+                for(Customer c: customerPack.getCustomers()) {
+                    if(c.getDish() != null)
+                        renderables.add(c.getDish());
+                }
             }
 
             renderables.addAll(currentVenue.getEmployees());

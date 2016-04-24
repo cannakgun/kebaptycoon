@@ -45,7 +45,7 @@ public class GameLogic {
         START_HOUR.set(Calendar.MINUTE, 0);
 
         END_HOUR = new GregorianCalendar();
-        END_HOUR.set(Calendar.HOUR_OF_DAY, 18);
+        END_HOUR.set(Calendar.HOUR_OF_DAY, 19);
         END_HOUR.set(Calendar.MINUTE, 0);
 
         currentTime = new GregorianCalendar();
@@ -118,6 +118,7 @@ public class GameLogic {
                     animationManager.autoSetUp(customerPack.getCustomers());
                     for(Customer customer: customerPack.getCustomers()) {
                         customer.think(venue);
+                        animationManager.setUpAnimations(customer.getDish());
                     }
                 }
 
@@ -128,6 +129,14 @@ public class GameLogic {
                 }
 
                 animationManager.autoSetUp(venue.getFurnitures());
+
+                for (CustomerPack customerPack: venue.getCustomers()) {
+                    for(Customer customer: customerPack.getCustomers()) {
+                        if (customer.getDish() != null) {
+                            animationManager.setUpAnimations(customer.getDish());
+                        }
+                    }
+                }
 
                 venue.purgeCustomers();
 
@@ -173,55 +182,34 @@ public class GameLogic {
         Venue inonu = new Venue(30, 30, 5, 5, false,
                 resourceManager.textures.get("restaurants_inonu"), this, new Vector3(-3, 0, 0));
 
-        Furniture newTable = new Furniture();
-        newTable.setName("table");
+        Furniture newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
         newTable.setPosition(new Vector3(14, -1, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
 
         inonu.getFurnitures().add(newTable);
 
-        newTable = new Furniture();
-        newTable.setName("table");
+        newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
         newTable.setPosition(new Vector3(14, 2, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
 
         inonu.getFurnitures().add(newTable);
 
-        newTable = new Furniture();
-        newTable.setName("table");
+        newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
         newTable.setPosition(new Vector3(14, -4, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
 
         inonu.getFurnitures().add(newTable);
 
-        newTable = new Furniture();
-        newTable.setName("table");
+        newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
         newTable.setPosition(new Vector3(17, 0, 0));
-        newTable.setRender3DDelta(new Vector3(0.5f, -0.5f, 0));
-        newTable.setRender2DDelta(new Vector2(-63f, -22f));
-        newTable.setWidth(1);
-        newTable.setHeight(1);
-        newTable.setMaximumUsers(4);
-        newTable.setOrientation(Orientation.East);
-        newTable.setType(Furniture.Type.Table);
+
+        inonu.getFurnitures().add(newTable);
+
+        newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
+        newTable.setPosition(new Vector3(20, -4, 0));
+
+        inonu.getFurnitures().add(newTable);
+
+
+        newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
+        newTable.setPosition(new Vector3(20, 3, 0));
 
         inonu.getFurnitures().add(newTable);
 

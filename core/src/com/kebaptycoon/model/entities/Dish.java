@@ -14,6 +14,13 @@ public class Dish extends Entity{
 		this.remaining = remaining;
 	}
 
+	@Override
+	public String getName()
+	{
+		return "dishes_adana";
+		//return "dishes_" + getRecipe().getTexture();
+	}
+
 	public Recipe getRecipe() {
 		return recipe;
 	}
@@ -36,6 +43,6 @@ public class Dish extends Entity{
 
 	@Override
     public Vector3 getRender3DDelta() {
-        return super.getRender3DDelta().cpy().add(0,0,1);
+        return super.getRender3DDelta().cpy().add(0,0,.7f);
     }
 }

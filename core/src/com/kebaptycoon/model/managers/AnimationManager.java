@@ -30,6 +30,8 @@ public class AnimationManager {
     }
 
     public void setUpAnimations(Entity entity) {
+        if(entity == null) return;
+
         if (entity instanceof Furniture) {
             setUpAnimations((Furniture) entity);
             return;

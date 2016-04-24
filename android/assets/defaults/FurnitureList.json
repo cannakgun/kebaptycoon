@@ -1,67 +1,85 @@
 [
   {
     "left" :  {
-      "name" : "buzdolabi",
-      "desc" : "buzdolabı",
+      "title" : "Buzdolabı",
+      "name" : "fridge",
+      "desc" : "Serin serin",
       "type" : "Fridge",
       "width" : "1",
       "height" : "1",
-      "maximumUsers": "1"
+      "maximumUsers": "1",
+      "renderDelta" : { "x" : -36, "y" : -40},
+      "orientation" : "East"
               },
     "right" : 800
   },
   {
     "left" :  {
-      "name" : "fritoz",
-      "desc" : "fritöz",
+      "title" : "Fritöz",
+      "name" : "frier",
+      "desc" : "Kızartma falan",
       "type" : "Frier",
       "width" : "1",
       "height" : "1",
-      "maximumUsers": "1"
+      "maximumUsers": "1",
+      "renderDelta" : { "x" : -54, "y" : -38},
+      "orientation" : "East"
     },
     "right" : 200
   },
   {
     "left" :  {
-      "name" : "firin",
-      "desc" : "fırın",
+      "title" : "Fırın",
+      "name" : "oven",
+      "desc" : "Fırın işte",
       "type" : "Oven",
       "width" : "1",
       "height" : "1",
-      "maximumUsers": "1"
+      "maximumUsers": "1",
+      "renderDelta" : { "x" : -28, "y" : -18},
+      "orientation" : "East"
     },
     "right" : 350
   },
   {
     "left" :  {
-      "name" : "mangal",
-      "desc" : "mangal",
+      "title" : "Mangal",
+      "name" : "grill",
+      "desc" : "Ateşte pişti",
       "type" : "Grill",
-      "width" : "1",
+      "width" : "2",
       "height" : "1",
-      "maximumUsers": "1"
+      "maximumUsers": "1",
+      "renderDelta" : { "x" : -48, "y" : -30},
+      "orientation" : "North"
     },
     "right" : 400
   },
   {
     "left" :  {
-      "name" : "masa",
-      "desc" : "masa",
+      "title" : "Masa",
+      "name" : "table",
+      "desc" : "Yemek falan koyarsın üzerine",
       "type" : "Table",
       "width" : "1",
       "height" : "1",
-      "maximumUsers": "4"
+      "maximumUsers": "4",
+      "renderDelta" : { "x" : -63, "y" : -22},
+      "orientation" : "West"
     },
     "right" : 200
   },
   {
     "left" :  {
-      "name" : "saksi",
-      "desc" : "saksı",
+      "title" : "Saksı",
+      "name" : "pottedPlant",
+      "desc" : "Saksı mıyım ben",
       "type" : "Decoration",
       "width" : "1",
       "height" : "1",
-      "maximumUsers": "0"
+      "maximumUsers": "0",
+      "renderDelta" : { "x" : -30, "y" : -10},
+      "orientation" : "South"
     },
     "right" : 200
   }

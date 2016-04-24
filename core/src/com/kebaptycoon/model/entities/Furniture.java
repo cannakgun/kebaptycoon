@@ -3,7 +3,9 @@ package com.kebaptycoon.model.entities;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.entities.prototypes.FurniturePrototype;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,19 @@ public class Furniture extends Entity{
     HashMap<Person, Vector3> oldPositions = new HashMap<Person, Vector3>();
     HashMap<Orientation, Animation> animations = null;
     public Queue<Order> buffer;
+
+    public Furniture() {}
+
+    public Furniture(FurniturePrototype proto) {
+        setOrientation(proto.orientation);
+        type = proto.type;
+        description = proto.desc;
+        setName(proto.name);
+        width = proto.width;
+        height = proto.height;
+        maximumUsers = proto.maximumUsers;
+        setRender2DDelta(new Vector2(proto.renderDelta.x, proto.renderDelta.y));
+    }
 
     public Type getType() {
         return type;

@@ -54,6 +54,8 @@ public class Customer extends Person{
 
 	public void setDish(Dish dish) {
 		this.dish = dish;
+        dish.setPosition(getPosition().cpy().add(getRender3DDelta())
+                .add(orientation.getUnitVector().scl(0.2f)));
 	}
 
 	public boolean isWaitOverride() {
@@ -245,20 +247,27 @@ public class Customer extends Person{
 
     private void onEatFood(Venue venue) {
         if(dish.getRemaining() > 0){
-            dish.setRemaining(dish.getRemaining() - 25);
+            dish.setRemaining(dish.getRemaining() - 15);
             if(!isEatSoundPlayed){
                 SoundManager.play("foodEat");
                 isEatSoundPlayed = true;
             }
         }
-        else
+        else {
             state = State.EvaluateFood;
-
+        }
     }
 
     private void onEvaluateFood(Venue venue) {
+        float score = rateDish(dish);
+        if (score < .5f)
+            createEmotion(Emotion.Type.Sad);
+        else if (score < .8f)
+            createEmotion(Emotion.Type.Happy);
+        else
+            createEmotion(Emotion.Type.Excited);
         state = State.Pay;
-        createEmotion(Emotion.Type.Happy);
+        //TODO: Affect popularity
     }
 
     private void onPay(Venue venue) {
@@ -289,6 +298,7 @@ public class Customer extends Person{
     }
 
     private void onLeave(Venue venue) {
+        dish = null;
         stopUsing(usedFurniture);
         venue.getTableManager().leaveTable(pack);
         markedForDeletion = true;
