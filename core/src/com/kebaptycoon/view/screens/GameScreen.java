@@ -110,7 +110,7 @@ public class GameScreen implements Screen{
         heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading2Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
         heading2Parameter.size = 40;
-        heading2Parameter.color = Color.BROWN;
+        heading2Parameter.color = Color.WHITE;
 
         heading2Font = heading2Generator.generateFont(heading2Parameter);
         heading2Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -230,6 +230,7 @@ public class GameScreen implements Screen{
             menuBatch.draw(tx, actualX, actualY);
         }
 
+        menuBatch.draw(resourceManager.textures.get("menu_backgrounds_clockBackground"), 1570, 920);
         menuBatch.draw(resourceManager.textures.get("menu_clock"), 1600, 1000, 50, 50);
         heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1050);
 
