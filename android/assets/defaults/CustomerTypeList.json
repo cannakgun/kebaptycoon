@@ -2,7 +2,7 @@
   "spriteName" : "defaultPerson",
   "textureName" : "gencAdam",
   "displayName" : "Genc Adam",
-  "waitingTime" : 900,
+  "waitingTime" : 500,
   "budget" : 35,
   "likes" : [],
   "dislikes" : []

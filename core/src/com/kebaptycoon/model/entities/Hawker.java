@@ -2,7 +2,7 @@ package com.kebaptycoon.model.entities;
 
 public class Hawker extends Employee{
 
-    public static final int PREPARE_TIME = 250;
+    public static final int PREPARE_TIME = 80;
 
 	public static enum State{
 		Wait,

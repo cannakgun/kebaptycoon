@@ -1,7 +1,5 @@
 package com.kebaptycoon.model.entities;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.utils.Pair;
 
@@ -247,7 +245,7 @@ public class Customer extends Person{
 
     private void onEatFood(Venue venue) {
         if(dish.getRemaining() > 0){
-            dish.setRemaining(dish.getRemaining() - 1);
+            dish.setRemaining(dish.getRemaining() - 25);
             if(!isEatSoundPlayed){
                 SoundManager.play("foodEat");
                 isEatSoundPlayed = true;

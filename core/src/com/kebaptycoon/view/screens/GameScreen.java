@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
@@ -63,6 +66,10 @@ public class GameScreen implements Screen{
     private ArrayList<Pair<String, Integer>>    menuBarItems;
     private StartingDish                        startingDish;
 
+    private FreeTypeFontGenerator               heading2Generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter heading2Parameter;
+    BitmapFont                                  heading2Font;
+
 	public GameScreen(ResourceManager resourceManager, StartingDish startingDish) {
 
         this.resourceManager = resourceManager;
@@ -95,7 +102,17 @@ public class GameScreen implements Screen{
         InputMultiplexer mul = new InputMultiplexer(gd, ip);
 		Gdx.input.setInputProcessor(mul);
 
-		//Set up graphics
+        heading2Generator = resourceManager.fonts.get("Boogaloo");
+        heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        heading2Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
+        heading2Parameter.size = 72;
+        heading2Parameter.color = Color.BROWN;
+
+        heading2Font = heading2Generator.generateFont(heading2Parameter);
+        heading2Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+
+        //Set up graphics
 		GL20 gl = Gdx.graphics.getGL20();
 		gl.glEnable(GL20.GL_BLEND);
 		gl.glEnable(GL20.GL_TEXTURE_2D);
@@ -210,6 +227,8 @@ public class GameScreen implements Screen{
             float actualX = centerX - (tx.getWidth() / 2);
             float actualY = centerY - (tx.getHeight() / 2);
             menuBatch.draw(tx, actualX, actualY);
+            heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1000);
+
         }
 
 
@@ -259,13 +278,13 @@ public class GameScreen implements Screen{
 
 		ArrayList<Entity> renderables = new ArrayList<Entity>();
 
+        if(!gameLogic.isAfterHours()) {
+            for (CustomerPack customerPack : currentVenue.getCustomers()) {
+                renderables.addAll(customerPack.getCustomers());
+            }
 
-        for (CustomerPack customerPack: currentVenue.getCustomers()) {
-            renderables.addAll(customerPack.getCustomers());
+            renderables.addAll(currentVenue.getEmployees());
         }
-
-        renderables.addAll(currentVenue.getEmployees());
-
         renderables.addAll(currentVenue.getFurnitures());
 
         Collections.sort(renderables, new Comparator<Entity>() {

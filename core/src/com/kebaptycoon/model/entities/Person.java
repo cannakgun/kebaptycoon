@@ -14,7 +14,7 @@ public class Person extends Entity{
     public static final Vector2 DEFAULT_2D_DELTA = new Vector2(-48f, -16f);
     public static final Vector3 DEFAULT_3D_DELTA = new Vector3(0f, 0f, 0f);
 
-    public static final float SPEED_SCALE = 0.01f;
+    public static final float SPEED_SCALE = 0.15f;
 
 	public enum AnimationState {
 		Standing,

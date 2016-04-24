@@ -27,7 +27,7 @@ public class CustomerManager {
     private final static float MAX_POPULARITY = 1f;
     private final static float MIN_POPULARITY = 0.01f;
     private final static float SPAWN_CHANCE_SCALE = 0.02f;
-    private final static float SPAWN_CHANCE_FLAT = 0.002f;
+    private final static float SPAWN_CHANCE_FLAT = 0.007f;
     private final static float SIZE_CHANCE = 0.3f;
     private final static float DECAY_RATE = -0.01f;
 

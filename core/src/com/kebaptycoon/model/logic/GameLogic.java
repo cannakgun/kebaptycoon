@@ -6,13 +6,17 @@ import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.ResourceManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class GameLogic {
 
-    public static final int START_HOUR = 8;
-    public static final int END_HOUR = 18;
-    public static final int SECONDS_PER_FRAME = 60;
+    public static Calendar START_HOUR;
+    public static Calendar END_HOUR;
+    public static final int SECONDS_PER_FRAME = 30;
 
     //Managers
     private ResourceManager resourceManager;
@@ -24,15 +28,28 @@ public class GameLogic {
     private AnimationManager animationManager;
     private FacebookFriendManager facebookFriendManager;
     //Global game data
-    private int time;
     private int money;
     private int level;
 
     //Vars
     private boolean paused;
     private boolean afterHours;
+    private Calendar currentTime;
 
     public GameLogic(ResourceManager resourceManager){
+
+        START_HOUR = new GregorianCalendar();
+        START_HOUR.set(Calendar.HOUR, 8);
+        START_HOUR.set(Calendar.MINUTE, 0);
+
+        END_HOUR = new GregorianCalendar();
+        END_HOUR.set(Calendar.HOUR, 18);
+        END_HOUR.set(Calendar.MINUTE, 0);
+
+        currentTime = new GregorianCalendar();
+        currentTime.set(Calendar.HOUR, 8);
+        currentTime.set(Calendar.MINUTE, 0);
+
         level = 15;
 
         this.resourceManager = resourceManager;
@@ -49,6 +66,7 @@ public class GameLogic {
         resetDayTime();
 
         venueManager.getVenueList().add(createTutorialVenue());
+
     }
 
     public void update() {
@@ -74,11 +92,10 @@ public class GameLogic {
                 OnDayStart();
             }
 
-            time++;
+            currentTime.add(Calendar.SECOND, SECONDS_PER_FRAME);
 
             //Customer generation
             customerManager.generateCustomers(venueManager.getVenueList());
-
 
             for (Venue venue: venueManager.getVenueList()) {
 
@@ -104,12 +121,13 @@ public class GameLogic {
         }
     }
 
-    private boolean isAfterHours() {
-        return time >= 10*60*60;
+    public boolean isAfterHours() {
+        return currentTime.getTime().compareTo(END_HOUR.getTime()) > 0;
     }
 
     private void resetDayTime() {
-        time = 0;
+        currentTime.set(Calendar.HOUR, 8);
+        currentTime.set(Calendar.MINUTE, 0);
     }
 
     public RecipeManager getRecipeManager() {
@@ -211,7 +229,7 @@ public class GameLogic {
         inonu.incrementIngredient(Ingredient.Tomato, 500);
         inonu.incrementIngredient(Ingredient.Spice, 500);
 
-        Hawker reis = new Hawker(7, "defaultPerson");
+        Hawker reis = new Hawker(3, "defaultPerson");
         reis.setPosition(new Vector3(22, 0, 0));
 
         inonu.getEmployees().add(reis);
@@ -274,10 +292,17 @@ public class GameLogic {
     }
 
     public boolean isPaused() {
-        return paused;
+        return paused || afterHours;
     }
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public String getTime() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        String date = sdf.format(currentTime.getTime());
+        return date;
     }
 }
