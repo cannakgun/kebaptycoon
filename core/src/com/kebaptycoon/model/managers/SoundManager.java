@@ -25,9 +25,8 @@ public class SoundManager {
         random = new Random();
         int randomIndex = random.nextInt(resourceManager.sounds.get(categoryName).size());
         if(currentMusic == null || !currentMusic.isPlaying()) {
-            System.out.println("Category: " + categoryName + " index: " + randomIndex);
             currentMusic = resourceManager.sounds.get(categoryName).get(randomIndex);
-            currentMusic.play();
+            //currentMusic.play();
         }
     }
 }

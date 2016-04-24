@@ -39,15 +39,15 @@ public class GameLogic {
     public GameLogic(ResourceManager resourceManager){
 
         START_HOUR = new GregorianCalendar();
-        START_HOUR.set(Calendar.HOUR, 8);
+        START_HOUR.set(Calendar.HOUR_OF_DAY, 8);
         START_HOUR.set(Calendar.MINUTE, 0);
 
         END_HOUR = new GregorianCalendar();
-        END_HOUR.set(Calendar.HOUR, 18);
+        END_HOUR.set(Calendar.HOUR_OF_DAY, 18);
         END_HOUR.set(Calendar.MINUTE, 0);
 
         currentTime = new GregorianCalendar();
-        currentTime.set(Calendar.HOUR, 8);
+        currentTime.set(Calendar.HOUR_OF_DAY, 8);
         currentTime.set(Calendar.MINUTE, 0);
 
         level = 15;
@@ -128,7 +128,7 @@ public class GameLogic {
     }
 
     private void resetDayTime() {
-        currentTime.set(Calendar.HOUR, 8);
+        currentTime.set(Calendar.HOUR_OF_DAY, START_HOUR.get(Calendar.HOUR_OF_DAY));
         currentTime.set(Calendar.MINUTE, 0);
     }
 
@@ -304,7 +304,7 @@ public class GameLogic {
 
     public String getTime() {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String date = sdf.format(currentTime.getTime());
         return date;
     }

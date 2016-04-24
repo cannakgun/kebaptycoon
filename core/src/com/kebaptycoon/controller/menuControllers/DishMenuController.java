@@ -43,7 +43,6 @@ public class DishMenuController extends MenuController {
         }
 
         else if(touchPositionX >= 450 && touchPositionX <= 1450 && touchPositionY >= 300 && touchPositionY <= 840){
-            System.out.println(touchPositionX);
             int dishIndex = (touchPositionX - 500) / 350 + dishMenu.getCurrentPage() * 3;
             gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen, dishIndex));
 
