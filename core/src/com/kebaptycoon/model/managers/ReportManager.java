@@ -17,10 +17,10 @@ public class ReportManager {
         dailyOrders = new ArrayList<Order>();
     }
 
-    public ReportManager(int startMoney, ArrayList<Pair<Ingredient,Integer>> startStock)
+    public ReportManager(int startMoney)
     {
         this.startMoney = startMoney;
-        this.startStock = startStock;
+        startStock = new ArrayList<Pair<Ingredient, Integer>>();
         dailyOrders = new ArrayList<Order>();
     }
 
@@ -53,7 +53,7 @@ public class ReportManager {
     {
         ArrayList<Pair<Ingredient,Integer>> diff = new ArrayList<Pair<Ingredient,Integer>>();
 
-        for(int i = 0; i < stock.size(); i++)
+        for(int i = 0; i < startStock.size(); i++)
         {
             diff.add(new Pair(startStock.get(i).getLeft(), startStock.get(i).getRight() - stock.get(i).getRight()));
         }

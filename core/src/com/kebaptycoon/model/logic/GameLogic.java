@@ -62,7 +62,7 @@ public class GameLogic {
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
         facebookFriendManager = new FacebookFriendManager();
-        reportManager = new ReportManager(money, null);
+        reportManager = new ReportManager(money);
 
         paused = false;
         afterHours = false;
@@ -75,7 +75,8 @@ public class GameLogic {
         {
             for(Pair<Ingredient,Integer> p : v.getStock())
             {
-                startStocks.add(p);
+                Pair<Ingredient,Integer> pair = new Pair<Ingredient,Integer>(p.getLeft(), p.getRight());
+                startStocks.add(pair);
             }
         }
 
@@ -263,15 +264,6 @@ public class GameLogic {
 
 
     private void OnDayEnd() {
-        ArrayList<Pair<Ingredient,Integer>> stocks = new ArrayList<Pair<Ingredient, Integer>>();
-        for(Venue v : venueManager.getVenueList())
-        {
-            for(Pair<Ingredient,Integer> p : v.getStock())
-            {
-                stocks.add(p);
-            }
-        }
-
         EmotionManager.flushEmotions();
         customerManager.decayPopularity();
         processAdvertisements();
