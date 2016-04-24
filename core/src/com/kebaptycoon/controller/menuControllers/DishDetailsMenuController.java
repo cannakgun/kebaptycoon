@@ -54,7 +54,6 @@ public class DishDetailsMenuController extends MenuController{
                     if (touchPositionX < midPoint)
                         dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right--;
                     else if(touchPositionX > midPoint) {
-                        System.out.println("artır");
                         dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right++;
                     }
 
@@ -62,11 +61,9 @@ public class DishDetailsMenuController extends MenuController{
             }
             if(touchPositionY > 320 && touchPositionY < 410){
                 if(touchPositionX > 450 && touchPositionX < 544){
-                    System.out.println("back");
                     backPrevious();
                 }
                 else if(touchPositionX > 760 && touchPositionX < 1030){
-                    System.out.println("tamamla");
                     dishDetailsMenu.setOriginalRecipe();
                     backPrevious();
                 }

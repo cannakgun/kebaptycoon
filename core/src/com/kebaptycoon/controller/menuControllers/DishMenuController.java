@@ -36,11 +36,15 @@ public class DishMenuController extends MenuController {
 
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
 
-        if(touchPositionX > 310 && touchPositionX < 400 && touchPositionY > 425 && touchPositionY < 700)
+        if(touchPositionX > 310 && touchPositionX < 450 && touchPositionY > 425 && touchPositionY < 700)
             dishMenu.changeCurrentPage(-1);
-        else if(touchPositionX > 1500 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700)
+        else if(touchPositionX > 1450 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700){
+            System.out.println(touchPositionX);
             dishMenu.changeCurrentPage(1);
-        else if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
+        }
+
+        else if(touchPositionX >= 450 && touchPositionX <= 1450 && touchPositionY >= 300 && touchPositionY <= 840){
+            System.out.println(touchPositionX);
             int dishIndex = (touchPositionX - 500) / 350 + dishMenu.getCurrentPage() * 3;
             gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen, dishIndex));
 
