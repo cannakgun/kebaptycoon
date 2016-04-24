@@ -300,6 +300,14 @@ public class Venue {
         gameLogic.setMoney(gameLogic.getMoney() + money);
     }
 
+    public boolean pay(int money) {
+        if(gameLogic.getMoney() < money)
+            return false;
+
+        gameLogic.setMoney(gameLogic.getMoney() - money);
+        return true;
+    }
+
     private ArrayList<Vector3> getNeighbors(final Vector3 current)
     {
         ArrayList<Vector3> returnArr = new ArrayList<Vector3>();
