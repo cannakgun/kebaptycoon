@@ -188,8 +188,6 @@ public class GameScreen implements Screen{
 	{
         gameLogic.update();
 
-		//TODO: Call the game logic from here
-
         clampCamera();
         worldCamera.update();
 

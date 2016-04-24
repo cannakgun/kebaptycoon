@@ -68,7 +68,7 @@ public class GameLogic {
         afterHours = false;
         resetDayTime();
 
-        venueManager.getVenueList().add(createTutorialVenue());
+        venueManager.getVenueList().add(createNisantasiVenue());
 
         ArrayList<Pair<Ingredient,Integer>> startStocks = new ArrayList<Pair<Ingredient, Integer>>();
         for(Venue v : venueManager.getVenueList())
@@ -233,7 +233,7 @@ public class GameLogic {
         inonu.incrementIngredient(Ingredient.Tomato, 500);
         inonu.incrementIngredient(Ingredient.Spice, 500);
 
-        Hawker reis = new Hawker(3, "defaultPerson");
+        Hawker reis = new Hawker(3, "cook");
         reis.setPosition(new Vector3(22, 0, 0));
 
         inonu.getEmployees().add(reis);
@@ -248,11 +248,6 @@ public class GameLogic {
 
 
         Furniture newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
-        newTable.setPosition(new Vector3(14, -1, 0));
-
-        nisantasi.getFurnitures().add(newTable);
-
-        newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
         newTable.setPosition(new Vector3(14, 2, 0));
 
         nisantasi.getFurnitures().add(newTable);
@@ -264,11 +259,6 @@ public class GameLogic {
 
         newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
         newTable.setPosition(new Vector3(14, -4, 0));
-
-        nisantasi.getFurnitures().add(newTable);
-
-        newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
-        newTable.setPosition(new Vector3(11, -1, 0));
 
         nisantasi.getFurnitures().add(newTable);
 
@@ -288,19 +278,59 @@ public class GameLogic {
         nisantasi.getFurnitures().add(newTable);
 
         newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
-        newTable.setPosition(new Vector3(18, -1, 0));
+        newTable.setPosition(new Vector3(17, -1, 0));
         newTable.setType(Furniture.Type.ServingTable);
 
         nisantasi.getFurnitures().add(newTable);
 
+        newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
+        newTable.setPosition(new Vector3(20, 2, 0));
+
+        nisantasi.getFurnitures().add(newTable);
+
+        newTable = new Furniture(marketManager.getFurnitures().get(5).getLeft());
+        newTable.setPosition(new Vector3(20, 5, 0));
+
+        nisantasi.getFurnitures().add(newTable);
+
+        for (int i = 18; i < 22; i++) {
+            newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
+            newTable.setPosition(new Vector3(i, -1, 0));
+            newTable.setType(Furniture.Type.Decoration);
+
+            nisantasi.getFurnitures().add(newTable);
+        }
+
+        for (int i = -4; i > -7; i--) {
+            newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
+            newTable.setPosition(new Vector3(16, i, 0));
+            newTable.setType(Furniture.Type.Decoration);
+
+            nisantasi.getFurnitures().add(newTable);
+        }
+
+        for(int i = 2; i <7; i += 2){
+            newTable = new Furniture(marketManager.getFurnitures().get(6).getLeft());
+            newTable.setPosition(new Vector3(8, i, 0));
+
+            nisantasi.getFurnitures().add(newTable);
+        }
+
+        for(int i = -7; i < -2; i += 2){
+            newTable = new Furniture(marketManager.getFurnitures().get(6).getLeft());
+            newTable.setPosition(new Vector3(8, i, 0));
+
+            nisantasi.getFurnitures().add(newTable);
+        }
+
         newTable = new Furniture(marketManager.getFurnitures().get(0).getLeft());
-        newTable.setPosition(new Vector3(20, 0, 0));
+        newTable.setPosition(new Vector3(21, -4, 0));
 
         nisantasi.getFurnitures().add(newTable);
 
 
         newTable = new Furniture(marketManager.getFurnitures().get(2).getLeft());
-        newTable.setPosition(new Vector3(20, -4, 0));
+        newTable.setPosition(new Vector3(21, -6, 0));
         newTable.setType(Furniture.Type.Cooker);
 
         nisantasi.getFurnitures().add(newTable);
@@ -414,5 +444,9 @@ public class GameLogic {
     public ReportManager getReportManager()
     {
         return reportManager;
+    }
+
+    public AnimationManager getAnimationManager() {
+        return animationManager;
     }
 }

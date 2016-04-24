@@ -31,7 +31,7 @@ public class Cook extends Employee{
 	}
 
     public int getPrepareTime() {
-        return 300 - (20 * getLevel());
+        return 80 - (4 * getLevel());
     }
 
 	public void setCurrentOrder(Order currentOrder) {
