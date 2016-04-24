@@ -1,7 +1,7 @@
 [
   {
     "left" :  {
-      "name" : "buzdolabı",
+      "name" : "buzdolabi",
       "desc" : "buzdolabı",
       "type" : "Fridge",
       "width" : "1",
@@ -12,7 +12,7 @@
   },
   {
     "left" :  {
-      "name" : "fritöz",
+      "name" : "fritoz",
       "desc" : "fritöz",
       "type" : "Frier",
       "width" : "1",
@@ -23,7 +23,7 @@
   },
   {
     "left" :  {
-      "name" : "fırın",
+      "name" : "firin",
       "desc" : "fırın",
       "type" : "Oven",
       "width" : "1",
@@ -56,7 +56,7 @@
   },
   {
     "left" :  {
-      "name" : "saksı",
+      "name" : "saksi",
       "desc" : "saksı",
       "type" : "Decoration",
       "width" : "1",
