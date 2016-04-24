@@ -137,7 +137,7 @@ public class GameLogic {
     }
 
     public boolean isAfterHours() {
-        return currentTime.getTime().compareTo(END_HOUR.getTime()) > 0;
+        return currentTime.getTime().compareTo(END_HOUR.getTime()) >= 0;
     }
 
     private void resetDayTime() {
