@@ -33,4 +33,9 @@ public class Dish extends Entity{
 	public void decreaseRemaining(int delta) {
 		this.remaining -= delta;
 	}
+
+	@Override
+    public Vector3 getRender3DDelta() {
+        return super.getRender3DDelta().cpy().add(0,0,1);
+    }
 }

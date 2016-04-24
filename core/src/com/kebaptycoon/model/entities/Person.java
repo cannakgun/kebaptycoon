@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.utils.Globals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,9 @@ public class Person extends Entity{
 
         setRender2DDelta(DEFAULT_2D_DELTA);
         setRender3DDelta(DEFAULT_3D_DELTA);
+
+        resetAnimationTime();
+        incrementAnimationTime((float)Math.random() * Globals.ANIMATION_DURATION_PER_FRAME * 4);
 	}
 
 	public int getSpeed() {

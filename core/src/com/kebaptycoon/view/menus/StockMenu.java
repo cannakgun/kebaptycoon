@@ -55,7 +55,7 @@ public class StockMenu extends Menu {
                     530 + (i%4) * 240, y, 100, 100);
             heading3Font.draw(batch, ingredient.getRight() + " TL ", 530 + (i%4) * 240 + 30, y - 30);
             heading3Font.draw(batch, gameScreen.getCurrentVenue().getStock(ingredient.getLeft()) + "", 560 + (i%4) * 240, y - 60);
-            batch.draw(resourceManager.textures.get("menu_plus"),  620 +  (i%4) * 240, y - 80);
+            batch.draw(resourceManager.textures.get("menu_plus2"),  620 +  (i%4) * 240, y - 80);
         }
 
         batch.end();

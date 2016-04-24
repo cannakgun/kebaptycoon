@@ -1,23 +1,22 @@
 package com.kebaptycoon.controller.menuControllers;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.kebaptycoon.model.entities.Ingredient;
 import com.kebaptycoon.model.entities.Recipe;
+import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.view.menus.DishDetailsMenu;
 import com.kebaptycoon.view.screens.GameScreen;
+
+import java.util.ArrayList;
 
 public class DishDetailsMenuController extends MenuController{
 
     private DishDetailsMenu dishDetailsMenu;
-    Recipe rec;
     public DishDetailsMenuController(GameScreen gameScreen, DishDetailsMenu dishDetailsMenu) {
         super(gameScreen);
         this.dishDetailsMenu = dishDetailsMenu;
-        rec = gameScreen.getGameLogic().getRecipeManager().getRecipes().get(dishDetailsMenu.getDishIndex());
+
     }
     @Override
     public boolean keyDown (int keycode){
@@ -50,18 +49,30 @@ public class DishDetailsMenuController extends MenuController{
             int ingredient = ingredientRow * 3 + ingredientColumn;
             int midPoint = ((840 + (ingredient % 3) * 240) + (940 + (ingredient % 3) * 240 + 20)) / 2;
 
-            if(touchPositionX > 830){
-                if(ingredient < rec.getIngredients().size()){
+            if(touchPositionX > 830 && touchPositionY >= 410){
+                if(ingredient < dishDetailsMenu.getCloneRecipe().getIngredients().size()){
                     if (touchPositionX < midPoint)
-                        rec.getIngredients().get(ingredient).right--;
-                    else if(touchPositionX > midPoint)
-                        rec.getIngredients().get(ingredient).right++;
+                        dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right--;
+                    else if(touchPositionX > midPoint) {
+                        dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right++;
+                    }
+
                 }
             }
+            if(touchPositionY > 320 && touchPositionY < 410){
+                if(touchPositionX > 450 && touchPositionX < 544){
+                    backPrevious();
+                }
+                else if(touchPositionX > 760 && touchPositionX < 1030){
+                    dishDetailsMenu.setOriginalRecipe();
+                    backPrevious();
+                }
+
+            }
             if(touchPositionX > 460 && touchPositionX < 490 && touchPositionY > 460 && touchPositionY < 490)
-                rec.setPrice(rec.getPrice()-1);
+                dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()-1);
             else if(touchPositionX > 650 && touchPositionX < 680 && touchPositionY > 460 && touchPositionY < 490)
-                rec.setPrice(rec.getPrice()+1);
+                dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()+1);
         }
         else{
             dispose();

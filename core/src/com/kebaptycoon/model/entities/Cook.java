@@ -1,8 +1,10 @@
 package com.kebaptycoon.model.entities;
 
 public class Cook extends Employee{
-	
-	public static enum State{
+
+    private int prepareDuration;
+
+    public static enum State{
 		Wait,
 		PrepareOrder
 	}
@@ -28,6 +30,10 @@ public class Cook extends Employee{
 		return currentOrder;
 	}
 
+    public int getPrepareTime() {
+        return 300 - (20 * getLevel());
+    }
+
 	public void setCurrentOrder(Order currentOrder) {
 		this.currentOrder = currentOrder;
 	}
@@ -39,4 +45,95 @@ public class Cook extends Employee{
 	public void setState(State state) {
 		this.state = state;
 	}
+
+    @Override
+    public void onCancelOrder() {
+        currentOrder = null;
+        this.state = State.Wait;
+    }
+
+	@Override
+	public void think(Venue venue) {
+        switch (state) {
+            case Wait:
+                onWait(venue);
+                break;
+            case PrepareOrder:
+                onPrepareOrder(venue);
+                break;
+        }
+	}
+
+    private void onWait(Venue venue) {
+
+        animationState = AnimationState.Standing;
+        Order ord = venue.getOrderManager().getOrderForProcessing(this);
+
+        if(ord != null) {
+            currentOrder = ord;
+            state = State.PrepareOrder;
+            prepareDuration = 0;
+        }
+    }
+
+    private void onPrepareOrder(Venue venue) {
+        int ind = currentOrder.getCurrentProcess();
+
+        if (ind >= currentOrder.getRecipe().getProcess().size()) {
+            Furniture table = venue.getFurnitures(Furniture.Type.ServingTable).get(0);
+
+            if(table == null) return;
+
+            if(table.getPosition().dst(getPosition()) <= 1) {
+                resetCurrentPath();
+                currentOrder.setDish(new Dish(table.getPosition(), currentOrder.getRecipe(), 500));
+                table.buffer.offer(currentOrder);
+                currentOrder.getOrderer().setWaitOverride(true);
+                currentOrder = null;
+                return;
+            }
+
+            if(currentPath.size() <= 0) {
+                currentPath = venue.findPath(getPosition(), table.getPosition(), 1);
+            }
+
+            followPath();
+            return;
+        }
+
+        Furniture.Type process = currentOrder.getRecipe().getProcess().get(ind);
+
+        if(usedFurniture.type != process) {
+            Furniture appliance = venue.getUnusedFurnitures(Furniture.Type.ServingTable).get(0);
+
+            if(appliance == null) {
+                resetCurrentPath();
+                animationState = AnimationState.Standing;
+                return;
+            }
+
+            if(appliance.findUsablePosition().dst(getPosition()) <= 1) {
+                if(use(appliance)) {
+                    resetCurrentPath();
+                    animationState = AnimationState.Standing;
+                    prepareDuration = 0;
+                }
+                return;
+            }
+
+            if(currentPath.size() <= 0) {
+                currentPath = venue.findPath(getPosition(), appliance.getPosition(), 1);
+            }
+
+            followPath();
+            return;
+        }
+        else {
+            if(++prepareDuration >= getPrepareTime()) {
+                stopUsing(usedFurniture);
+                currentOrder.setCurrentProcess(currentOrder.getCurrentProcess() + 1);
+            }
+        }
+
+    }
 }

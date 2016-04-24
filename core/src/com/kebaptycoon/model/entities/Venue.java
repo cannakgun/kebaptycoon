@@ -190,6 +190,16 @@ public class Venue {
         return returnArr;
     }
 
+    public ArrayList<Furniture> getUnusedFurnitures(final Furniture.Type type) {
+
+        ArrayList<Furniture> returnArr = new ArrayList<Furniture>();
+        for (Furniture f: getFurnitures()) {
+            if (f.type == type && f.getUserCount() < f.getMaximumUsers())
+                returnArr.add(f);
+        }
+        return returnArr;
+    }
+
     public ArrayList<Vector3> findPath(Vector3 source, Furniture target) {
         return findPath(source, target.findUsablePosition(), 1);
     }
