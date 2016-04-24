@@ -76,7 +76,9 @@ public class ResourceManager {
         }
 
         for (FileHandle textureFile: textureFiles) {
-            textures.put(prefix + textureFile.nameWithoutExtension(), new Texture(textureFile));
+            Texture tx = new Texture(textureFile);
+            tx.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            textures.put(prefix + textureFile.nameWithoutExtension(), tx);
         }
     }
 
@@ -110,6 +112,8 @@ public class ResourceManager {
         for (FileHandle frameFile: frameFiles) {
             frameTextures[new Integer(frameFile.nameWithoutExtension())]
                     = new TextureRegion(new Texture(frameFile));
+            frameTextures[new Integer(frameFile.nameWithoutExtension())].getTexture()
+                    .setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         }
         
         Animation newAnim = new Animation(Globals.ANIMATION_DURATION_PER_FRAME, frameTextures);
