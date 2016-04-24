@@ -216,8 +216,12 @@ public class GameScreen implements Screen{
         menuBatch.setProjectionMatrix(menuCamera.combined);
 
         menuBatch.begin();
-            menuBatch.draw(resourceManager.textures.get("menu_bar"), 0, 0,
-                    1920, menuHeight);
+        if(gameLogic.isPaused()){
+            menuBatch.draw(resourceManager.textures.get("screens_shade"),0,0);
+        }
+
+        menuBatch.draw(resourceManager.textures.get("menu_bar"), 0, 0,
+                1920, menuHeight);
 
         float unit = 1920/(menuBarItems.size() + 1);
 
