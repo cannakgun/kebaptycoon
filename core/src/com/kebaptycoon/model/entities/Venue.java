@@ -45,7 +45,7 @@ public class Venue {
 		this.kitchenHeight = kitchenHeight;
 		this.managed = managed;
 		this.operational = true;
-        this.orderManager = new OrderManager();
+        this.orderManager = new OrderManager(gameLogic.getReportManager());
         this.tableManager = new TableManager(this);
         this.background = background;
         this.spawnPosition = spawn;

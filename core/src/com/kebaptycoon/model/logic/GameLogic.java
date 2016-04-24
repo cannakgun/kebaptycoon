@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.*;
 import com.kebaptycoon.model.managers.*;
+import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.utils.ResourceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class GameLogic {
@@ -27,6 +27,8 @@ public class GameLogic {
     private VenueManager venueManager;
     private AnimationManager animationManager;
     private FacebookFriendManager facebookFriendManager;
+    private ReportManager reportManager;
+
     //Global game data
     private int money;
     private int level;
@@ -60,6 +62,7 @@ public class GameLogic {
         venueManager = new VenueManager();
         animationManager = new AnimationManager(resourceManager);
         facebookFriendManager = new FacebookFriendManager();
+        reportManager = new ReportManager(money, null);
 
         paused = false;
         afterHours = false;
@@ -67,6 +70,16 @@ public class GameLogic {
 
         venueManager.getVenueList().add(createTutorialVenue());
 
+        ArrayList<Pair<Ingredient,Integer>> startStocks = new ArrayList<Pair<Ingredient, Integer>>();
+        for(Venue v : venueManager.getVenueList())
+        {
+            for(Pair<Ingredient,Integer> p : v.getStock())
+            {
+                startStocks.add(p);
+            }
+        }
+
+        reportManager.setStartStock(startStocks);
     }
 
     public void update() {
@@ -243,10 +256,39 @@ public class GameLogic {
     }
 
     private void OnDayStart() {
+        reportManager.setStartMoney(money);
+        System.out.println("STARTMONEY: " + reportManager.getStartMoney());
+
+        ArrayList<Pair<Ingredient,Integer>> stocks = new ArrayList<Pair<Ingredient, Integer>>();
+        for(Venue v : venueManager.getVenueList())
+        {
+            for(Pair<Ingredient,Integer> p : v.getStock())
+            {
+                stocks.add(p);
+            }
+        }
+
+        reportManager.setStartStock(stocks);
+        System.out.println("STARTSTOCK: " + reportManager.getStartStock());
+
+        reportManager.resetDailyOrders();
     }
 
-    private void OnDayEnd()
-    {
+    private void OnDayEnd() {
+        System.out.println("ENDMONEY: " + reportManager.getDailyMoneyDifference(money));
+
+        ArrayList<Pair<Ingredient,Integer>> stocks = new ArrayList<Pair<Ingredient, Integer>>();
+        for(Venue v : venueManager.getVenueList())
+        {
+            for(Pair<Ingredient,Integer> p : v.getStock())
+            {
+                stocks.add(p);
+            }
+        }
+        System.out.println("ENDSTOCK: " + reportManager.getDailyStockDifference(stocks));
+
+        System.out.println("ENDORDERS: " + reportManager.getDailyOrders());
+
         customerManager.decayPopularity();
         processAdvertisements();
     }
@@ -304,5 +346,10 @@ public class GameLogic {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         String date = sdf.format(currentTime.getTime());
         return date;
+    }
+
+    public ReportManager getReportManager()
+    {
+        return reportManager;
     }
 }

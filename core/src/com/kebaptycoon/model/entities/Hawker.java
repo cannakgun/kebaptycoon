@@ -1,5 +1,7 @@
 package com.kebaptycoon.model.entities;
 
+import com.kebaptycoon.utils.Pair;
+
 public class Hawker extends Employee{
 
     public static final int PREPARE_TIME = 80;
@@ -124,6 +126,9 @@ public class Hawker extends Employee{
             if(++prepareDuration >= PREPARE_TIME) {
                 stopUsing(usedFurniture);
                 currentDish = new Dish(getPosition(), currentOrder.getRecipe(), 500);
+                Recipe currentRecipe = currentDish.getRecipe();
+                for(Pair<Ingredient, Integer> p : currentRecipe.getIngredients())
+                    venue.incrementIngredient(p.getLeft(), -p.getRight());
                 currentOrder.getOrderer().setWaitOverride(true);
                 state = State.DeliverOrder;
             }

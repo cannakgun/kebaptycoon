@@ -15,15 +15,29 @@ public class OrderManager {
     private HashMap<Customer, Order> processOrders;
     private HashMap<Order, Employee> employees;
 
+    private ReportManager reportManager;
+
     public OrderManager() {
         newOrders = new HashMap<Customer, Order>();
         processOrders = new HashMap<Customer, Order>();
         employees = new HashMap<Order, Employee>();
+
+        reportManager = new ReportManager();
+    }
+
+    public OrderManager(ReportManager rm) {
+        newOrders = new HashMap<Customer, Order>();
+        processOrders = new HashMap<Customer, Order>();
+        employees = new HashMap<Order, Employee>();
+
+        reportManager = rm;
     }
 
     public void order(Customer customer, Recipe recipe) {
         Order n = new Order(recipe, customer);
         newOrders.put(customer, n);
+
+        reportManager.addDailyOrder(n);
     }
 
     public void abortOrder(Customer customer) {
