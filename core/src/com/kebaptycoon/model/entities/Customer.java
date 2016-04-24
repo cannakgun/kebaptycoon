@@ -263,7 +263,6 @@ public class Customer extends Person{
 
     private void onPay(Venue venue) {
         venue.getPaid(dish.getRecipe().getPrice());
-        stopUsing(usedFurniture);
         state = State.WaitPack;
 
         if(!isPayPlayed){
@@ -283,6 +282,8 @@ public class Customer extends Person{
             if(!states.contains(friend.getState()))
                 return;
         }
+        
+        stopUsing(usedFurniture);
 
         state = State.Leave;
     }
