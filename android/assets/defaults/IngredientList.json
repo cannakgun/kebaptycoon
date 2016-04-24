@@ -1,91 +1,91 @@
 [
   {
     "left" : "DonerMeat",
-    "right" : 1
+    "right" : 30
   },
   {
     "left" : "MincedMeat",
-    "right" : 2
+    "right" : 15
   },
   {
     "left" : "DicedMeat",
-    "right" : 3
+    "right" : 20
   },
   {
     "left" : "Garlic",
     "right" : 4
   },
   {
-    "left" : "Bread",
-    "right" : 5
-  },
-  {
-    "left" : "Butter",
-    "right" : 6
-  },
-  {
-    "left" : "Cucumber",
-    "right" : 7
-  },
-  {
-    "left" : "Egg",
+    "left" : "Lemon",
     "right" : 8
   },
   {
-    "left" : "Lavash",
-    "right" : 9
+    "left" : "Tomato",
+    "right" : 3
   },
   {
-    "left" : "Lemon",
-    "right" : 10
+    "left" : "Cucumber",
+    "right" : 5
+  },
+  {
+    "left" : "Egg",
+    "right" : 1
+  },
+  {
+    "left" : "Lavash",
+    "right" : 2
+  },
+  {
+    "left" : "Bread",
+    "right" : 1
   },
   {
     "left" : "Lettuce",
-    "right" : 11
+    "right" : 2
   },
   {
     "left" : "OliveOil",
-    "right" : 12
+    "right" : 25
   },
   {
     "left" : "Onion",
-    "right" : 13
+    "right" : 3
   },
   {
     "left" : "Parsley",
-    "right" : 14
+    "right" : 2
   },
   {
     "left" : "Pepper",
-    "right" : 15
+    "right" : 4
   },
   {
     "left" : "PomegranateSyrup",
-    "right" : 16
+    "right" : 20
   },
   {
     "left" : "Potato",
-    "right" : 17
+    "right" : 3
   },
   {
     "left" : "Scallion",
-    "right" : 18
+    "right" : 3
   },
   {
     "left" : "Spice",
-    "right" : 19
+    "right" : 15
   },
   {
-    "left" : "Tomato",
-    "right" : 19
+    "left" : "Butter",
+    "right" : 10
   },
   {
     "left" : "TomatoSauce",
-    "right" : 19
+    "right" : 15
   },
   {
     "left" : "Yoghurt",
-    "right" : 19
+    "right" : 5
   }
 
 ]
