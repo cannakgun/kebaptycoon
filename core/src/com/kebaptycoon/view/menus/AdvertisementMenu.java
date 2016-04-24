@@ -17,6 +17,9 @@ import java.util.ArrayList;
 public class AdvertisementMenu extends Menu {
 
     private ArrayList<Advertisement> advertisementList;
+    private int platfom = -1;
+    private int quality = -1;
+    private int focus = -1;
 
     public AdvertisementMenu(GameScreen gameScreen) {
 
@@ -48,7 +51,7 @@ public class AdvertisementMenu extends Menu {
                         500, y, 70, 70);
                 batch.draw(resourceManager.textures.get("advertisements_old"),
                         1040, y);
-                batch.draw(resourceManager.textures.get("advertisements_goldStar"),
+                batch.draw(resourceManager.textures.get("advertisements_bronzeStar"),
                         770, y);
             }
             else if (i == 1) {
@@ -62,19 +65,65 @@ public class AdvertisementMenu extends Menu {
             else {
                 batch.draw(resourceManager.textures.get("advertisements_internet"),
                         500, y, 70, 70);
-                batch.draw(resourceManager.textures.get("advertisements_bronzeStar"),
+                batch.draw(resourceManager.textures.get("advertisements_goldStar"),
                         770, y);
                 batch.draw(resourceManager.textures.get("advertisements_young"),
                         1040, y);
             }
         }
-        heading3Font.draw(batch, "Platform", 500 , 800);
-        heading3Font.draw(batch, "Kalite", 770 , 800);
-        heading3Font.draw(batch, "Odak", 1040 , 800);
-        heading3Font.draw(batch, "Fiyat", 1300 , 800);
+
+
+        heading2Font.draw(batch, "Platform", 450 , 800);
+        heading2Font.draw(batch, "Kalite", 740 , 800);
+        heading2Font.draw(batch, "Odak", 1020 , 800);
+        heading2Font.draw(batch, "Fiyat", 1300 , 800);
         batch.draw(resourceManager.textures.get("menu_line"), 670, 350);
-        batch.draw(resourceManager.textures.get("menu_lineShort"), 930, 450);
-        batch.draw(resourceManager.textures.get("menu_lineShort"), 1200, 450);
+        batch.draw(resourceManager.textures.get("menu_line"), 930, 350);
+        batch.draw(resourceManager.textures.get("menu_line"), 1200, 350);
         batch.end();
+    }
+
+    public void setOption(int col, int row) {
+        switch (col) {
+            case 0:
+                platfom = row;
+                break;
+            case 1:
+                quality = row;
+                break;
+            case 2:
+                focus = row;
+                break;
+        }
+    }
+
+    public Advertisement constructAdvertisement() {
+        //TODO: Creation
+        return null;
+    }
+
+    public String calculatePrice() {
+        int base;
+        switch (platfom) {
+            case 0:
+                base = 100;
+                break;
+            case 1:
+                base = 300;
+                break;
+            case 2:
+                base = 50;
+                break;
+            default:
+                return "N/A";
+        }
+
+        if(quality == -1) return "N/A";
+
+        if(focus == -1) return "N/A";
+
+        int qualityMult = (2 * quality) + 1;
+
+        return (qualityMult * base) + " TL";
     }
 }
