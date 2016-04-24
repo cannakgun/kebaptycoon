@@ -234,12 +234,12 @@ public class GameScreen implements Screen{
             menuBatch.draw(tx, actualX, actualY);
         }
 
-        menuBatch.draw(resourceManager.textures.get("menu_backgrounds_clockBackground"), 1570, 920);
-        menuBatch.draw(resourceManager.textures.get("menu_clock"), 1600, 1000, 50, 50);
-        heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1050);
+        menuBatch.draw(resourceManager.textures.get("menu_backgrounds_clockBackground"), 1670, 920);
+        menuBatch.draw(resourceManager.textures.get("menu_clock"), 1710, 1005, 50, 50);
+        heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1790, 1050);
 
-        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 920, 50, 50);
-        heading2Font.draw(menuBatch, ""+gameLogic.getMoney() + " TL", 1700, 970);
+        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1710, 930, 50, 50);
+        heading2Font.draw(menuBatch, ""+gameLogic.getMoney() + " TL", 1790, 970);
 
 
         menuBatch.end();
