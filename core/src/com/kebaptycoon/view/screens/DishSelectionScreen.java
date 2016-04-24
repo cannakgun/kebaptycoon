@@ -28,6 +28,7 @@ public class DishSelectionScreen implements Screen{
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
         background = resourceManager.textures.get("screens_dishSelection");
+        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Gdx.input.setInputProcessor(new GestureDetector(dishSelectionScreenController));
     }
 
