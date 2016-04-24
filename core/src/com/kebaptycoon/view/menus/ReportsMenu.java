@@ -62,17 +62,24 @@ public class ReportsMenu extends Menu {
         ArrayList<Pair<Ingredient,Integer>> stocks = new ArrayList<Pair<Ingredient, Integer>>();
         for(Venue v : gameScreen.getGameLogic().getVenueManager().getVenueList())
         {
-            for(Pair<Ingredient,Integer> p : v.getStock())
+            for(Pair<Ingredient, Integer> p : v.getStock())
             {
                 stocks.add(p);
             }
         }
         int delta = 0;
+        int price = 0;
         for(Pair<Ingredient, Integer> p : gameScreen.getGameLogic().getReportManager().getDailyStockDifference(stocks))
         {
             delta += p.getRight();
+
+            for(Pair<Ingredient, Integer> pair : gameScreen.getGameLogic().getMarketManager().getIngredients())
+            {
+                if(pair.getLeft().equals(p.getLeft()))
+                    price += (p.getRight() * pair.getRight());
+            }
         }
-        heading1Font.draw(batch, "Stok Değişimi: " + delta, 500, 500);
+        heading1Font.draw(batch, "Stok Değişimi: " + delta + " birim = " + price + "TL", 500, 500);
 
         batch.end();
     }

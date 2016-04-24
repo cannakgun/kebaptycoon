@@ -31,7 +31,7 @@ public abstract class Menu {
 
         heading1Generator = resourceManager.fonts.get("Boogaloo");
         heading1Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        heading1Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
+        heading1Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:=";
         heading1Parameter.size = 72;
         heading1Parameter.color = Color.BROWN;
 
@@ -42,7 +42,7 @@ public abstract class Menu {
         heading2Generator = resourceManager.fonts.get("ClearSans");
         heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading2Parameter.size = 45;
-        heading2Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
+        heading2Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:=";
         heading2Parameter.color = Color.WHITE;
 
         heading2Font = heading2Generator.generateFont(heading2Parameter);
@@ -51,7 +51,7 @@ public abstract class Menu {
         heading3Generator = resourceManager.fonts.get("ClearSans");
         heading3Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading3Parameter.size = 25;
-        heading3Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
+        heading3Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:=";
         heading3Parameter.color = Color.WHITE;
         heading3Font = heading3Generator.generateFont(heading3Parameter);
         heading3Font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
