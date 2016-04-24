@@ -12,7 +12,7 @@ public class FurniturePrototype {
     public int width;
     public int height;
     public int maximumUsers;
-    public ArrayList<Point> userPositions;
+    public Point renderDelta;
 
     public FurniturePrototype() {}
 
