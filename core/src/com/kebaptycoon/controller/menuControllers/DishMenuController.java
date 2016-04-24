@@ -39,7 +39,6 @@ public class DishMenuController extends MenuController {
         if(touchPositionX > 310 && touchPositionX < 450 && touchPositionY > 425 && touchPositionY < 700)
             dishMenu.changeCurrentPage(-1);
         else if(touchPositionX > 1450 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700){
-            System.out.println(touchPositionX);
             dishMenu.changeCurrentPage(1);
         }
 

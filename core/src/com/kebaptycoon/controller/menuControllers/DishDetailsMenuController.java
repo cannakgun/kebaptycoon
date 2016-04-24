@@ -69,9 +69,9 @@ public class DishDetailsMenuController extends MenuController{
                 }
 
             }
-            if(touchPositionX > 460 && touchPositionX < 490 && touchPositionY > 460 && touchPositionY < 490)
+            if(touchPositionX > 450 && touchPositionX < 500 && touchPositionY > 460 && touchPositionY < 490)
                 dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()-1);
-            else if(touchPositionX > 650 && touchPositionX < 680 && touchPositionY > 460 && touchPositionY < 490)
+            else if(touchPositionX > 640 && touchPositionX < 690 && touchPositionY > 460 && touchPositionY < 490)
                 dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()+1);
         }
         else{

@@ -36,18 +36,17 @@ public class StockMenuController extends MenuController {
 
     public void checkPressedPosition(int touchPositionX, int touchPositionY){
 
-        if(touchPositionX > 310 && touchPositionX < 400 && touchPositionY > 425 && touchPositionY < 700)
+        if(touchPositionX > 310 && touchPositionX < 450 && touchPositionY > 425 && touchPositionY < 700)
             stockMenu.changeCurrentPage(-1);
-        else if(touchPositionX > 1500 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700)
+        else if(touchPositionX > 1450 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700)
             stockMenu.changeCurrentPage(1);
-        else if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
+        else if(touchPositionX >= 450 && touchPositionX <= 1450 && touchPositionY >= 300 && touchPositionY <= 840){
 
-            int ingredientColumn = (touchPositionX - 430) / 240;
+            int ingredientColumn = (touchPositionX - 500) / 240;
             int ingredientRow = (680 - touchPositionY ) / 200;
             int ingredient = ingredientRow * 4 + ingredientColumn;
 
             int midPoint = ((510 + (ingredient % 4) * 240) + (645 + (ingredient % 4) * 240 + 20)) / 2;
-
             Ingredient ing = gameScreen.getGameLogic().getMarketManager().getIngredients().get(ingredient).getLeft();
             if(touchPositionX > 510){
                 if(ingredient < gameScreen.getGameLogic().getMarketManager().getIngredients().size()){
