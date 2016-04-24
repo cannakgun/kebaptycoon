@@ -69,4 +69,8 @@ public class OrderManager {
         employees.remove(order);
         employees.put(order, employee);
     }
+
+    public Employee getEmployeeOfOrder(Order order) {
+        return employees.get(order);
+    }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 
 public class Furniture extends Entity{
 
@@ -31,6 +32,7 @@ public class Furniture extends Entity{
     HashMap<Orientation, Person> slots = new HashMap<Orientation, Person>();
     HashMap<Person, Vector3> oldPositions = new HashMap<Person, Vector3>();
     HashMap<Orientation, Animation> animations = null;
+    public Queue<Order> buffer;
 
     public Type getType() {
         return type;

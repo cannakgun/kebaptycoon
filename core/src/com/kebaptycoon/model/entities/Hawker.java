@@ -2,8 +2,6 @@ package com.kebaptycoon.model.entities;
 
 public class Hawker extends Employee{
 
-    public static final int PREPARE_TIME = 250;
-
 	public static enum State{
 		Wait,
 		PrepareOrder,
@@ -60,6 +58,10 @@ public class Hawker extends Employee{
 		this.state = state;
 	}
 
+    public int getPrepareTime() {
+        return 300 - (20 * getLevel());
+    }
+
 	@Override
     public void think(Venue venue) {
         switch (state) {
@@ -79,26 +81,26 @@ public class Hawker extends Employee{
         animationState = AnimationState.Standing;
         Order ord = venue.getOrderManager().getOrderForProcessing(this);
 
-        if(ord == null) {
-            Furniture cart = venue.getFurnitures(Furniture.Type.FoodCart).get(0);
-
-            if(cart == null) return;
-
-            if(cart.findUsablePosition().dst(getPosition()) <= 0) {
-                resetCurrentPath();
-                use(cart);
-                return;
-            }
-
-            if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), cart);
-            }
+        if(ord != null) {
+            currentOrder = ord;
+            state = State.PrepareOrder;
+            prepareDuration = 0;
             return;
         }
 
-        currentOrder = ord;
-        state = State.PrepareOrder;
-        prepareDuration = 0;
+        Furniture cart = venue.getFurnitures(Furniture.Type.FoodCart).get(0);
+
+        if(cart == null) return;
+
+        if(cart.findUsablePosition().dst(getPosition()) <= 0) {
+            resetCurrentPath();
+            use(cart);
+            return;
+        }
+
+        if(currentPath.size() <= 0) {
+            currentPath = venue.findPath(getPosition(), cart);
+        }
     }
 
     private void onPrepareOrder(Venue venue) {
@@ -121,7 +123,7 @@ public class Hawker extends Employee{
             followPath();
         }
         else {
-            if(++prepareDuration >= PREPARE_TIME) {
+            if(++prepareDuration >= getPrepareTime()) {
                 stopUsing(usedFurniture);
                 currentDish = new Dish(getPosition(), currentOrder.getRecipe(), 500);
                 currentOrder.getOrderer().setWaitOverride(true);
