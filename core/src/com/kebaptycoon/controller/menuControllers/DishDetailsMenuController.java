@@ -51,12 +51,16 @@ public class DishDetailsMenuController extends MenuController{
 
             if(touchPositionX > 830 && touchPositionY >= 410){
                 if(ingredient < dishDetailsMenu.getCloneRecipe().getIngredients().size()){
-                    if (touchPositionX < midPoint)
-                        dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right--;
-                    else if(touchPositionX > midPoint) {
-                        dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right++;
+                    if (touchPositionX < midPoint) {
+                        if (dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right > 0) {
+                            dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right--;
+                        }
                     }
-
+                    else if(touchPositionX > midPoint) {
+                        if(dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right < 99) {
+                            dishDetailsMenu.getCloneRecipe().getIngredients().get(ingredient).right++;
+                        }
+                    }
                 }
             }
             if(touchPositionY > 320 && touchPositionY < 410){
@@ -69,10 +73,16 @@ public class DishDetailsMenuController extends MenuController{
                 }
 
             }
-            if(touchPositionX > 460 && touchPositionX < 490 && touchPositionY > 460 && touchPositionY < 490)
-                dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()-1);
-            else if(touchPositionX > 650 && touchPositionX < 680 && touchPositionY > 460 && touchPositionY < 490)
-                dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()+1);
+            if(touchPositionX > 450 && touchPositionX < 500 && touchPositionY > 460 && touchPositionY < 490) {
+                if(dishDetailsMenu.getCloneRecipe().getPrice() > 0)
+                    dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()-1);
+            }
+
+            else if(touchPositionX > 640 && touchPositionX < 690 && touchPositionY > 460 && touchPositionY < 490){
+                if(dishDetailsMenu.getCloneRecipe().getPrice() < 99)
+                    dishDetailsMenu.getCloneRecipe().setPrice(dishDetailsMenu.getCloneRecipe().getPrice()+1);
+            }
+
         }
         else{
             dispose();

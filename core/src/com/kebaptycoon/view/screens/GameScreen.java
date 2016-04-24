@@ -22,11 +22,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kebaptycoon.controller.screenControllers.GameScreenController;
 import com.kebaptycoon.model.entities.CustomerPack;
+import com.kebaptycoon.model.entities.Emotion;
 import com.kebaptycoon.model.entities.Entity;
 import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
 import com.kebaptycoon.model.logic.StartingDish;
+import com.kebaptycoon.model.managers.EmotionManager;
 import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.utils.IsometricHelper;
 import com.badlogic.gdx.utils.viewport.*;
@@ -35,6 +37,7 @@ import com.kebaptycoon.utils.ResourceManager;
 import com.kebaptycoon.view.menus.Menu;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -105,7 +108,7 @@ public class GameScreen implements Screen{
         heading2Generator = resourceManager.fonts.get("Boogaloo");
         heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading2Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
-        heading2Parameter.size = 72;
+        heading2Parameter.size = 40;
         heading2Parameter.color = Color.BROWN;
 
         heading2Font = heading2Generator.generateFont(heading2Parameter);
@@ -204,9 +207,6 @@ public class GameScreen implements Screen{
         //spriteBatch.setTransformMatrix(id);
         //shapeRenderer.setTransformMatrix(id);
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0);
-        spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 2030, 640);
-        spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 1400, 1000);
         renderMap(delta);
         renderEntities(delta);
         spriteBatch.end();
@@ -227,9 +227,13 @@ public class GameScreen implements Screen{
             float actualX = centerX - (tx.getWidth() / 2);
             float actualY = centerY - (tx.getHeight() / 2);
             menuBatch.draw(tx, actualX, actualY);
-            heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1000);
-
         }
+
+        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 1000, 50, 50);
+        heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1050);
+
+        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 920, 50, 50);
+        heading2Font.draw(menuBatch, ""+gameLogic.getMoney() + " TL", 1700, 970);
 
 
         menuBatch.end();
@@ -257,19 +261,7 @@ public class GameScreen implements Screen{
 
 	private void renderMap(float delta)
 	{
-//		for (int x = 0; x < 10; x++)
-//		{
-//			for(int y = 10-1; y >= 0; y--)
-//			{
-//				float x_pos = (x * tileWidth /2.0f ) + (y * tileWidth / 2.0f);
-//				float y_pos = - (x * tileHeight / 2.0f) + (y * tileHeight /2.0f);
-//
-//				spriteBatch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-//
-//				spriteBatch.draw(tileSet[map[x][y]], x_pos, y_pos, tileWidth, tileHeight);
-//			}
-//		}
-		//TODO: Render the background associated to the current venue
+        spriteBatch.draw(background, 0, 0);
 	}
 	
 	private void renderEntities(float delta)
@@ -310,6 +302,22 @@ public class GameScreen implements Screen{
 
         for (Entity ent: renderables) {
             ent.render(spriteBatch, delta);
+        }
+
+        ArrayList<Emotion> emotions = EmotionManager.getEmotionArrayList();
+
+        Texture bg = resourceManager.textures.get("emoticons_bubble");
+
+        for (Emotion e: emotions) {
+            Vector3 iso = e.getOwner().getPosition().cpy().add(e.getOwner().getRender3DDelta())
+                    .add(0, 0, 2);
+            Vector2 view = IsometricHelper.project(iso);
+            view.add(bg.getWidth()/2,0);
+
+            spriteBatch.draw(bg, view.x, view.y);
+            spriteBatch.draw(resourceManager.textures
+                    .get("emoticons_" + e.getType().toString().toLowerCase()),
+                    view.x, view.y);
         }
     }
 

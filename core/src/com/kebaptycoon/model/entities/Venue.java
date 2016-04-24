@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.logic.GameLogic;
+import com.kebaptycoon.model.managers.EmotionManager;
 import com.kebaptycoon.model.managers.OrderManager;
 import com.kebaptycoon.model.managers.TableManager;
 import com.kebaptycoon.utils.Pair;
@@ -300,6 +301,14 @@ public class Venue {
         gameLogic.setMoney(gameLogic.getMoney() + money);
     }
 
+    public boolean pay(int money) {
+        if(gameLogic.getMoney() < money)
+            return false;
+
+        gameLogic.setMoney(gameLogic.getMoney() - money);
+        return true;
+    }
+
     private ArrayList<Vector3> getNeighbors(final Vector3 current)
     {
         ArrayList<Vector3> returnArr = new ArrayList<Vector3>();
@@ -332,8 +341,10 @@ public class Venue {
     public void purgeCustomers() {
         for(CustomerPack p: customers) {
             for (Customer c : new ArrayList<Customer>(p.getCustomers())) {
-                if (c.isMarkedForDeletion() && c.getPosition().dst(spawnPosition) < 1)
+                if (c.isMarkedForDeletion() && c.getPosition().dst(spawnPosition) < 1) {
                     p.getCustomers().remove(c);
+                    EmotionManager.disposeEmotion(c);
+                }
             }
         }
 

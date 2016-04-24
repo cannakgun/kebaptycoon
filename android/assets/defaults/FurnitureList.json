@@ -1,206 +1,68 @@
 [
   {
     "left" :  {
-                "name" : "masa",
-                "desc" : "seyyar masası",
-                "type" : "Table",
-                "width" : "50",
-                "height" : "50",
-                "maximumUsers": "4",
-                "userPositions" : [
-                  {"x" : 10, "y" : 10},
-                  {"x" : 20, "y" : 10},
-                  {"x" : 10, "y" : 20},
-                  {"x" : 10, "y" : 30}
-                ]
+      "name" : "buzdolabi",
+      "desc" : "buzdolabı",
+      "type" : "Fridge",
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "1"
               },
-    "right" : 10
+    "right" : 800
   },
   {
     "left" :  {
-      "name" : "tabure",
-      "desc" : "seyyar taburesi",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
+      "name" : "fritoz",
+      "desc" : "fritöz",
+      "type" : "Frier",
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "1"
     },
-    "right" : 10
+    "right" : 200
   },
   {
     "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
+      "name" : "firin",
+      "desc" : "fırın",
+      "type" : "Oven",
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "1"
     },
-    "right" : 10
+    "right" : 350
   },
   {
     "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
+      "name" : "mangal",
+      "desc" : "mangal",
+      "type" : "Grill",
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "1"
     },
-    "right" : 10
+    "right" : 400
   },
   {
     "left" :  {
       "name" : "masa",
-      "desc" : "seyyar masası",
+      "desc" : "masa",
       "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "4"
     },
-    "right" : 10
+    "right" : 200
   },
   {
     "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
+      "name" : "saksi",
+      "desc" : "saksı",
+      "type" : "Decoration",
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "0"
     },
-    "right" : 10
-  },
-  {
-    "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
-    },
-    "right" : 10
-  },
-  {
-    "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
-    },
-    "right" : 10
-  },
-  {
-    "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
-    },
-    "right" : 10
-  },
-  {
-    "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
-    },
-    "right" : 10
-  },
-  {
-    "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
-    },
-    "right" : 10
-  },
-  {
-    "left" :  {
-      "name" : "masa",
-      "desc" : "seyyar masası",
-      "type" : "Table",
-      "width" : "50",
-      "height" : "50",
-      "maximumUsers": "4",
-      "userPositions" : [
-        {"x" : 10, "y" : 10},
-        {"x" : 20, "y" : 10},
-        {"x" : 10, "y" : 20},
-        {"x" : 10, "y" : 30}
-      ]
-    },
-    "right" : 10
+    "right" : 200
   }
 ]

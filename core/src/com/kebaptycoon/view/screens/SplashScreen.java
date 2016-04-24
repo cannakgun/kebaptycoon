@@ -31,6 +31,7 @@ public class SplashScreen implements Screen{
         camera.setToOrtho(false, 1920, 1080);
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("textures/screens/splash.png"));
+        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     @Override

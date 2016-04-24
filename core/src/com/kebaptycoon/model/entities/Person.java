@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.managers.EmotionManager;
 import com.kebaptycoon.utils.Globals;
 
 import java.util.ArrayList;
@@ -166,5 +167,9 @@ public class Person extends Entity{
         }
 
         return false;
+    }
+
+    public void createEmotion(Emotion.Type type) {
+        EmotionManager.addEmotion(new Emotion(this, type));
     }
 }
