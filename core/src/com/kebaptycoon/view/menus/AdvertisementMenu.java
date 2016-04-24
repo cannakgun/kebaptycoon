@@ -29,8 +29,6 @@ public class AdvertisementMenu extends Menu {
         super.menuController = mul;
         Gdx.input.setInputProcessor(menuController);
 
-        currentPage = 0;
-
         advertisementList = gameScreen.getGameLogic().getAdvertisementManager().getAdvertisementList();
     }
 
@@ -39,31 +37,66 @@ public class AdvertisementMenu extends Menu {
         batch.begin();
         batch.draw(resourceManager.textures.get("menu_backgrounds_advertisementBackground"), 300, 300);
 
-        int y = 920;
+        int y = 900;
 
+        for (int i = 0; i < 3; i++) {
 
-        for (int i = currentPage * 8; i < 3; i++) {
+            y -= 160;
 
-            if (i % 3 == 0)
-                y -= 340;
-            if(i % 2 == 0)
-            {
-                batch.draw(resourceManager.textures.get("advertisements_tv"),
-                        540 + (i % 4) * 340, y, 125, 125);
-                heading3Font.draw(batch, "3000 TL ", 540 + (i % 4) * 340 + 30, y - 30);
-            }
-            else
-            {
+            if (i == 2) {
                 batch.draw(resourceManager.textures.get("advertisements_newspaper"),
-                        540 + (i % 4) * 340, y, 125, 125);
-                heading3Font.draw(batch, "1000 TL ", 540 + (i % 4) * 340 + 30, y - 30);
+                        500, y, 70, 70);
+                heading3Font.draw(batch, "1000 TL", 500, y - 15);
+            } else if (i == 1) {
+                batch.draw(resourceManager.textures.get("advertisements_tv"),
+                        500, y, 70, 70);
+                heading3Font.draw(batch, "4000 TL", 500, y - 15);
+            } else {
+                batch.draw(resourceManager.textures.get("advertisements_tv"),
+                        500, y, 70, 70);
+                heading3Font.draw(batch, "2000 TL", 500, y - 15);
             }
-
-
-            //heading1Font.draw(batch, Globals.ADVERTISEMENT_MENU_TITLE, 815, 920);
 
         }
-        batch.end();
-    }
+        batch.draw(resourceManager.textures.get("menu_lineShort"), 670, 450);
 
+        y = 870;
+
+        for (int i = 0; i < 3; i++) {
+
+            y -= 120;
+
+            if (i == 2) {
+
+                heading3Font.draw(batch, "Kaliteli", 770, y);
+            } else if (i == 1) {
+
+                heading3Font.draw(batch, "Orta", 770, y);
+            } else {
+
+                heading3Font.draw(batch, "Düşük", 770, y);
+            }
+        }
+        batch.draw(resourceManager.textures.get("menu_lineShort"), 930, 450);
+        y = 870;
+
+        for (int i = 0; i < 3; i++) {
+
+            y -= 120;
+
+            if (i == 2) {
+
+                heading3Font.draw(batch, "Genç", 970, y);
+            } else if (i == 1) {
+
+                heading3Font.draw(batch, "İş Adamı", 970, y);
+            } else {
+
+                heading3Font.draw(batch, "Yaşlı", 970, y);
+            }
+        }
+        batch.draw(resourceManager.textures.get("menu_lineShort"), 1200, 450);
+        batch.end();
+
+    }
 }

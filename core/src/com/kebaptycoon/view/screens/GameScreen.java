@@ -230,7 +230,7 @@ public class GameScreen implements Screen{
             menuBatch.draw(tx, actualX, actualY);
         }
 
-        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 1000, 50, 50);
+        menuBatch.draw(resourceManager.textures.get("menu_clock"), 1600, 1000, 50, 50);
         heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1050);
 
         menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 920, 50, 50);
