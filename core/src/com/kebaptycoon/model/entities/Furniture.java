@@ -13,6 +13,7 @@ public class Furniture extends Entity{
 
     public static enum Type{
         FoodCart,
+        Fridge,
 		Cooker,
 		Oven,
 		Frier,
