@@ -171,7 +171,7 @@ public class Customer extends Person{
 
         followPath();
         if(!isTableGoPlayed){
-            SoundManager.play("tableGo");
+            //SoundManager.play("tableGo");
             isTableGoPlayed = true;
         }
     }
@@ -216,7 +216,7 @@ public class Customer extends Person{
         }
 
         if(!isOrderPlayed){
-            SoundManager.play("order");
+            //SoundManager.play("order");
             isOrderPlayed = true;
         }
     }
@@ -249,7 +249,7 @@ public class Customer extends Person{
         if(dish.getRemaining() > 0){
             dish.setRemaining(dish.getRemaining() - 15);
             if(!isEatSoundPlayed){
-                SoundManager.play("foodEat");
+                //SoundManager.play("foodEat");
                 isEatSoundPlayed = true;
             }
         }
@@ -275,7 +275,7 @@ public class Customer extends Person{
         state = State.WaitPack;
 
         if(!isPayPlayed){
-            SoundManager.play("pay");
+            //SoundManager.play("pay");
             isPayPlayed = true;
         }
     }

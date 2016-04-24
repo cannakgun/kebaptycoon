@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
 import com.kebaptycoon.model.entities.Ingredient;
+import com.kebaptycoon.model.managers.SoundManager;
 import com.kebaptycoon.view.menus.StockMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
@@ -52,10 +53,11 @@ public class StockMenuController extends MenuController {
             if(touchPositionX > 510){
                 if(ingredient < gameScreen.getGameLogic().getMarketManager().getIngredients().size()){
                    if(touchPositionX > midPoint){
-                       System.out.println(ing);
-                       System.out.println(ingredient);
-                       if(gameScreen.getCurrentVenue().getStock(ing) < 999 && gameScreen.getCurrentVenue().pay(price))
+
+                       if(gameScreen.getCurrentVenue().getStock(ing) < 999 && gameScreen.getCurrentVenue().pay(price)){
                            gameScreen.getCurrentVenue().incrementIngredient(ing, 1);
+                           SoundManager.play("pay");
+                       }
                    }
 
                 }
