@@ -105,7 +105,7 @@ public class GameScreen implements Screen{
         heading2Generator = resourceManager.fonts.get("Boogaloo");
         heading2Parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         heading2Parameter.characters = "abcçdefgğhıijklmnoöpqrsştuüvwxyzABCÇDEFGĞHIİIJKLMNOÖPQRSŞTUÜVWXYZ0123456789.,:";
-        heading2Parameter.size = 72;
+        heading2Parameter.size = 40;
         heading2Parameter.color = Color.BROWN;
 
         heading2Font = heading2Generator.generateFont(heading2Parameter);
@@ -204,9 +204,6 @@ public class GameScreen implements Screen{
         //spriteBatch.setTransformMatrix(id);
         //shapeRenderer.setTransformMatrix(id);
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0);
-        spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 2030, 640);
-        spriteBatch.draw(resourceManager.textures.get("restaurants_duba"), 1400, 1000);
         renderMap(delta);
         renderEntities(delta);
         spriteBatch.end();
@@ -227,9 +224,13 @@ public class GameScreen implements Screen{
             float actualX = centerX - (tx.getWidth() / 2);
             float actualY = centerY - (tx.getHeight() / 2);
             menuBatch.draw(tx, actualX, actualY);
-            heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1000);
-
         }
+
+        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 1000, 50, 50);
+        heading2Font.draw(menuBatch, ""+gameLogic.getTime(), 1700, 1050);
+
+        menuBatch.draw(resourceManager.textures.get("menu_gold"), 1600, 920, 50, 50);
+        heading2Font.draw(menuBatch, ""+gameLogic.getMoney() + " TL", 1700, 970);
 
 
         menuBatch.end();
@@ -257,19 +258,7 @@ public class GameScreen implements Screen{
 
 	private void renderMap(float delta)
 	{
-//		for (int x = 0; x < 10; x++)
-//		{
-//			for(int y = 10-1; y >= 0; y--)
-//			{
-//				float x_pos = (x * tileWidth /2.0f ) + (y * tileWidth / 2.0f);
-//				float y_pos = - (x * tileHeight / 2.0f) + (y * tileHeight /2.0f);
-//
-//				spriteBatch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-//
-//				spriteBatch.draw(tileSet[map[x][y]], x_pos, y_pos, tileWidth, tileHeight);
-//			}
-//		}
-		//TODO: Render the background associated to the current venue
+        spriteBatch.draw(background, 0, 0);
 	}
 	
 	private void renderEntities(float delta)
