@@ -61,7 +61,7 @@
       "type" : "Decoration",
       "width" : "1",
       "height" : "1",
-      "maximumUsers": "1"
+      "maximumUsers": "0"
     },
     "right" : 200
   }
