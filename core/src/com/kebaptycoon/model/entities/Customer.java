@@ -171,7 +171,6 @@ public class Customer extends Person{
 
         followPath();
         if(!isTableGoPlayed){
-            //SoundManager.play("tableGo");
             isTableGoPlayed = true;
         }
     }
@@ -186,6 +185,7 @@ public class Customer extends Person{
         }
 
         if (budget.size() <= 0) {
+            createEmotion(Emotion.Type.Expensive);
             state = State.Leave;
 
             for (Customer friend: pack.getCustomers()){
@@ -241,8 +241,8 @@ public class Customer extends Person{
         if(waitDuration > waitingTime && !waitOverride) {
             state = State.Leave;
             venue.getOrderManager().abortOrder(this);
+            createEmotion(Emotion.Type.Time);
         }
-        //SoundManager.play("wait");
     }
 
     private void onEatFood(Venue venue) {
@@ -275,7 +275,6 @@ public class Customer extends Person{
         state = State.WaitPack;
 
         if(!isPayPlayed){
-            //SoundManager.play("pay");
             isPayPlayed = true;
         }
     }

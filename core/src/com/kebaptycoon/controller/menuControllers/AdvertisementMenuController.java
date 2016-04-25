@@ -2,6 +2,7 @@ package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.kebaptycoon.model.entities.Advertisement;
 import com.kebaptycoon.view.menus.AdvertisementMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
@@ -38,7 +39,28 @@ public class AdvertisementMenuController extends MenuController {
         else if(touchPositionX > 1500 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700)
             advertisementMenu.changeCurrentPage(1);
         else if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
+            int col = (touchPositionX - 400) / 270;
 
+            if(col > 3) return;
+            if(col < 0) return;
+
+            int row = (765 - touchPositionY) / 140;
+
+            if(row > 2) return;
+            if(row < 0) return;
+
+            System.out.println("C: " + col + ", R: " + row);
+
+            if(col < 3) {
+                advertisementMenu.setOption(col, row);
+            }
+            else if(row == 2){
+                Advertisement newAd = advertisementMenu.constructAdvertisement();
+
+                if (newAd == null) return;
+
+                //TODO: AdvertManagera ekle, menüden çık
+            }
         }
         else{
             dispose();

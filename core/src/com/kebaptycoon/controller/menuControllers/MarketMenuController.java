@@ -2,6 +2,9 @@ package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.entities.Furniture;
+import com.kebaptycoon.model.entities.prototypes.FurniturePrototype;
 import com.kebaptycoon.view.menus.MarketMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
@@ -38,7 +41,28 @@ public class MarketMenuController extends MenuController {
         else if(touchPositionX > 1500 && touchPositionX < 1580 && touchPositionY > 425 && touchPositionY < 700)
             marketMenu.changeCurrentPage(1);
         else if(touchPositionX >= 400 && touchPositionX <= 1500 && touchPositionY >= 300 && touchPositionY <= 840){
+            int furnitureColumn = (touchPositionX - 500) / 240;
+            int furnitureRow = (825 - touchPositionY ) / 240;
+            furnitureColumn = Math.min(furnitureColumn, 3);
+            furnitureRow = Math.min(furnitureRow, 1);
+            int furniture = (furnitureRow * 4 + furnitureColumn) +  marketMenu.getCurrentPage() * 8;
 
+            if(furniture >= gameScreen.getGameLogic().getMarketManager()
+                    .getFurnitures().size()) return;
+
+            FurniturePrototype proto = gameScreen.getGameLogic().getMarketManager()
+                    .getFurnitures().get(furniture).getLeft();
+            int price = gameScreen.getGameLogic().getMarketManager()
+                    .getFurnitures().get(furniture).getRight();
+
+            //if(!gameScreen.getCurrentVenue().pay(price)) return;
+
+            Furniture newFurniture = new Furniture(proto);
+            newFurniture.setPosition(new Vector3(17, 5, 0));
+
+            gameScreen.getCurrentVenue().getFurnitures().add(newFurniture);
+
+            gameScreen.getGameLogic().getAnimationManager().setUpAnimations(newFurniture);
         }
         else{
             dispose();

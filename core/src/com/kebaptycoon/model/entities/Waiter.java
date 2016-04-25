@@ -78,7 +78,8 @@ public class Waiter extends Employee{
         }
 
 		if(currentOrder != null) {
-			state = State.DeliverOrder;
+            currentTable.buffer.remove(currentOrder);
+            state = State.DeliverOrder;
 		}
 	}
 
@@ -102,6 +103,7 @@ public class Waiter extends Employee{
             if (target == null) return;
 
             if (target.getPosition().dst(getPosition()) <= 1) {
+				resetCurrentPath();
                 target.setDish(currentOrder.getDish());
                 currentOrder = null;
                 state = State.Wait;

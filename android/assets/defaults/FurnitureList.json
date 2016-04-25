@@ -36,7 +36,7 @@
       "width" : "1",
       "height" : "1",
       "maximumUsers": "1",
-      "renderDelta" : { "x" : -28, "y" : -18},
+      "renderDelta" : { "x" : -56, "y" : -36},
       "orientation" : "East"
     },
     "right" : 350
@@ -60,6 +60,20 @@
       "title" : "Masa",
       "name" : "table",
       "desc" : "Yemek falan koyarsın üzerine",
+      "type" : "Table",
+      "width" : "1",
+      "height" : "1",
+      "maximumUsers": "4",
+      "renderDelta" : { "x" : -63, "y" : -22},
+      "orientation" : "West"
+    },
+    "right" : 200
+  },
+  {
+    "left" :  {
+      "title" : "Beyaz Masa",
+      "name" : "whiteTable",
+      "desc" : "Daha Lüküs",
       "type" : "Table",
       "width" : "1",
       "height" : "1",
