@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.AdvertisementMenuController;
 import com.kebaptycoon.controller.menuControllers.MenuController;
 import com.kebaptycoon.model.entities.Advertisement;
-import com.kebaptycoon.utils.Globals;
 import com.kebaptycoon.view.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -121,7 +120,7 @@ public class AdvertisementMenu extends Menu {
         heading2Font.draw(batch, "Kalite", 740 , 800);
         heading2Font.draw(batch, "Odak", 1020 , 800);
         heading2Font.draw(batch, "Fiyat", 1300 , 800);
-        heading2Font.draw(batch, calculatePrice(), 1300 , 650);
+        heading2Font.draw(batch, calculatePriceText(), 1300 , 650);
         batch.draw(resourceManager.textures.get("advertisements_advertise"), 1250, 450);
         batch.draw(resourceManager.textures.get("menu_line"), 670, 350);
         batch.draw(resourceManager.textures.get("menu_line"), 930, 350);
@@ -148,7 +147,32 @@ public class AdvertisementMenu extends Menu {
         return null;
     }
 
-    public String calculatePrice() {
+    public int calculatePrice() {
+        int base;
+        switch (platfom) {
+            case 0:
+                base = 100;
+                break;
+            case 1:
+                base = 300;
+                break;
+            case 2:
+                base = 50;
+                break;
+            default:
+                return -1;
+        }
+
+        if(quality == -1) return -1;
+
+        if(focus == -1) return -1;
+
+        int qualityMult = (2 * quality) + 1;
+
+        return (qualityMult * base);
+    }
+
+    public String calculatePriceText() {
         int base;
         switch (platfom) {
             case 0:

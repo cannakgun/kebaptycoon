@@ -8,7 +8,7 @@
   "dislikes" : []
 },
 {
-  "spriteName" : "businessMan",
+  "spriteName" : "businessman",
   "textureName" : "old",
   "displayName" : "defaultPerson",
   "waitingTime" : 500,

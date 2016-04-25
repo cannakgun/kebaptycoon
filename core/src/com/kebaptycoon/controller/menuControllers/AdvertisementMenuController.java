@@ -55,6 +55,10 @@ public class AdvertisementMenuController extends MenuController {
             }
             else if(row == 1){
 
+                int price = advertisementMenu.calculatePrice();
+
+                if(price == -1) return;
+
                 Advertisement newAd = advertisementMenu.constructAdvertisement();
                 //if (newAd == null) return;
                 dispose();
