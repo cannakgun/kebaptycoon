@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -145,7 +146,7 @@ public class GameScreen implements Screen{
 		invIsotransform = new Matrix4(isoTransform);
 		invIsotransform.inv();*/
         isReportSummaryOpen = false;
-
+        SoundManager.startBackgroundMusic();
 	}
 
     private void setVenue(Venue venue) {

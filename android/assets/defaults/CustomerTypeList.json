@@ -1,7 +1,16 @@
 [{
   "spriteName" : "defaultPerson",
-  "textureName" : "gencAdam",
-  "displayName" : "Genç Adam",
+  "textureName" : "young",
+  "displayName" : "defaultPerson",
+  "waitingTime" : 500,
+  "budget" : 35,
+  "likes" : [],
+  "dislikes" : []
+},
+{
+  "spriteName" : "businessMan",
+  "textureName" : "old",
+  "displayName" : "defaultPerson",
   "waitingTime" : 500,
   "budget" : 35,
   "likes" : [],

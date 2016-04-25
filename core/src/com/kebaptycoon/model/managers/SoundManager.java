@@ -11,6 +11,7 @@ public class SoundManager {
     private static ResourceManager resourceManager;
     private static Random random;
     private static Music currentMusic;
+    private static Music backgroundMusic;
 
     public SoundManager(ResourceManager resourceManager){
         this.resourceManager = resourceManager;
@@ -28,5 +29,11 @@ public class SoundManager {
             currentMusic = resourceManager.sounds.get(categoryName).get(randomIndex);
             currentMusic.play();
         }
+    }
+
+    public static void startBackgroundMusic(){
+        backgroundMusic = resourceManager.sounds.get("background").get(0);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.play();
     }
 }

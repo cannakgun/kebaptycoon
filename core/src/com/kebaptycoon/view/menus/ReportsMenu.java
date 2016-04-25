@@ -54,22 +54,25 @@ public class ReportsMenu extends Menu {
         heading1Font.draw(batch, "Günlük Gelir: " + reportManager.getDailyMoneyDifference(gameScreen.getGameLogic().getMoney()) + " TL", 500, 800);
 
         // Popularity among customer types
-        heading1Font.draw(batch, "Restoran Popülaritesi:", 500, 670);
+        heading1Font.draw(batch, "Popülarite:", 500, 670);
         int x = 500;
         for(Map.Entry<CustomerType, Float> e : gameScreen.getGameLogic().getCustomerManager().getPopularities().entrySet())
         {
-            heading3Font.draw(batch, e.getKey().getDisplayName() + ": " + e.getValue().toString(), x, 570);
-            x += 50;
+            batch.draw(resourceManager.textures.get("advertisements_" + e.getKey().getTextureName()), x, 540, 50, 50);
+            heading3Font.draw(batch, e.getValue().toString(), x, 520);
+            x += 100;
         }
 
         // Remaining Stocks
         if(!isLoaded)
         {
-            pair = reportManager.getRemainingStocks(gameScreen.getGameLogic().getVenueManager().getVenueList(), gameScreen.getGameLogic().getMarketManager().getIngredients());
+            pair = reportManager.getRemainingStocks(gameScreen.getGameLogic()
+                    .getVenueManager().getVenueList(), gameScreen.getGameLogic()
+                                                    .getMarketManager().getIngredients());
             isLoaded = true;
         }
 
-        heading1Font.draw(batch, "Stok Değişimi: " + pair.getLeft() + " birim = " + pair.getRight() + "TL", 500, 500);
+        heading1Font.draw(batch, "Stok Kullanımı: " + pair.getRight() + "TL", 500, 450);
 
         batch.end();
     }
