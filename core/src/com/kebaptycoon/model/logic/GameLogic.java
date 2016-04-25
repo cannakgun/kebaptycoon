@@ -37,6 +37,7 @@ public class GameLogic {
     private boolean paused;
     private boolean afterHours;
     private Calendar currentTime;
+    private int day;
 
     public GameLogic(ResourceManager resourceManager){
 
@@ -53,6 +54,7 @@ public class GameLogic {
         currentTime.set(Calendar.MINUTE, 0);
 
         level = 15;
+        day = 0;
 
         this.resourceManager = resourceManager;
         recipeManager = new RecipeManager();
@@ -378,6 +380,8 @@ public class GameLogic {
         reportManager.setStartStock(stocks);
 
         reportManager.resetDailyOrders();
+
+        day++;
     }
 
 
@@ -449,5 +453,21 @@ public class GameLogic {
 
     public AnimationManager getAnimationManager() {
         return animationManager;
+    }
+
+    public void resetVenue(){
+
+        resetDayTime();
+        for(Venue v : venueManager.getVenueList()) {
+            v.getOrderManager().resetOrders();
+            v.getCustomers().clear();
+            for(int i = 0; i < v.getEmployees().size(); i++){
+                v.getEmployees().get(i).reset();
+            }
+        }
+        OnDayStart();
+    }
+    public int getDay(){
+        return day;
     }
 }

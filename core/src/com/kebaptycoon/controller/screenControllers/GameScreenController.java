@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.utils.Pair;
@@ -61,6 +62,10 @@ public class GameScreenController implements GestureDetector.GestureListener, In
         {
             setMenuUtilities((int) v.x);
             gameScreen.getGameLogic().setPaused(true);
+        }else if(v.x > 1600 && v.x < 1900 && v.y > 250 && v.y < 350){
+            processTouch(new Vector2(200, 400));
+            gameScreen.getGameLogic().resetVenue();
+            gameScreen.setReportSummaryOpen(false);
         }
 
     }

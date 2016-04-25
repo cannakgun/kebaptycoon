@@ -87,4 +87,10 @@ public class OrderManager {
     public Employee getEmployeeOfOrder(Order order) {
         return employees.get(order);
     }
+
+    public void resetOrders(){
+        newOrders.clear();
+        processOrders.clear();
+        employees.clear();
+    }
 }

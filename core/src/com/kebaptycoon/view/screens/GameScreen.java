@@ -73,6 +73,7 @@ public class GameScreen implements Screen{
     private FreeTypeFontGenerator               heading2Generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter heading2Parameter;
     BitmapFont                                  heading2Font;
+    private boolean isReportSummaryOpen;
 
 	public GameScreen(ResourceManager resourceManager, StartingDish startingDish) {
 
@@ -143,6 +144,7 @@ public class GameScreen implements Screen{
 		//... and the inverse isometric transform matrix
 		invIsotransform = new Matrix4(isoTransform);
 		invIsotransform.inv();*/
+        isReportSummaryOpen = false;
 
 	}
 
@@ -216,8 +218,14 @@ public class GameScreen implements Screen{
         menuBatch.begin();
         if(gameLogic.isPaused()){
             menuBatch.draw(resourceManager.textures.get("screens_shade"),0,0);
+            if(gameLogic.isAfterHours()){
+                menuBatch.draw(resourceManager.textures.get("nextDay"), 1600, 250);
+                if(!isReportSummaryOpen){
+                    gameScreenController.processTouch(new Vector2(1500, 100));
+                    isReportSummaryOpen = true;
+                }
+            }
         }
-
         menuBatch.draw(resourceManager.textures.get("menu_bar"), 0, 0,
                 1920, menuHeight);
 
@@ -455,5 +463,9 @@ public class GameScreen implements Screen{
         InputProcessor ip = gameScreenController;
         InputMultiplexer mul = new InputMultiplexer(gd, ip);
         Gdx.input.setInputProcessor(mul);
+    }
+
+    public void setReportSummaryOpen(boolean reportSummaryOpen) {
+        isReportSummaryOpen = reportSummaryOpen;
     }
 }
