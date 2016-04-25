@@ -63,7 +63,6 @@ public class GameScreenController implements GestureDetector.GestureListener, In
         if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
         {
             setMenuUtilities((int) v.x);
-            gameScreen.getGameLogic().setPaused(true);
         }else if(v.x > 1600 && v.x < 1900 && v.y > 250 && v.y < 350){
             processTouch(new Vector2(200, 400));
             gameScreen.getGameLogic().resetVenue();
