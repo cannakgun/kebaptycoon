@@ -72,11 +72,57 @@ public class AdvertisementMenu extends Menu {
             }
         }
 
+        switch(platfom){
+            case 0:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        480, 640, 110, 110);
+                break;
+            case 1:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        480, 500, 110, 110);
+                break;
+            case 2:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        480, 360, 110, 110);
+                break;
+        }
+
+        switch(quality){
+            case 0:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        750, 640, 110, 110);
+                break;
+            case 1:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        750, 500, 110, 110);
+                break;
+            case 2:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        750, 360, 110, 110);
+                break;
+        }
+
+        switch(focus){
+            case 0:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        1020, 640, 110, 110);
+                break;
+            case 1:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        1020, 500, 110, 110);
+                break;
+            case 2:
+                batch.draw(resourceManager.textures.get("menu_frame"),
+                        1020, 360, 110, 110);
+                break;
+        }
 
         heading2Font.draw(batch, "Platform", 450 , 800);
         heading2Font.draw(batch, "Kalite", 740 , 800);
         heading2Font.draw(batch, "Odak", 1020 , 800);
         heading2Font.draw(batch, "Fiyat", 1300 , 800);
+        heading2Font.draw(batch, calculatePrice(), 1300 , 650);
+        batch.draw(resourceManager.textures.get("advertisements_advertise"), 1250, 450);
         batch.draw(resourceManager.textures.get("menu_line"), 670, 350);
         batch.draw(resourceManager.textures.get("menu_line"), 930, 350);
         batch.draw(resourceManager.textures.get("menu_line"), 1200, 350);

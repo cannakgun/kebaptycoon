@@ -49,7 +49,6 @@ public class AdvertisementMenuController extends MenuController {
             if(row > 2) return;
             if(row < 0) return;
 
-            System.out.println("C: " + col + ", R: " + row);
 
             if(col < 3) {
                 advertisementMenu.setOption(col, row);

@@ -68,6 +68,7 @@ public class GameLogic {
         afterHours = false;
         resetDayTime();
 
+        venueManager.getVenueList().add(createTutorialVenue());
         venueManager.getVenueList().add(createNisantasiVenue());
 
         ArrayList<Pair<Ingredient,Integer>> startStocks = new ArrayList<Pair<Ingredient, Integer>>();
