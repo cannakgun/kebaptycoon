@@ -59,7 +59,7 @@ public class StaffMenu extends Menu{
                 y -= 240;
 
             batch.draw(resourceManager.textures.get("staff_" + emp.sprite),
-                    540 + (i%4) * 240, y, 75, 113);
+                    540 + (i%4) * 240, y/*, 75, 113*/);
             heading3Font.draw(batch, staff.getRight() + " TL ", 500 + (i%4) * 240 + 30, y - 30);
 
         }

@@ -4,7 +4,16 @@
       "level": 10,
       "speed": 3,
       "type": "Cook",
-      "sprite": "Cook"
+      "sprite": "cook"
+    },
+    "right" : 1000
+  },
+  {
+    "left": {
+      "level": 10,
+      "speed": 3,
+      "type": "Waiter",
+      "sprite": "waiter"
     },
     "right" : 1000
   },
@@ -13,107 +22,17 @@
       "level": 10,
       "speed": 3,
       "type": "Cook",
-      "sprite": "Cook"
+      "sprite": "cook"
     },
-    "right" : 1000
+    "right" : 2000
   },
   {
     "left": {
       "level": 10,
       "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
+      "type": "Waiter",
+      "sprite": "waiter"
     },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
-  },
-  {
-    "left": {
-      "level": 10,
-      "speed": 3,
-      "type": "Cook",
-      "sprite": "Cook"
-    },
-    "right" : 1000
+    "right" : 2500
   }
 ]
