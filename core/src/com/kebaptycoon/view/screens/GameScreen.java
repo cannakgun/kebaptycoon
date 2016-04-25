@@ -132,6 +132,16 @@ public class GameScreen implements Screen{
 		id = new Matrix4();
 		id.idt();
 
+        //The worldCamera will show 10 tiles
+        float camWidth = tileWidth * 10.0f;
+
+        //For the height, we just maintain the aspect ratio
+        float camHeight = tileHeight * 10;// * ((float)height / (float)width);
+
+        worldCamera = new OrthographicCamera(camWidth, camHeight);
+        menuCamera = new OrthographicCamera();
+        viewPortMenu = new FitViewport(1920,1080, worldCamera);
+        viewPortWorld = new FitViewport(1920,1080, menuCamera);
 
         setVenue(gameLogic.getVenueManager().getVenueList().get(0));
 
@@ -149,28 +159,21 @@ public class GameScreen implements Screen{
         SoundManager.startBackgroundMusic();
 	}
 
-    private void setVenue(Venue venue) {
+    public void setVenue(Venue venue) {
         background = venue.background;
+
+        currentVenue = venue;
 
         //The worldCamera will show 10 tiles
         float camWidth = tileWidth * 10.0f;
 
-        //For the height, we just maintain the aspect ratio
-        float camHeight = tileHeight * 10;// * ((float)height / (float)width);
-
-        currentVenue = venue;
-
-        worldCamera = new OrthographicCamera(camWidth, camHeight);
         worldCamera.position.set(camWidth / 2.0f, 0, 0);
         worldCamera.update();
 
-        viewPortMenu = new FitViewport(1920,1080, worldCamera);
 
-        menuCamera = new OrthographicCamera();
         menuCamera.position.set(1920 / 2, 1080 / 2, 0);
         menuCamera.update();
 
-        viewPortWorld = new FitViewport(1920,1080, menuCamera);
 
         menuHeight = 200;
         maxZoom = calculateMaxZoom(new Vector2(background.getWidth(), background.getHeight()),
@@ -326,6 +329,8 @@ public class GameScreen implements Screen{
         Texture bg = resourceManager.textures.get("emoticons_bubble");
 
         for (Emotion e: emotions) {
+            if(!renderables.contains(e.getOwner())) continue;
+
             Vector3 iso = e.getOwner().getPosition().cpy().add(e.getOwner().getRender3DDelta())
                     .add(0, 0, 2);
             Vector2 view = IsometricHelper.project(iso);

@@ -32,12 +32,14 @@ public class GameScreenController implements GestureDetector.GestureListener, In
 	private float 				    oldScale;
     private GameScreen              gameScreen;
     private Stack<Menu> 			menuStack;
+    private boolean                 venue;
 
 	public GameScreenController(GameScreen gameScreen) {
 
 		oldInitialFirstPointer = null;
 		oldInitialSecondPointer = null;
         menuStack = new Stack<Menu>();
+        venue = true;
         //menus = {};
         this.gameScreen = gameScreen;
 	}
@@ -67,7 +69,6 @@ public class GameScreenController implements GestureDetector.GestureListener, In
             gameScreen.getGameLogic().resetVenue();
             gameScreen.setReportSummaryOpen(false);
         }
-
     }
 
     @Override
@@ -126,22 +127,48 @@ public class GameScreenController implements GestureDetector.GestureListener, In
             float leftX = centerX - (tx.getWidth() / 2);
             float rightX = centerX + (tx.getWidth() / 2);
 
-            if(x > leftX && x < rightX && name.equals("stock"))
+            if(x > leftX && x < rightX && name.equals("stock")) {
                 menuStack.push(new StockMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("menu"))
+                gameScreen.getGameLogic().setPaused(true);
+            }
+            else if(x > leftX && x < rightX && name.equals("menu")){
                 menuStack.push(new DishMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("market"))
+                gameScreen.getGameLogic().setPaused(true);
+            }
+            else if(x > leftX && x < rightX && name.equals("market")){
                 menuStack.push(new MarketMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("staff"))
+                gameScreen.getGameLogic().setPaused(true);
+            }
+            else if(x > leftX && x < rightX && name.equals("staff")){
                 menuStack.push(new StaffMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("estate"))
-                menuStack.push(new EstateMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("advertisement"))
+                gameScreen.getGameLogic().setPaused(true);
+            }
+            else if(x > leftX && x < rightX && name.equals("estate")){
+                //menuStack.push(new EstateMenu(gameScreen));
+                if(venue) {
+                    System.out.println("ilk if");
+                    gameScreen.setVenue(gameScreen.getGameLogic().getVenueManager().getVenueList().get(1));
+                    venue = false;
+                }
+                else{
+                    gameScreen.setVenue(gameScreen.getGameLogic().getVenueManager().getVenueList().get(0));
+                    venue = true;
+                }
+
+            }
+
+            else if(x > leftX && x < rightX && name.equals("advertisement")) {
                 menuStack.push(new AdvertisementMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("reports"))
+                gameScreen.getGameLogic().setPaused(true);
+            }
+            else if(x > leftX && x < rightX && name.equals("reports")) {
                 menuStack.push(new ReportsMenu(gameScreen));
-            else if(x > leftX && x < rightX && name.equals("friends"))
+                gameScreen.getGameLogic().setPaused(true);
+            }
+            else if(x > leftX && x < rightX && name.equals("friends")) {
                 menuStack.push(new FriendsMenu(gameScreen));
+                gameScreen.getGameLogic().setPaused(true);
+            }
 
             if(!menuStack.isEmpty()){
                 InputProcessor ip = menuStack.peek().getMenuController();
