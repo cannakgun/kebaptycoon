@@ -8,6 +8,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.view.menus.AdvertisementMenu;
 import com.kebaptycoon.view.menus.DishMenu;
@@ -65,7 +66,11 @@ public class GameScreenController implements GestureDetector.GestureListener, In
             setMenuUtilities((int) v.x);
         }else if(v.x > 1600 && v.x < 1900 && v.y > 250 && v.y < 350){
             processTouch(new Vector2(200, 400));
-            gameScreen.getGameLogic().resetVenue();
+            int index = gameScreen.getGameLogic().getVenueManager().getVenueList().
+                    indexOf(gameScreen.getCurrentVenue());
+            Venue ev =
+                    gameScreen.getGameLogic().resetVenue(index);
+            gameScreen.setVenue(ev);
             gameScreen.setReportSummaryOpen(false);
         }
     }
@@ -145,7 +150,6 @@ public class GameScreenController implements GestureDetector.GestureListener, In
             else if(x > leftX && x < rightX && name.equals("estate")){
                 //menuStack.push(new EstateMenu(gameScreen));
                 if(venue) {
-                    System.out.println("ilk if");
                     gameScreen.setVenue(gameScreen.getGameLogic().getVenueManager().getVenueList().get(1));
                     venue = false;
                 }

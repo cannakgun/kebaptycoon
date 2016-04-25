@@ -66,4 +66,8 @@ public class TableManager {
         //If the given pack is assigned to a table, mark that table free
         assignments.remove(pack);
     }
+
+    public void reset() {
+        assignments.clear();
+    }
 }

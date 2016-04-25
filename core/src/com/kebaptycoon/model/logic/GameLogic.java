@@ -455,17 +455,22 @@ public class GameLogic {
         return animationManager;
     }
 
-    public void resetVenue(){
+    public Venue resetVenue(int index){
 
         resetDayTime();
-        for(Venue v : venueManager.getVenueList()) {
+        venueManager.getVenueList().clear();
+        venueManager.getVenueList().add(createTutorialVenue());
+        venueManager.getVenueList().add(createNisantasiVenue());
+        /*for(Venue v : venueManager.getVenueList()) {
             v.getOrderManager().resetOrders();
             v.getCustomers().clear();
             for(int i = 0; i < v.getEmployees().size(); i++){
                 v.getEmployees().get(i).reset();
             }
-        }
-        OnDayStart();
+            v.getTableManager().reset();
+        }*/
+
+        return venueManager.getVenueList().get(index);
     }
     public int getDay(){
         return day;
