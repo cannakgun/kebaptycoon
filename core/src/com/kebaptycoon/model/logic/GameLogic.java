@@ -70,6 +70,7 @@ public class GameLogic {
         afterHours = false;
         resetDayTime();
 
+        //venueManager.getVenueList().add(createTutorialVenue());
         venueManager.getVenueList().add(createNisantasiVenue());
 
         ArrayList<Pair<Ingredient,Integer>> startStocks = new ArrayList<Pair<Ingredient, Integer>>();
@@ -406,7 +407,7 @@ public class GameLogic {
     {
         ArrayList<Recipe> returnArr = new ArrayList<Recipe>();
 
-        for (Recipe r: getUnlockedRecipes()) {
+        for (Recipe r : getUnlockedRecipes()) {
             if (r.isAvailable())
                 returnArr.add(r);
         }

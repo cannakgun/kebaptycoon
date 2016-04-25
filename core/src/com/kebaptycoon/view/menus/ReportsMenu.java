@@ -23,6 +23,8 @@ import javax.swing.plaf.synth.SynthEditorPaneUI;
 public class ReportsMenu extends Menu {
 
     private ReportManager reportManager;
+    private boolean isLoaded;
+    private Pair<Integer, Integer> pair;
 
     public ReportsMenu(GameScreen gameScreen) {
 
@@ -33,6 +35,8 @@ public class ReportsMenu extends Menu {
         InputMultiplexer mul = new InputMultiplexer(gd, ip);
 
         reportManager = gameScreen.getGameLogic().getReportManager();
+        isLoaded = false;
+        pair = null;
 
         super.menuController = mul;
         Gdx.input.setInputProcessor(menuController);
@@ -59,27 +63,13 @@ public class ReportsMenu extends Menu {
         }
 
         // Remaining Stocks
-        ArrayList<Pair<Ingredient,Integer>> stocks = new ArrayList<Pair<Ingredient, Integer>>();
-        for(Venue v : gameScreen.getGameLogic().getVenueManager().getVenueList())
+        if(!isLoaded)
         {
-            for(Pair<Ingredient, Integer> p : v.getStock())
-            {
-                stocks.add(p);
-            }
+            pair = reportManager.getRemainingStocks(gameScreen.getGameLogic().getVenueManager().getVenueList(), gameScreen.getGameLogic().getMarketManager().getIngredients());
+            isLoaded = true;
         }
-        int delta = 0;
-        int price = 0;
-        for(Pair<Ingredient, Integer> p : gameScreen.getGameLogic().getReportManager().getDailyStockDifference(stocks))
-        {
-            delta += p.getRight();
 
-            for(Pair<Ingredient, Integer> pair : gameScreen.getGameLogic().getMarketManager().getIngredients())
-            {
-                if(pair.getLeft().equals(p.getLeft()))
-                    price += (p.getRight() * pair.getRight());
-            }
-        }
-        heading1Font.draw(batch, "Stok Değişimi: " + delta + " birim = " + price + "TL", 500, 500);
+        heading1Font.draw(batch, "Stok Değişimi: " + pair.getLeft() + " birim = " + pair.getRight() + "TL", 500, 500);
 
         batch.end();
     }
