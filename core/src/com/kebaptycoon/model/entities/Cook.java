@@ -138,4 +138,9 @@ public class Cook extends Employee{
         }
 
     }
+    @Override
+    public void reset(){
+        currentOrder = null;
+        state = State.Wait;
+    }
 }

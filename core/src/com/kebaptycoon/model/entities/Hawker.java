@@ -174,4 +174,10 @@ public class Hawker extends Employee{
             followPath();
         }
     }
+
+    public void reset(){
+        currentOrder = null;
+        currentDish = null;
+        state = State.Wait;
+    }
 }

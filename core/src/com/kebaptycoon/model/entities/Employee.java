@@ -35,4 +35,8 @@ public class Employee extends Person{
 	}
 
 	public void onCancelOrder() {}
+
+	public void reset(){
+
+	}
 }

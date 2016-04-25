@@ -226,7 +226,6 @@ public class GameScreen implements Screen{
                 }
             }
         }
-
         menuBatch.draw(resourceManager.textures.get("menu_bar"), 0, 0,
                 1920, menuHeight);
 
@@ -464,5 +463,9 @@ public class GameScreen implements Screen{
         InputProcessor ip = gameScreenController;
         InputMultiplexer mul = new InputMultiplexer(gd, ip);
         Gdx.input.setInputProcessor(mul);
+    }
+
+    public void setReportSummaryOpen(boolean reportSummaryOpen) {
+        isReportSummaryOpen = reportSummaryOpen;
     }
 }

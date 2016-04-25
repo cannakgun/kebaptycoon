@@ -119,4 +119,10 @@ public class Waiter extends Employee{
         }
 
 	}
+
+    @Override
+    public void reset(){
+        currentOrder = null;
+        state = State.Wait;
+    }
 }
