@@ -1,5 +1,7 @@
 package com.kebaptycoon.model.entities;
 
+import com.kebaptycoon.utils.Pair;
+
 public class Cook extends Employee{
 
     private int prepareDuration;
@@ -133,9 +135,17 @@ public class Cook extends Employee{
         else {
             if(++prepareDuration >= getPrepareTime()) {
                 stopUsing(usedFurniture);
+                Recipe currentRecipe = currentOrder.getRecipe();
+                for(Pair<Ingredient, Integer> p : currentRecipe.getIngredients())
+                    venue.incrementIngredient(p.getLeft(), -p.getRight());
                 currentOrder.setCurrentProcess(currentOrder.getCurrentProcess() + 1);
             }
         }
 
+    }
+    @Override
+    public void reset(){
+        currentOrder = null;
+        state = State.Wait;
     }
 }

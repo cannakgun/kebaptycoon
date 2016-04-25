@@ -2,6 +2,7 @@ package com.kebaptycoon.model.managers;
 
 import com.kebaptycoon.model.entities.Ingredient;
 import com.kebaptycoon.model.entities.Order;
+import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.utils.Pair;
 
 import java.util.ArrayList;
@@ -74,5 +75,33 @@ public class ReportManager {
     public void resetDailyOrders()
     {
         dailyOrders.clear();
+    }
+
+    public Pair<Integer, Integer> getRemainingStocks(ArrayList<Venue> venueList, ArrayList<Pair<Ingredient, Integer>> ingredients)
+    {
+        int delta = 0;
+        int price = 0;
+
+        ArrayList<Pair<Ingredient,Integer>> stocks = new ArrayList<Pair<Ingredient, Integer>>();
+        for(Venue v : venueList)
+        {
+            for(Pair<Ingredient, Integer> p : v.getStock())
+            {
+                stocks.add(p);
+            }
+        }
+
+        for(Pair<Ingredient, Integer> p : getDailyStockDifference(stocks))
+        {
+            delta += p.getRight();
+
+            for(Pair<Ingredient, Integer> pair : ingredients)
+            {
+                if(pair.getLeft().equals(p.getLeft()))
+                    price += (p.getRight() * pair.getRight());
+            }
+        }
+
+        return new Pair(delta, price);
     }
 }
