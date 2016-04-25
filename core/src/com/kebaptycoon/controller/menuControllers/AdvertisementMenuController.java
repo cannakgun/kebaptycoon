@@ -53,11 +53,11 @@ public class AdvertisementMenuController extends MenuController {
             if(col < 3) {
                 advertisementMenu.setOption(col, row);
             }
-            else if(row == 2){
+            else if(row == 1){
+
                 Advertisement newAd = advertisementMenu.constructAdvertisement();
-
-                if (newAd == null) return;
-
+                //if (newAd == null) return;
+                dispose();
                 //TODO: AdvertManagera ekle, menüden çık
             }
         }
