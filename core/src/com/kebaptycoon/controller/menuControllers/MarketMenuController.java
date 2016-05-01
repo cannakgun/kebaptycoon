@@ -1,10 +1,13 @@
 package com.kebaptycoon.controller.menuControllers;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kebaptycoon.model.entities.Furniture;
 import com.kebaptycoon.model.entities.prototypes.FurniturePrototype;
+import com.kebaptycoon.view.menus.DishDetailsMenu;
+import com.kebaptycoon.view.menus.FurnitureDropMenu;
 import com.kebaptycoon.view.menus.MarketMenu;
 import com.kebaptycoon.view.screens.GameScreen;
 
@@ -57,12 +60,23 @@ public class MarketMenuController extends MenuController {
 
             //if(!gameScreen.getCurrentVenue().pay(price)) return;
 
-            Furniture newFurniture = new Furniture(proto);
+            /*Furniture newFurniture = new Furniture(proto);
             newFurniture.setPosition(new Vector3(17, 5, 0));
 
             gameScreen.getCurrentVenue().getFurnitures().add(newFurniture);
 
-            gameScreen.getGameLogic().getAnimationManager().setUpAnimations(newFurniture);
+            gameScreen.getGameLogic().getAnimationManager().setUpAnimations(newFurniture);*/
+            dispose();
+
+            Vector2 delta = new Vector2(touchPositionX - (530 + furnitureColumn * 240),
+                    touchPositionY - (680 - furnitureRow * 240));
+
+            gameScreen.getGameScreenController().getMenuStack().push(
+                    new FurnitureDropMenu(gameScreen, proto, delta));
+
+            InputProcessor mul = gameScreen.getGameScreenController().getMenuStack()
+                    .peek().getMenuController();
+            gameScreen.setInputProcessor(mul);
         }
         else{
             dispose();
