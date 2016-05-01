@@ -9,24 +9,20 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.MenuController;
 import com.kebaptycoon.controller.menuControllers.ReportsMenuController;
 import com.kebaptycoon.model.entities.CustomerType;
-import com.kebaptycoon.model.entities.Ingredient;
-import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.managers.ReportManager;
 import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.view.screens.GameScreen;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.DecimalFormat;
 import java.util.Map;
-
-import javax.swing.plaf.synth.SynthEditorPaneUI;
 
 public class ReportsMenu extends Menu {
 
     private ReportManager reportManager;
     private boolean isLoaded;
     private Pair<Integer, Integer> pair;
+    private DecimalFormat formatter;
+
 
     public ReportsMenu(GameScreen gameScreen) {
 
@@ -39,6 +35,7 @@ public class ReportsMenu extends Menu {
         reportManager = gameScreen.getGameLogic().getReportManager();
         isLoaded = false;
         pair = null;
+        formatter = new DecimalFormat("#.#");
 
         super.menuController = mul;
         Gdx.input.setInputProcessor(menuController);
@@ -62,7 +59,7 @@ public class ReportsMenu extends Menu {
         for(Map.Entry<CustomerType, Float> e : gameScreen.getGameLogic().getCustomerManager().getPopularities().entrySet())
         {
             batch.draw(resourceManager.textures.get("advertisements_" + e.getKey().getTextureName()), x, 540, 50, 50);
-            heading3Font.draw(batch, e.getValue().toString(), x, 520);
+            heading3Font.draw(batch, "%" + formatter.format(e.getValue() * 100), x, 520);
             x += 100;
         }
 
