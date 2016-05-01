@@ -58,11 +58,16 @@ public class AdvertisementMenuController extends MenuController {
                 int price = advertisementMenu.calculatePrice();
 
                 if(price == -1) return;
+                else{
+                    gameScreen.getCurrentVenue().pay(price);
+                    Advertisement newAd = advertisementMenu.constructAdvertisement(advertisementMenu.getPlatfom(),
+                                                                                    advertisementMenu.getQuality(),
+                                                                                        advertisementMenu.getFocus());
+                    if (newAd == null) return;
 
-                Advertisement newAd = advertisementMenu.constructAdvertisement();
-                //if (newAd == null) return;
-                dispose();
-                //TODO: AdvertManagera ekle, menüden çık
+                    gameScreen.getGameLogic().getAdvertisementManager().getAdvertisementList().add(newAd);
+                    dispose();
+                }
             }
         }
         else{

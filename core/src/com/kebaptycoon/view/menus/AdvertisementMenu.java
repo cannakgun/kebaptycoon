@@ -9,9 +9,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.AdvertisementMenuController;
 import com.kebaptycoon.controller.menuControllers.MenuController;
 import com.kebaptycoon.model.entities.Advertisement;
+import com.kebaptycoon.model.entities.CustomerType;
 import com.kebaptycoon.view.screens.GameScreen;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AdvertisementMenu extends Menu {
 
@@ -50,7 +52,7 @@ public class AdvertisementMenu extends Menu {
                         500, y, 70, 70);
                 batch.draw(resourceManager.textures.get("advertisements_old"),
                         1040, y);
-                batch.draw(resourceManager.textures.get("advertisements_bronzeStar"),
+                batch.draw(resourceManager.textures.get("advertisements_goldStar"),
                         770, y);
             }
             else if (i == 1) {
@@ -64,7 +66,7 @@ public class AdvertisementMenu extends Menu {
             else {
                 batch.draw(resourceManager.textures.get("advertisements_internet"),
                         500, y, 70, 70);
-                batch.draw(resourceManager.textures.get("advertisements_goldStar"),
+                batch.draw(resourceManager.textures.get("advertisements_bronzeStar"),
                         770, y);
                 batch.draw(resourceManager.textures.get("advertisements_young"),
                         1040, y);
@@ -120,8 +122,8 @@ public class AdvertisementMenu extends Menu {
         heading2Font.draw(batch, "Kalite", 740 , 800);
         heading2Font.draw(batch, "Odak", 1020 , 800);
         heading2Font.draw(batch, "Fiyat", 1300 , 800);
-        heading2Font.draw(batch, calculatePriceText(), 1300 , 650);
-        batch.draw(resourceManager.textures.get("advertisements_advertise"), 1250, 450);
+        heading2Font.draw(batch, calculatePriceText(), 1320 , 680);
+        batch.draw(resourceManager.textures.get("advertisements_advertise"), 1240, 500, 250 ,90);
         batch.draw(resourceManager.textures.get("menu_line"), 670, 350);
         batch.draw(resourceManager.textures.get("menu_line"), 930, 350);
         batch.draw(resourceManager.textures.get("menu_line"), 1200, 350);
@@ -142,9 +144,56 @@ public class AdvertisementMenu extends Menu {
         }
     }
 
-    public Advertisement constructAdvertisement() {
-        //TODO: Creation
-        return null;
+    public Advertisement constructAdvertisement(int platform, int quality,int focus) {
+        Advertisement.Quality q;
+        Advertisement.Platform p;
+        CustomerType c = new CustomerType();
+
+        switch (platform) {
+            case 0:
+                p = Advertisement.Platform.Internet;
+                break;
+            case 1:
+                p = Advertisement.Platform.Television;
+                break;
+            case 2:
+                p = Advertisement.Platform.Newspaper;
+                break;
+            default:
+                p = Advertisement.Platform.Internet;
+        }
+        switch (quality) {
+            case 0:
+                q = Advertisement.Quality.Low;
+                break;
+            case 1:
+                q = Advertisement.Quality.Medium;
+                break;
+            case 2:
+                q = Advertisement.Quality.High;
+                break;
+            default:
+                q = Advertisement.Quality.Low;
+        }
+
+        Iterator<CustomerType> it = gameLogic.getCustomerManager().getCustomerTypes().iterator();
+        switch (focus) {
+            case 0:
+                c = it.next();
+                break;
+            case 1:
+                for(int i = 0; i < 2; i++)
+                    c = it.next();
+                break;
+            case 2:
+                for(int i = 0; i < 3; i++)
+                    c = it.next();
+                break;
+        }
+
+        Advertisement newAdvert = new Advertisement(q, Advertisement.Duration.Day,
+                p, c);
+        return newAdvert;
     }
 
     public int calculatePrice() {
@@ -195,5 +244,29 @@ public class AdvertisementMenu extends Menu {
         int qualityMult = (2 * quality) + 1;
 
         return (qualityMult * base) + " TL";
+    }
+
+    public int getPlatfom() {
+        return platfom;
+    }
+
+    public void setPlatfom(int platfom) {
+        this.platfom = platfom;
+    }
+
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    public int getFocus() {
+        return focus;
+    }
+
+    public void setFocus(int focus) {
+        this.focus = focus;
     }
 }

@@ -126,7 +126,7 @@ public class GameScreenController implements GestureDetector.GestureListener, In
 
             String name = gameScreen.
                     getMenuBarItems().get(i).getLeft();
-
+            
             Texture tx = gameScreen.getResourceManager().textures.get("menu_" + name);
             float leftX = centerX - (tx.getWidth() / 2);
             float rightX = centerX + (tx.getWidth() / 2);

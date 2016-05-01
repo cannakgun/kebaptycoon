@@ -61,6 +61,7 @@ public class Advertisement {
     int elapsedDuration;
 	
 	public Advertisement(Quality quality, Duration duration, Platform platform, CustomerType focus) {
+
 		this.quality = quality;
 		this.duration = duration;
 		this.platform = platform;
@@ -68,7 +69,23 @@ public class Advertisement {
 		this.elapsedDuration = 0;
 	}
 
-	public Quality getQuality() {
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
+
+    public void setFocus(CustomerType focus) {
+        this.focus = focus;
+    }
+
+    public Quality getQuality() {
 		return quality;
 	}
 

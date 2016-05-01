@@ -47,6 +47,8 @@ public class StockMenuController extends MenuController {
             int ingredientRow = (680 - touchPositionY ) / 200;
             int ingredient = (ingredientRow * 4 + ingredientColumn) +  stockMenu.getCurrentPage() * 8;
 
+            if(ingredient > gameScreen.getGameLogic().getMarketManager().getIngredients().size() - 1) return;
+
             int midPoint = ((510 + (ingredient % 4) * 240) + (645 + (ingredient % 4) * 240 + 20)) / 2;
             Ingredient ing = gameScreen.getGameLogic().getMarketManager().getIngredients().get(ingredient).getLeft();
             Integer price = gameScreen.getGameLogic().getMarketManager().getIngredients().get(ingredient).getRight();

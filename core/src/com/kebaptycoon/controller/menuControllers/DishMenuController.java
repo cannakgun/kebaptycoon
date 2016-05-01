@@ -43,12 +43,17 @@ public class DishMenuController extends MenuController {
         }
 
         else if(touchPositionX >= 450 && touchPositionX <= 1450 && touchPositionY >= 300 && touchPositionY <= 840){
+
             int dishIndex = (touchPositionX - 500) / 350 + dishMenu.getCurrentPage() * 3;
+
+            if(dishIndex > gameScreen.getGameLogic().getAvailableRecipes().size() - 1) return;
+
             gameScreen.getGameScreenController().getMenuStack().push(new DishDetailsMenu(gameScreen, dishIndex));
 
             InputProcessor mul = gameScreen.getGameScreenController().getMenuStack()
                                                                     .peek().getMenuController();
             gameScreen.setInputProcessor(mul);
+            if(dishIndex > gameScreen.getGameScreenController().getMenuStack().size()) return;
 
         }
         else{
