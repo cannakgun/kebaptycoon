@@ -7,10 +7,12 @@ import com.kebaptycoon.model.managers.*;
 import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.utils.ResourceManager;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 public class GameLogic {
 
@@ -389,6 +391,17 @@ public class GameLogic {
         EmotionManager.flushEmotions();
         customerManager.decayPopularity();
         processAdvertisements();
+
+        HashMap<String, String> reportDetails = new HashMap<String, String>();
+        reportDetails.put("venue_count",
+                ""+getVenueManager().getVenueList().size());
+        reportDetails.put("level", ""+getLevel());
+        reportDetails.put("daily_income", "" + reportManager.getDailyMoneyDifference(getMoney()));
+        try {
+            reportManager.sendReportDetailsToServer(reportDetails);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void processAdvertisements() {
@@ -475,4 +488,6 @@ public class GameLogic {
     public int getDay(){
         return day;
     }
+
+    public int getLevel(){ return level; }
 }

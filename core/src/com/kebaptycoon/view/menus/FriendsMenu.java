@@ -65,9 +65,12 @@ public class FriendsMenu extends Menu{
                         name = name.substring(0, facebookFriends.get(i).getName().indexOf(" "));
 
                     heading3Font.draw(batch, name, 550 + ((i%3) * 350), 630);
-                    heading3Font.draw(batch, "Seviye: 1", 550 + ((i%3) * 350), 600);
+                    heading3Font.draw(batch, "Seviye: " +
+                            facebookFriends.get(i).getLevel(), 550 + ((i%3) * 350), 600);
+
                     heading3Font.draw(batch, "Günlük Kazanç:", 550 + ((i%3) * 350), 550);
-                    heading3Font.draw(batch, i * 100 + " TL", 550 + ((i%3) * 350), 530);
+                    heading3Font.draw(batch, facebookFriends.get(i).getDailyIncome()
+                            + " TL", 550 + ((i%3) * 350), 530);
 
                 }
             }
@@ -80,7 +83,6 @@ public class FriendsMenu extends Menu{
             }
 
         }
-
         batch.end();
     }
 

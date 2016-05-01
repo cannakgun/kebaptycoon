@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.StreamUtils;
 import com.kebaptycoon.KebapTycoonGame;
+import com.kebaptycoon.utils.Globals;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +24,16 @@ import java.util.ArrayList;
 
 public class FacebookFriendManager {
     ArrayList<FacebookFriend> facebookFriends;
-    boolean isLoading = false;
+    boolean isLoading;
+    String venueCount, level, dailyIncome;
 
     public FacebookFriendManager(){
+        isLoading = false;
+
+        venueCount = "N/A";
+        level = "N/A";
+        dailyIncome = "N/A";
+
         facebookFriends = null;
     }
 
@@ -119,7 +127,22 @@ public class FacebookFriendManager {
                             String name = jsonObject.getString("name");
                             String profilePictureURL = jsonObject.getJSONObject("picture").
                                                                 getJSONObject("data").getString("url");
-                            fList.add(new FacebookFriend(name, userId, profilePictureURL, null));
+                            try {
+                                JSONObject userDetails = new JSONObject(getUserDetailsFromServer(userId));
+                                if(userDetails.getString("code").equals("1")){
+                                    JSONObject playerStat = userDetails.getJSONObject("player_stat");
+                                    venueCount = playerStat.getString("venue_count");
+                                    level = playerStat.getString("level");
+                                    dailyIncome = playerStat.getString("daily_income");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                venueCount = "N/A";
+                                level = "N/A";
+                                dailyIncome = "N/A";
+                            }
+                            fList.add(new FacebookFriend(name, userId, profilePictureURL, dailyIncome, level,
+                                    venueCount, null));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -157,6 +180,35 @@ public class FacebookFriendManager {
         }
     }
 
+    public String getUserDetailsFromServer(String userId) throws IOException {
+        String url = Globals.SERVER_API_URL + "/get_player_stats.php?";
+        url += "fb_user_id=" + userId;
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        //print result
+        return response.toString();
+
+    }
+
     public boolean isLoaded() {
         return facebookFriends != null;
     }
@@ -174,13 +226,20 @@ public class FacebookFriendManager {
         String name;
         String userId;
         String profilePictureURL;
+        String dailyIncome;
+        String level;
+        String venueCount;
         TextureRegion profilePicture;
 
-        public FacebookFriend(String name, String userId, String profilePictureURL, TextureRegion profilePicture) {
+        public FacebookFriend(String name, String userId, String profilePictureURL, String dailyIncome,
+                              String level, String venueCount, TextureRegion profilePicture) {
             this.name = name;
             this.userId = userId;
             this.profilePictureURL = profilePictureURL;
             this.profilePicture = profilePicture;
+            this.level = level;
+            this.venueCount = venueCount;
+            this.dailyIncome = dailyIncome;
         }
 
         public String getName() {
@@ -193,6 +252,18 @@ public class FacebookFriendManager {
 
         public String getProfilePictureURL() {
             return profilePictureURL;
+        }
+
+        public String getDailyIncome() {
+            return dailyIncome;
+        }
+
+        public String getLevel() {
+            return level;
+        }
+
+        public String getVenueCount() {
+            return venueCount;
         }
 
         public TextureRegion getProfilePicture() {

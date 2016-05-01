@@ -15,7 +15,9 @@ import com.kebaptycoon.model.managers.ReportManager;
 import com.kebaptycoon.utils.Pair;
 import com.kebaptycoon.view.screens.GameScreen;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.plaf.synth.SynthEditorPaneUI;
@@ -42,6 +44,7 @@ public class ReportsMenu extends Menu {
         Gdx.input.setInputProcessor(menuController);
 
         currentPage = 0;
+
     }
 
     @Override
@@ -76,5 +79,4 @@ public class ReportsMenu extends Menu {
 
         batch.end();
     }
-
 }
