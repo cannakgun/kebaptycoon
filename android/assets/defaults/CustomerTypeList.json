@@ -9,7 +9,7 @@
 },
 {
   "spriteName" : "businessman",
-  "textureName" : "old",
+  "textureName" : "businessman",
   "displayName" : "defaultPerson",
   "waitingTime" : 500,
   "budget" : 35,
