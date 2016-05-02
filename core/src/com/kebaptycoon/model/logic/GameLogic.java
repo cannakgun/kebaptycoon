@@ -118,7 +118,6 @@ public class GameLogic {
 
             for (Venue venue: venueManager.getVenueList()) {
 
-
                 //Execute person AI
                 for (CustomerPack customerPack: venue.getCustomers()) {
                     animationManager.autoSetUp(customerPack.getCustomers());
@@ -525,6 +524,7 @@ public class GameLogic {
 
         return venueManager.getVenueList().get(index);
     }
+
     public int getDay(){
         return day;
     }

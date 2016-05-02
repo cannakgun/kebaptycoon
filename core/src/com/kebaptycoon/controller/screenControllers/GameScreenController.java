@@ -64,7 +64,7 @@ public class GameScreenController implements GestureDetector.GestureListener, In
         if(touchPositionY >= 0&& touchPositionY <= gameScreen.getMenuHeight())
         {
             setMenuUtilities((int) v.x);
-        }else if(v.x > 1600 && v.x < 1900 && v.y > 250 && v.y < 350){
+        }else if(v.x > 1600 && v.x < 1900 && v.y > 250 && v.y < 350 && gameScreen.getGameLogic().isAfterHours()){
             processTouch(new Vector2(200, 400));
             int index = gameScreen.getGameLogic().getVenueManager().getVenueList().
                     indexOf(gameScreen.getCurrentVenue());
