@@ -211,4 +211,9 @@ public class Furniture extends Entity{
         oldPositions.remove(person);
         slots.remove(person.orientation);
     }
+
+    public void clearUsers() {
+        slots.clear();
+        oldPositions.clear();
+    }
 }

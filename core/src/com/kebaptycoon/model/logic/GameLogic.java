@@ -471,17 +471,17 @@ public class GameLogic {
     public Venue resetVenue(int index){
 
         resetDayTime();
-        venueManager.getVenueList().clear();
-        venueManager.getVenueList().add(createTutorialVenue());
-        venueManager.getVenueList().add(createNisantasiVenue());
-        /*for(Venue v : venueManager.getVenueList()) {
+        for(Venue v : venueManager.getVenueList()) {
             v.getOrderManager().resetOrders();
             v.getCustomers().clear();
             for(int i = 0; i < v.getEmployees().size(); i++){
                 v.getEmployees().get(i).reset();
             }
             v.getTableManager().reset();
-        }*/
+            for(Furniture f: v.getFurnitures()) {
+                f.clearUsers();
+            }
+        }
 
         return venueManager.getVenueList().get(index);
     }

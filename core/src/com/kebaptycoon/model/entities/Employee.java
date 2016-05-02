@@ -37,6 +37,10 @@ public class Employee extends Person{
 	public void onCancelOrder() {}
 
 	public void reset(){
-
+		resetCurrentPath();
+		if(usedFurniture != null) {
+			stopUsing(usedFurniture);
+			usedFurniture = null;
+		}
 	}
 }

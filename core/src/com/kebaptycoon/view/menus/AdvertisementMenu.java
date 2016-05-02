@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kebaptycoon.controller.menuControllers.AdvertisementMenuController;
 import com.kebaptycoon.controller.menuControllers.MenuController;
 import com.kebaptycoon.model.entities.Advertisement;
+import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerType;
 import com.kebaptycoon.view.screens.GameScreen;
 
@@ -176,20 +177,7 @@ public class AdvertisementMenu extends Menu {
                 q = Advertisement.Quality.Low;
         }
 
-        Iterator<CustomerType> it = gameLogic.getCustomerManager().getCustomerTypes().iterator();
-        switch (focus) {
-            case 0:
-                c = it.next();
-                break;
-            case 1:
-                for(int i = 0; i < 2; i++)
-                    c = it.next();
-                break;
-            case 2:
-                for(int i = 0; i < 3; i++)
-                    c = it.next();
-                break;
-        }
+        c = (CustomerType)gameLogic.getCustomerManager().getCustomerTypes().toArray()[focus];
 
         Advertisement newAdvert = new Advertisement(q, Advertisement.Duration.Day,
                 p, c);

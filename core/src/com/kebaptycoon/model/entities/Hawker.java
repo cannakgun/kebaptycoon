@@ -176,8 +176,10 @@ public class Hawker extends Employee{
     }
 
     public void reset(){
+        super.reset();
         currentOrder = null;
         currentDish = null;
         state = State.Wait;
+        prepareDuration = 0;
     }
 }

@@ -34,13 +34,14 @@ public class CustomerManager {
     private final static int MAXIMUM_EXCEED = 2;
 
     HashMap<CustomerType, Float> popularities;
+    List<CustomerType> types;
     private Random random;
 
     public CustomerManager() {
         random = new Random();
         popularities = new HashMap<CustomerType, Float>();
 
-        List<CustomerType> types = new ArrayList<CustomerType>();
+        //List<CustomerType> types = new ArrayList<CustomerType>();
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -69,8 +70,8 @@ public class CustomerManager {
         return popularities;
     }
 
-    public Set<CustomerType> getCustomerTypes() {
-        return popularities.keySet();
+    public List<CustomerType> getCustomerTypes() {
+        return types;
     }
 
     public void decayPopularity() {

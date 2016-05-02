@@ -81,47 +81,47 @@ public class Waiter extends Employee{
             currentTable.buffer.remove(currentOrder);
             state = State.DeliverOrder;
 		}
+		else {
+			Furniture ct = table.get(0);
+
+			if(ct.getPosition().dst(getPosition()) <= 1) {
+				resetCurrentPath();
+				return;
+			}
+
+			if(currentPath.size() <= 0) {
+				currentPath = venue.findPath(getPosition(), ct.getPosition(), 1);
+			}
+
+			followPath();
+		}
 	}
 
 	private void onDeliverOrder(Venue venue) {
-        if(currentTable != null) {
-            if(currentTable.getPosition().dst(getPosition()) <= 1) {
-                resetCurrentPath();
-                currentTable = null;
-                return;
-            }
+		Customer target = currentOrder.getOrderer();
 
-            if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), currentTable.getPosition(), 1);
-            }
+		if (target == null) return;
 
-            followPath();
-        }
-        else{
-            Customer target = currentOrder.getOrderer();
+		if (target.getPosition().dst(getPosition()) <= 1) {
+			resetCurrentPath();
+			target.setDish(currentOrder.getDish());
+			currentOrder = null;
+			state = State.Wait;
+			return;
+		}
 
-            if (target == null) return;
+		if(currentPath.size() <= 0) {
+			currentPath = venue.findPath(getPosition(), target.getPosition(), 1);
+			currentPath.remove(currentPath.size()-1);
+		}
 
-            if (target.getPosition().dst(getPosition()) <= 1) {
-				resetCurrentPath();
-                target.setDish(currentOrder.getDish());
-                currentOrder = null;
-                state = State.Wait;
-                return;
-            }
-
-            if(currentPath.size() <= 0) {
-                currentPath = venue.findPath(getPosition(), target.getPosition(), 1);
-                currentPath.remove(currentPath.size()-1);
-            }
-
-            followPath();
-        }
+		followPath();
 
 	}
 
     @Override
     public void reset(){
+		super.reset();
         currentOrder = null;
         state = State.Wait;
     }
