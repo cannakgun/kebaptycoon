@@ -25,15 +25,17 @@ public class SoundManager {
 
         random = new Random();
         int randomIndex = random.nextInt(resourceManager.sounds.get(categoryName).size());
-        if(currentMusic == null || !currentMusic.isPlaying()) {
-            currentMusic = resourceManager.sounds.get(categoryName).get(randomIndex);
-            currentMusic.play();
-        }
+        currentMusic = resourceManager.sounds.get(categoryName).get(randomIndex);
+        currentMusic.setVolume(1.0f);
+        currentMusic.play();
+
     }
 
     public static void startBackgroundMusic(){
         backgroundMusic = resourceManager.sounds.get("background").get(0);
         backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.1f);
         backgroundMusic.play();
+
     }
 }

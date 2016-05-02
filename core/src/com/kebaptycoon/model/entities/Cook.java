@@ -108,6 +108,9 @@ public class Cook extends Employee{
 
         if(usedFurniture == null || usedFurniture.type != process) {
             if(usedFurniture != null) stopUsing(usedFurniture);
+
+            if(venue.getUnusedFurnitures(process).size() <= 0) return;
+
             Furniture appliance = venue.getUnusedFurnitures(process).get(0);
 
             if(appliance == null) {

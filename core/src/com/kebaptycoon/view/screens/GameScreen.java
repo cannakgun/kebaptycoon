@@ -26,6 +26,7 @@ import com.kebaptycoon.model.entities.Customer;
 import com.kebaptycoon.model.entities.CustomerPack;
 import com.kebaptycoon.model.entities.Emotion;
 import com.kebaptycoon.model.entities.Entity;
+import com.kebaptycoon.model.entities.Orientation;
 import com.kebaptycoon.model.entities.Recipe;
 import com.kebaptycoon.model.entities.Venue;
 import com.kebaptycoon.model.logic.GameLogic;
@@ -290,7 +291,7 @@ public class GameScreen implements Screen{
             for (CustomerPack customerPack : currentVenue.getCustomers()) {
                 renderables.addAll(customerPack.getCustomers());
                 for(Customer c: customerPack.getCustomers()) {
-                    if(c.getDish() != null)
+                    if(c.getDish() != null && c.getOrientation() != Orientation.North)
                         renderables.add(c.getDish());
                 }
             }

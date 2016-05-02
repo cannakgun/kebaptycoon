@@ -130,6 +130,8 @@ public class FacebookFriendManager {
                             try {
                                 JSONObject userDetails = new JSONObject(getUserDetailsFromServer(userId));
                                 if(userDetails.getString("code").equals("1")){
+                                    System.out.println("code 1");
+                                    
                                     JSONObject playerStat = userDetails.getJSONObject("player_stat");
                                     venueCount = playerStat.getString("venue_count");
                                     level = playerStat.getString("level");
@@ -181,7 +183,7 @@ public class FacebookFriendManager {
     }
 
     public String getUserDetailsFromServer(String userId) throws IOException {
-        String url = Globals.SERVER_API_URL + "/get_player_stats.php?";
+        String url = Globals.SERVER_API_URL + "get_player_stats.php?";
         url += "fb_user_id=" + userId;
 
         URL obj = new URL(url);

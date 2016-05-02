@@ -32,7 +32,7 @@
       "title" : "Fırın",
       "name" : "oven",
       "desc" : "Fırın işte",
-      "type" : "Oven",
+      "type" : "Cooker",
       "width" : "1",
       "height" : "1",
       "maximumUsers": "1",

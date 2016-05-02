@@ -41,10 +41,8 @@ public class StaffMenu extends Menu{
     @Override
     public void render(SpriteBatch batch, Viewport viewPort) {
 
-        batch.begin();
+        /*batch.begin();
         batch.draw(resourceManager.textures.get("menu_backgrounds_staffBackground"), 300, 300);
-
-        //heading1Font.draw(batch, Globals.STAFF_MENU_TITLE, 805, 920);
 
         int y = 920;
 
@@ -59,8 +57,28 @@ public class StaffMenu extends Menu{
                 y -= 240;
 
             batch.draw(resourceManager.textures.get("staff_" + emp.sprite),
-                    540 + (i%4) * 240, y/*, 75, 113*/);
+                    540 + (i%4) * 240, y*//*, 75, 113*/ /* );
             heading3Font.draw(batch, staff.getRight() + " TL ", 500 + (i%4) * 240 + 30, y - 30);
+
+        }
+        batch.end();*/
+
+        batch.begin();
+        batch.draw(resourceManager.textures.get("menu_backgrounds_staffBackground"), 300, 300);
+
+        int y = 920;
+
+        int  min = Math.min((currentPage + 1) * 8, staffList.size());
+
+        for (int i = currentPage * 8; i < min; i++) {
+
+            Pair staff = staffList.get(i);
+            EmployeePrototype emp = (EmployeePrototype) staff.getLeft();
+            if(i%4 == 0)
+                y -= 240;
+            batch.draw(resourceManager.textures.get("staff_" + emp.sprite),
+                    530 + (i%4) * 240, y);
+            heading3Font.draw(batch, staff.getRight() + " TL ", 510 + (i%4) * 240 + 30, y - 30);
 
         }
         batch.end();

@@ -15,4 +15,13 @@
   "budget" : 35,
   "likes" : [],
   "dislikes" : []
-}]
+},
+  {
+    "spriteName" : "oldman",
+    "textureName" : "old",
+    "displayName" : "oldman",
+    "waitingTime" : 500,
+    "budget" : 55,
+    "likes" : [],
+    "dislikes" : []
+  }]

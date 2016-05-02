@@ -231,12 +231,28 @@ public class GameLogic {
 
         inonu.getFurnitures().add(cart);
 
-        inonu.incrementIngredient(Ingredient.MincedMeat, 500);
-        inonu.incrementIngredient(Ingredient.Bread, 500);
-        inonu.incrementIngredient(Ingredient.Egg, 500);
-        inonu.incrementIngredient(Ingredient.Parsley, 500);
-        inonu.incrementIngredient(Ingredient.Tomato, 500);
-        inonu.incrementIngredient(Ingredient.Spice, 500);
+        inonu.incrementIngredient(Ingredient.MincedMeat, 10);
+        inonu.incrementIngredient(Ingredient.Bread, 10);
+        inonu.incrementIngredient(Ingredient.Egg, 10);
+        inonu.incrementIngredient(Ingredient.Parsley, 10);
+        inonu.incrementIngredient(Ingredient.Tomato, 10);
+        inonu.incrementIngredient(Ingredient.DicedMeat, 10);
+        inonu.incrementIngredient(Ingredient.DonerMeat, 10);
+        inonu.incrementIngredient(Ingredient.Potato, 10);
+        inonu.incrementIngredient(Ingredient.Cucumber, 10);
+        inonu.incrementIngredient(Ingredient.Garlic, 10);
+        inonu.incrementIngredient(Ingredient.Lavash, 10);
+        inonu.incrementIngredient(Ingredient.Butter, 10);
+        inonu.incrementIngredient(Ingredient.Lemon, 10);
+        inonu.incrementIngredient(Ingredient.OliveOil, 10);
+        inonu.incrementIngredient(Ingredient.Onion, 10);
+        inonu.incrementIngredient(Ingredient.TomatoSauce, 10);
+        inonu.incrementIngredient(Ingredient.PomegranateSyrup, 10);
+        inonu.incrementIngredient(Ingredient.Scallion, 10);
+        inonu.incrementIngredient(Ingredient.Yoghurt, 10);
+        inonu.incrementIngredient(Ingredient.Pepper, 10);
+        inonu.incrementIngredient(Ingredient.Lettuce, 10);
+        inonu.incrementIngredient(Ingredient.Spice, 10);
 
         Hawker reis = new Hawker(3, "cook");
         reis.setPosition(new Vector3(22, 0, 0));
@@ -283,7 +299,9 @@ public class GameLogic {
         nisantasi.getFurnitures().add(newTable);
 
         newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
-        newTable.setPosition(new Vector3(17, -1, 0));
+        newTable.setPosition(new Vector3(16, -1, 0));
+        newTable.setRender2DDelta(new Vector2(-61, -44));
+        newTable.setName("servingTable");
         newTable.setType(Furniture.Type.ServingTable);
 
         nisantasi.getFurnitures().add(newTable);
@@ -298,10 +316,10 @@ public class GameLogic {
 
         nisantasi.getFurnitures().add(newTable);
 
-        for (int i = 18; i < 22; i++) {
+        for (int i = 17; i < 22; i++) {
             newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
             newTable.setPosition(new Vector3(i, -1, 0));
-            newTable.setType(Furniture.Type.Decoration);
+            newTable.setType(Furniture.Type.Blocker);
 
             nisantasi.getFurnitures().add(newTable);
         }
@@ -309,7 +327,7 @@ public class GameLogic {
         for (int i = -4; i > -7; i--) {
             newTable = new Furniture(marketManager.getFurnitures().get(4).getLeft());
             newTable.setPosition(new Vector3(16, i, 0));
-            newTable.setType(Furniture.Type.Decoration);
+            newTable.setType(Furniture.Type.Blocker);
 
             nisantasi.getFurnitures().add(newTable);
         }
@@ -329,23 +347,44 @@ public class GameLogic {
         }
 
         newTable = new Furniture(marketManager.getFurnitures().get(0).getLeft());
-        newTable.setPosition(new Vector3(21, -4, 0));
+        newTable.setPosition(new Vector3(21, -2, 0));
 
         nisantasi.getFurnitures().add(newTable);
 
+        newTable = new Furniture(marketManager.getFurnitures().get(3).getLeft());
+        newTable.setPosition(new Vector3(21, -6, 0));
+        newTable.setType(Furniture.Type.Grill);
+
+        nisantasi.getFurnitures().add(newTable);
 
         newTable = new Furniture(marketManager.getFurnitures().get(2).getLeft());
-        newTable.setPosition(new Vector3(21, -6, 0));
+        newTable.setPosition(new Vector3(21, -4, 0));
         newTable.setType(Furniture.Type.Cooker);
 
         nisantasi.getFurnitures().add(newTable);
 
-        nisantasi.incrementIngredient(Ingredient.MincedMeat, 500);
-        nisantasi.incrementIngredient(Ingredient.Bread, 500);
-        nisantasi.incrementIngredient(Ingredient.Egg, 500);
-        nisantasi.incrementIngredient(Ingredient.Parsley, 500);
-        nisantasi.incrementIngredient(Ingredient.Tomato, 500);
-        nisantasi.incrementIngredient(Ingredient.Spice, 500);
+        nisantasi.incrementIngredient(Ingredient.MincedMeat, 10);
+        nisantasi.incrementIngredient(Ingredient.Bread, 10);
+        nisantasi.incrementIngredient(Ingredient.Egg, 10);
+        nisantasi.incrementIngredient(Ingredient.Parsley, 10);
+        nisantasi.incrementIngredient(Ingredient.Tomato, 10);
+        nisantasi.incrementIngredient(Ingredient.DicedMeat, 10);
+        nisantasi.incrementIngredient(Ingredient.DonerMeat, 10);
+        nisantasi.incrementIngredient(Ingredient.Potato, 10);
+        nisantasi.incrementIngredient(Ingredient.Cucumber, 10);
+        nisantasi.incrementIngredient(Ingredient.Garlic, 10);
+        nisantasi.incrementIngredient(Ingredient.Lavash, 10);
+        nisantasi.incrementIngredient(Ingredient.Butter, 10);
+        nisantasi.incrementIngredient(Ingredient.Lemon, 10);
+        nisantasi.incrementIngredient(Ingredient.OliveOil, 10);
+        nisantasi.incrementIngredient(Ingredient.Onion, 10);
+        nisantasi.incrementIngredient(Ingredient.TomatoSauce, 10);
+        nisantasi.incrementIngredient(Ingredient.PomegranateSyrup, 10);
+        nisantasi.incrementIngredient(Ingredient.Scallion, 10);
+        nisantasi.incrementIngredient(Ingredient.Yoghurt, 10);
+        nisantasi.incrementIngredient(Ingredient.Pepper, 10);
+        nisantasi.incrementIngredient(Ingredient.Lettuce, 10);
+        nisantasi.incrementIngredient(Ingredient.Spice, 10);
 
         Employee reis = new Cook(3, "cook");
         reis.setPosition(new Vector3(20, -2, 0));

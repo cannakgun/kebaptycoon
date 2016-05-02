@@ -1,31 +1,31 @@
 [
   {
     "left" : "DonerMeat",
-    "right" : 30
+    "right" : 7
   },
   {
     "left" : "MincedMeat",
-    "right" : 15
+    "right" : 5
   },
   {
     "left" : "DicedMeat",
-    "right" : 20
+    "right" : 6
   },
   {
     "left" : "Garlic",
-    "right" : 4
+    "right" : 1
   },
   {
     "left" : "Lemon",
-    "right" : 8
+    "right" : 1
   },
   {
     "left" : "Tomato",
-    "right" : 3
+    "right" : 1
   },
   {
     "left" : "Cucumber",
-    "right" : 5
+    "right" : 2
   },
   {
     "left" : "Egg",
@@ -33,7 +33,7 @@
   },
   {
     "left" : "Lavash",
-    "right" : 2
+    "right" : 1
   },
   {
     "left" : "Bread",
@@ -41,31 +41,31 @@
   },
   {
     "left" : "Lettuce",
-    "right" : 2
+    "right" : 1
   },
   {
     "left" : "OliveOil",
-    "right" : 25
+    "right" : 3
   },
   {
     "left" : "Onion",
-    "right" : 3
+    "right" : 1
   },
   {
     "left" : "Parsley",
-    "right" : 2
+    "right" : 1
   },
   {
     "left" : "Pepper",
-    "right" : 4
+    "right" : 2
   },
   {
     "left" : "PomegranateSyrup",
-    "right" : 20
+    "right" : 2
   },
   {
     "left" : "Potato",
-    "right" : 3
+    "right" : 1
   },
   {
     "left" : "Scallion",
@@ -73,19 +73,19 @@
   },
   {
     "left" : "Spice",
-    "right" : 15
+    "right" : 1
   },
   {
     "left" : "Butter",
-    "right" : 10
+    "right" : 2
   },
   {
     "left" : "TomatoSauce",
-    "right" : 15
+    "right" : 2
   },
   {
     "left" : "Yoghurt",
-    "right" : 5
+    "right" : 2
   }
 
 ]
