@@ -414,7 +414,8 @@ public class GameLogic {
         {
             for(Pair<Ingredient,Integer> p : v.getStock())
             {
-                stocks.add(p);
+                Pair<Ingredient,Integer> pair = new Pair<Ingredient,Integer>(p.getLeft(), p.getRight());
+                stocks.add(pair);
             }
         }
 
