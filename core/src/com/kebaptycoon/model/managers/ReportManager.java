@@ -132,7 +132,7 @@ public class ReportManager {
             }
         }
 
-        String url = Globals.SERVER_API_URL + "/insert_player_stats.php?";
+        String url = Globals.SERVER_API_URL + "insert_player_stats.php?";
         url += "fb_user_id=" + KebapTycoonGame.getInstance().getPrefs().getString("facebook_user_id") +
                 "&player_stat=" + reportJSON.toString();
 

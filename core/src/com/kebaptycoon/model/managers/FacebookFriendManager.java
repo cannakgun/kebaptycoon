@@ -130,12 +130,15 @@ public class FacebookFriendManager {
                             try {
                                 JSONObject userDetails = new JSONObject(getUserDetailsFromServer(userId));
                                 if(userDetails.getString("code").equals("1")){
-                                    System.out.println("code 1");
+                                    System.out.println(userDetails.getString("code"));
                                     
-                                    JSONObject playerStat = userDetails.getJSONObject("player_stat");
-                                    venueCount = playerStat.getString("venue_count");
-                                    level = playerStat.getString("level");
-                                    dailyIncome = playerStat.getString("daily_income");
+                                    String playerStat = userDetails.getString("player_stat");
+                                    JSONObject playerStatJSON = new JSONObject(playerStat);
+                                    venueCount = playerStatJSON.getString("venue_count");
+                                    level = playerStatJSON.getString("level");
+                                    dailyIncome = playerStatJSON.getString("daily_income");
+                                }else{
+                                    System.out.println(userDetails.getString("code"));
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
