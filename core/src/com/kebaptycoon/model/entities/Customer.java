@@ -31,8 +31,6 @@ public class Customer extends Person{
 	private State state;
 	private boolean markedForDeletion;
     private CustomerPack pack;
-	private boolean isEatSoundPlayed = false, isEvaluateSoundPlayed  = false,
-            isOrderPlayed  = false, isPayPlayed  = false, isTableGoPlayed  = false;
 
 	public Customer(int speed, String spriteName, CustomerType type, int waitingTime, int budget) {
 		super(speed,spriteName);
@@ -170,9 +168,6 @@ public class Customer extends Person{
         }
 
         followPath();
-        if(!isTableGoPlayed){
-            isTableGoPlayed = true;
-        }
     }
 
     private void onOrder(Venue venue) {
@@ -215,10 +210,6 @@ public class Customer extends Person{
             friend.waitDuration = 0;
         }
 
-        if(!isOrderPlayed){
-            //SoundManager.play("order");
-            isOrderPlayed = true;
-        }
     }
 
     private void onWaitForFood(Venue venue) {
@@ -248,10 +239,6 @@ public class Customer extends Person{
     private void onEatFood(Venue venue) {
         if(dish.getRemaining() > 0){
             dish.setRemaining(dish.getRemaining() - 15);
-            if(!isEatSoundPlayed){
-                //SoundManager.play("foodEat");
-                isEatSoundPlayed = true;
-            }
         }
         else {
             state = State.EvaluateFood;
@@ -273,10 +260,6 @@ public class Customer extends Person{
     private void onPay(Venue venue) {
         venue.getPaid(dish.getRecipe().getPrice());
         state = State.WaitPack;
-
-        if(!isPayPlayed){
-            isPayPlayed = true;
-        }
     }
 
     private void onWaitPack(Venue venue) {
